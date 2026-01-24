@@ -23,10 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
-import mk.digital.androidshowcase.LocalSnackbarHostState
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.AppAssistChip
 import mk.digital.androidshowcase.presentation.component.AppBadge
 import mk.digital.androidshowcase.presentation.component.AppBadgedBox
@@ -63,60 +64,7 @@ import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTit
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space12
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.bottom_sheet_content
-import mk.digital.androidshowcase.shared.generated.resources.bottom_sheet_title
-import mk.digital.androidshowcase.shared.generated.resources.button_contained
-import mk.digital.androidshowcase.shared.generated.resources.button_outlined
-import mk.digital.androidshowcase.shared.generated.resources.button_text
-import mk.digital.androidshowcase.shared.generated.resources.card_content
-import mk.digital.androidshowcase.shared.generated.resources.card_flat_content
-import mk.digital.androidshowcase.shared.generated.resources.checkbox_label
-import mk.digital.androidshowcase.shared.generated.resources.chip_assist
-import mk.digital.androidshowcase.shared.generated.resources.chip_filter
-import mk.digital.androidshowcase.shared.generated.resources.chip_input
-import mk.digital.androidshowcase.shared.generated.resources.chip_suggestion
-import mk.digital.androidshowcase.shared.generated.resources.close
-import mk.digital.androidshowcase.shared.generated.resources.dialog_message
-import mk.digital.androidshowcase.shared.generated.resources.dialog_title
-import mk.digital.androidshowcase.shared.generated.resources.fab_content_description
-import mk.digital.androidshowcase.shared.generated.resources.image_description
-import mk.digital.androidshowcase.shared.generated.resources.radio_option_1
-import mk.digital.androidshowcase.shared.generated.resources.radio_option_2
-import mk.digital.androidshowcase.shared.generated.resources.radio_option_3
-import mk.digital.androidshowcase.shared.generated.resources.section_badges
-import mk.digital.androidshowcase.shared.generated.resources.section_bottom_sheet
-import mk.digital.androidshowcase.shared.generated.resources.section_buttons
-import mk.digital.androidshowcase.shared.generated.resources.section_cards
-import mk.digital.androidshowcase.shared.generated.resources.section_chips
-import mk.digital.androidshowcase.shared.generated.resources.section_controls
-import mk.digital.androidshowcase.shared.generated.resources.section_dividers
-import mk.digital.androidshowcase.shared.generated.resources.section_feedback
-import mk.digital.androidshowcase.shared.generated.resources.section_images
-import mk.digital.androidshowcase.shared.generated.resources.section_loading
-import mk.digital.androidshowcase.shared.generated.resources.section_radio_buttons
-import mk.digital.androidshowcase.shared.generated.resources.section_sliders
-import mk.digital.androidshowcase.shared.generated.resources.section_snackbar
-import mk.digital.androidshowcase.shared.generated.resources.section_switches
-import mk.digital.androidshowcase.shared.generated.resources.section_text_fields
-import mk.digital.androidshowcase.shared.generated.resources.section_typography
-import mk.digital.androidshowcase.shared.generated.resources.segment_day
-import mk.digital.androidshowcase.shared.generated.resources.segment_month
-import mk.digital.androidshowcase.shared.generated.resources.segment_week
-import mk.digital.androidshowcase.shared.generated.resources.show_bottom_sheet
-import mk.digital.androidshowcase.shared.generated.resources.show_dialog
-import mk.digital.androidshowcase.shared.generated.resources.show_snackbar_default
-import mk.digital.androidshowcase.shared.generated.resources.show_snackbar_error
-import mk.digital.androidshowcase.shared.generated.resources.show_snackbar_success
-import mk.digital.androidshowcase.shared.generated.resources.show_snackbar_warning
-import mk.digital.androidshowcase.shared.generated.resources.snackbar_message_default
-import mk.digital.androidshowcase.shared.generated.resources.snackbar_message_error
-import mk.digital.androidshowcase.shared.generated.resources.snackbar_message_success
-import mk.digital.androidshowcase.shared.generated.resources.snackbar_message_warning
-import mk.digital.androidshowcase.shared.generated.resources.switch_label
-import mk.digital.androidshowcase.shared.generated.resources.text_field_label
-import mk.digital.androidshowcase.shared.generated.resources.text_field_placeholder
-import org.jetbrains.compose.resources.stringResource
+import mk.digital.androidshowcase.presentation.screen.LocalSnackbarHostState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -180,8 +128,8 @@ fun UiComponentsScreen() {
             AppSegmentedButton(
                 options = listOf(
                     stringResource(R.string.segment_day),
-                    stringResource(Res.string.segment_week),
-                    stringResource(Res.string.segment_month)
+                    stringResource(R.string.segment_week),
+                    stringResource(R.string.segment_month)
                 ),
                 selectedIndex = selectedSegment,
                 onSelectionChanged = { selectedSegment = it },
@@ -191,7 +139,7 @@ fun UiComponentsScreen() {
         }
 
         // Typography Section
-        ComponentSection(title = stringResource(Res.string.section_typography)) {
+        ComponentSection(title = stringResource(R.string.section_typography)) {
             TextHeadlineMediumPrimary("Headline Medium")
             Spacer2()
             TextTitleLargeNeutral80("Title Large")
@@ -202,58 +150,65 @@ fun UiComponentsScreen() {
         }
 
         // Cards Section
-        ComponentSection(title = stringResource(Res.string.section_cards)) {
-            AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4), onClick = {}) {
-                TextBodyMediumNeutral80(stringResource(Res.string.card_content))
+        ComponentSection(title = stringResource(R.string.section_cards)) {
+            AppElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space4), onClick = {}) {
+                TextBodyMediumNeutral80(stringResource(R.string.card_content))
             }
             Spacer2()
-            AppCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
-                TextBodyMediumNeutral80(stringResource(Res.string.card_flat_content))
+            AppCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space4)
+            ) {
+                TextBodyMediumNeutral80(stringResource(R.string.card_flat_content))
             }
         }
 
         // Controls Section
-        ComponentSection(title = stringResource(Res.string.section_controls)) {
+        ComponentSection(title = stringResource(R.string.section_controls)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AppCheckbox(
                     checked = checkboxChecked,
                     onCheckedChange = { checkboxChecked = it }
                 )
-                TextBodyMediumNeutral80(stringResource(Res.string.checkbox_label))
+                TextBodyMediumNeutral80(stringResource(R.string.checkbox_label))
             }
         }
 
         // Text Fields Section
-        ComponentSection(title = stringResource(Res.string.section_text_fields)) {
+        ComponentSection(title = stringResource(R.string.section_text_fields)) {
             AppTextField(
                 value = textFieldValue,
                 onValueChange = { textFieldValue = it },
-                label = stringResource(Res.string.text_field_label),
-                placeholder = stringResource(Res.string.text_field_placeholder),
+                label = stringResource(R.string.text_field_label),
+                placeholder = stringResource(R.string.text_field_placeholder),
                 modifier = Modifier.fillMaxWidth()
             )
         }
 
         // Switches Section
-        ComponentSection(title = stringResource(Res.string.section_switches)) {
+        ComponentSection(title = stringResource(R.string.section_switches)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AppSwitch(
                     checked = switchChecked,
                     onCheckedChange = { switchChecked = it }
                 )
                 TextBodyMediumNeutral80(
-                    text = stringResource(Res.string.switch_label),
+                    text = stringResource(R.string.switch_label),
                     modifier = Modifier.padding(start = space4)
                 )
             }
         }
 
         // Radio Buttons Section
-        ComponentSection(title = stringResource(Res.string.section_radio_buttons)) {
+        ComponentSection(title = stringResource(R.string.section_radio_buttons)) {
             val radioOptions = listOf(
-                stringResource(Res.string.radio_option_1),
-                stringResource(Res.string.radio_option_2),
-                stringResource(Res.string.radio_option_3)
+                stringResource(R.string.radio_option_1),
+                stringResource(R.string.radio_option_2),
+                stringResource(R.string.radio_option_3)
             )
             radioOptions.forEachIndexed { index, label ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -267,7 +222,7 @@ fun UiComponentsScreen() {
         }
 
         // Chips Section
-        ComponentSection(title = stringResource(Res.string.section_chips)) {
+        ComponentSection(title = stringResource(R.string.section_chips)) {
             Row(horizontalArrangement = Arrangement.spacedBy(space4)) {
                 AppFilterChip(
                     selected = selectedChips.contains(0),
@@ -278,11 +233,11 @@ fun UiComponentsScreen() {
                             selectedChips + 0
                         }
                     },
-                    label = stringResource(Res.string.chip_filter)
+                    label = stringResource(R.string.chip_filter)
                 )
                 AppAssistChip(
                     onClick = {},
-                    label = stringResource(Res.string.chip_assist)
+                    label = stringResource(R.string.chip_assist)
                 )
             }
             Spacer2()
@@ -296,17 +251,17 @@ fun UiComponentsScreen() {
                             selectedChips + 1
                         }
                     },
-                    label = stringResource(Res.string.chip_input)
+                    label = stringResource(R.string.chip_input)
                 )
                 AppSuggestionChip(
                     onClick = {},
-                    label = stringResource(Res.string.chip_suggestion)
+                    label = stringResource(R.string.chip_suggestion)
                 )
             }
         }
 
         // Sliders Section
-        ComponentSection(title = stringResource(Res.string.section_sliders)) {
+        ComponentSection(title = stringResource(R.string.section_sliders)) {
             AppSlider(
                 value = sliderValue,
                 onValueChange = { sliderValue = it },
@@ -315,7 +270,7 @@ fun UiComponentsScreen() {
         }
 
         // Dividers Section
-        ComponentSection(title = stringResource(Res.string.section_dividers)) {
+        ComponentSection(title = stringResource(R.string.section_dividers)) {
             TextBodyMediumNeutral80("Content above divider")
             Spacer2()
             AppDividerPrimary()
@@ -324,7 +279,7 @@ fun UiComponentsScreen() {
         }
 
         // Loading Section
-        ComponentSection(title = stringResource(Res.string.section_loading)) {
+        ComponentSection(title = stringResource(R.string.section_loading)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space4)
@@ -337,7 +292,7 @@ fun UiComponentsScreen() {
         }
 
         // Badges Section
-        ComponentSection(title = stringResource(Res.string.section_badges)) {
+        ComponentSection(title = stringResource(R.string.section_badges)) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(space12),
                 verticalAlignment = Alignment.CenterVertically
@@ -357,10 +312,10 @@ fun UiComponentsScreen() {
         }
 
         // Images Section
-        ComponentSection(title = stringResource(Res.string.section_images)) {
+        ComponentSection(title = stringResource(R.string.section_images)) {
             AsyncImage(
                 model = "https://picsum.photos/400/200",
-                contentDescription = stringResource(Res.string.image_description),
+                contentDescription = stringResource(R.string.image_description),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
@@ -370,13 +325,13 @@ fun UiComponentsScreen() {
         }
 
         // Snackbar Section
-        ComponentSection(title = stringResource(Res.string.section_snackbar)) {
+        ComponentSection(title = stringResource(R.string.section_snackbar)) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(space4),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 OutlinedButton(
-                    text = stringResource(Res.string.show_snackbar_default),
+                    text = stringResource(R.string.show_snackbar_default),
                     onClick = {
                         scope.launch {
                             snackbarHostState.showSnackbar(
@@ -387,7 +342,7 @@ fun UiComponentsScreen() {
                     }
                 )
                 OutlinedButton(
-                    text = stringResource(Res.string.show_snackbar_success),
+                    text = stringResource(R.string.show_snackbar_success),
                     onClick = {
                         scope.launch {
                             snackbarHostState.showSnackbar(
@@ -404,7 +359,7 @@ fun UiComponentsScreen() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 OutlinedButton(
-                    text = stringResource(Res.string.show_snackbar_error),
+                    text = stringResource(R.string.show_snackbar_error),
                     onClick = {
                         scope.launch {
                             snackbarHostState.showSnackbar(
@@ -415,7 +370,7 @@ fun UiComponentsScreen() {
                     }
                 )
                 OutlinedButton(
-                    text = stringResource(Res.string.show_snackbar_warning),
+                    text = stringResource(R.string.show_snackbar_warning),
                     onClick = {
                         scope.launch {
                             snackbarHostState.showSnackbar(
@@ -429,17 +384,17 @@ fun UiComponentsScreen() {
         }
 
         // Bottom Sheet Section
-        ComponentSection(title = stringResource(Res.string.section_bottom_sheet)) {
+        ComponentSection(title = stringResource(R.string.section_bottom_sheet)) {
             ContainedButton(
-                text = stringResource(Res.string.show_bottom_sheet),
+                text = stringResource(R.string.show_bottom_sheet),
                 onClick = { showBottomSheet = true }
             )
         }
 
         // Feedback Section (Dialog)
-        ComponentSection(title = stringResource(Res.string.section_feedback)) {
+        ComponentSection(title = stringResource(R.string.section_feedback)) {
             ContainedButton(
-                text = stringResource(Res.string.show_dialog),
+                text = stringResource(R.string.show_dialog),
                 onClick = { showDialog = true }
             )
         }
@@ -449,8 +404,8 @@ fun UiComponentsScreen() {
 
     if (showDialog) {
         AppConfirmDialog(
-            title = stringResource(Res.string.dialog_title),
-            text = stringResource(Res.string.dialog_message),
+            title = stringResource(R.string.dialog_title),
+            text = stringResource(R.string.dialog_message),
             onDismissRequest = { showDialog = false }
         )
     }
@@ -462,12 +417,12 @@ fun UiComponentsScreen() {
             Column(
                 modifier = Modifier.padding(space4)
             ) {
-                TextHeadlineMediumPrimary(stringResource(Res.string.bottom_sheet_title))
+                TextHeadlineMediumPrimary(stringResource(R.string.bottom_sheet_title))
                 Spacer2()
-                TextBodyMediumNeutral80(stringResource(Res.string.bottom_sheet_content))
+                TextBodyMediumNeutral80(stringResource(R.string.bottom_sheet_content))
                 Spacer4()
                 ContainedButton(
-                    text = stringResource(Res.string.close),
+                    text = stringResource(R.string.close),
                     onClick = { showBottomSheet = false }
                 )
                 Spacer4()
