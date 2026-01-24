@@ -87,8 +87,9 @@ class SettingsViewModel @Inject constructor(
         newState { it.copy(showThemeDialog = false) }
     }
 
-    fun onLanguageNavEvent(event: SettingNavEvents) {
-        navigate(event)
+    fun onLanguageSelected(language: LanguageState) {
+        newState { it.copy(currentLanguage = language) }
+        navigate(SettingNavEvents.SetLocaleTag(language.code))
     }
 
     fun logout() {
@@ -120,9 +121,6 @@ sealed interface SettingNavEvents : NavEvent {
 
     // Android
     data class SetLocaleTag(val tag: String) : SettingNavEvents
-
-    // iOS
-    data object ToSettings : SettingNavEvents
 
     data object Logout : SettingNavEvents
 

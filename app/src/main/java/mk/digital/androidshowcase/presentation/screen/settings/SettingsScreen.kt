@@ -114,7 +114,7 @@ fun SettingsScreen(
         item {
             LanguageSelector(
                 currentLanguage = state.currentLanguage,
-                onNavigate = viewModel::onLanguageNavEvent
+                onLanguageSelected = viewModel::onLanguageSelected
             )
         }
 
@@ -274,7 +274,6 @@ private fun SettingsNavEvents(
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
             is SettingNavEvents.SetLocaleTag -> router.setLocale(event.tag)
-            is SettingNavEvents.ToSettings -> router.openSettings()
             is SettingNavEvents.Logout -> router.replaceAll(Route.Login)
             is SettingNavEvents.ThemeChanged -> router.setThemeMode(event.mode)
         }

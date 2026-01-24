@@ -21,7 +21,9 @@ import javax.inject.Inject
 
 abstract class BaseViewModel<STATE : Any>(
     defaultState: STATE,
+    val excludedFromTracking: Boolean = false
 ) : ViewModel() {
+
 
 
     @Inject
@@ -61,7 +63,8 @@ abstract class BaseViewModel<STATE : Any>(
 
     protected fun requireState(): STATE = _state.value
 
-    protected fun logScreenName() {
+    private fun logScreenName() {
+        if (excludedFromTracking) return
         val screenName = tag?.removeSuffix("ViewModel") ?: return
         logger.d("Screen: $screenName")
         trackScreenUseCase(screenName)

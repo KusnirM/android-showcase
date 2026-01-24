@@ -13,7 +13,10 @@ data class ImagePickerState(
 )
 
 @HiltViewModel
-class ImagePickerViewModel @Inject constructor() : BaseViewModel<ImagePickerState>(ImagePickerState()) {
+class ImagePickerViewModel @Inject constructor() : BaseViewModel<ImagePickerState>(
+    defaultState = ImagePickerState(),
+    excludedFromTracking = true
+) {
 
     fun showDialog() {
         newState { it.copy(showOptionDialog = true) }
