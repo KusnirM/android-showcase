@@ -30,9 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
-import mk.digital.androidshowcase.LocalSnackbarHostState
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavRouter
@@ -46,39 +47,8 @@ import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBod
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_activity_not_available
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_cancelled
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_failed
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_not_available
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_success
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_biometrics_unknown_error
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_copied_message
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_copy_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_copy_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_dial_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_dial_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_email_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_email_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_link_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_link_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_error
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_loading
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_result
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_updates_error
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_updates_start
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_updates_stop
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_location_updates_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_share_action
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_share_title
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_subtitle
-import mk.digital.androidshowcase.shared.generated.resources.platform_apis_title
+import mk.digital.androidshowcase.presentation.screen.LocalSnackbarHostState
 import mk.digital.androidshowcase.util.StringFormatter
-import org.jetbrains.compose.resources.stringResource
 
 private enum class PendingLocationAction { NONE, GET_LOCATION, START_UPDATES }
 
@@ -120,7 +90,7 @@ private fun rememberLocationActionHandler(
 fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = LocalSnackbarHostState.current
-    val copiedMessage = stringResource(Res.string.platform_apis_copied_message)
+    val copiedMessage = stringResource(R.string.platform_apis_copied_message)
 
     val handleLocationAction = rememberLocationActionHandler(
         onGetLocation = viewModel::getLocation,
@@ -147,18 +117,18 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
     ) {
         item {
             Column {
-                TextHeadlineMediumPrimary(stringResource(Res.string.platform_apis_title))
-                TextBodyMediumNeutral80(stringResource(Res.string.platform_apis_subtitle))
+                TextHeadlineMediumPrimary(stringResource(R.string.platform_apis_title))
+                TextBodyMediumNeutral80(stringResource(R.string.platform_apis_subtitle))
             }
         }
 
         item {
             PlatformApiCard(
                 icon = Icons.Outlined.Share,
-                title = stringResource(Res.string.platform_apis_share_title)
+                title = stringResource(R.string.platform_apis_share_title)
             ) {
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_share_action),
+                    text = stringResource(R.string.platform_apis_share_action),
                     onClick = viewModel::share
                 )
             }
@@ -167,10 +137,10 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
         item {
             PlatformApiCard(
                 icon = Icons.Outlined.Phone,
-                title = stringResource(Res.string.platform_apis_dial_title)
+                title = stringResource(R.string.platform_apis_dial_title)
             ) {
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_dial_action),
+                    text = stringResource(R.string.platform_apis_dial_action),
                     onClick = viewModel::dial
                 )
             }
@@ -179,10 +149,10 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
         item {
             PlatformApiCard(
                 icon = Icons.Outlined.Link,
-                title = stringResource(Res.string.platform_apis_link_title)
+                title = stringResource(R.string.platform_apis_link_title)
             ) {
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_link_action),
+                    text = stringResource(R.string.platform_apis_link_action),
                     onClick = viewModel::openLink
                 )
             }
@@ -191,10 +161,10 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
         item {
             PlatformApiCard(
                 icon = Icons.Outlined.Email,
-                title = stringResource(Res.string.platform_apis_email_title)
+                title = stringResource(R.string.platform_apis_email_title)
             ) {
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_email_action),
+                    text = stringResource(R.string.platform_apis_email_action),
                     onClick = viewModel::sendEmail
                 )
             }
@@ -203,22 +173,22 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
         item {
             PlatformApiCard(
                 icon = Icons.Outlined.ContentCopy,
-                title = stringResource(Res.string.platform_apis_copy_title)
+                title = stringResource(R.string.platform_apis_copy_title)
             ) {
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_copy_action),
+                    text = stringResource(R.string.platform_apis_copy_action),
                     onClick = viewModel::copyToClipboard
                 )
             }
         }
 
         item {
-            val loadingText = stringResource(Res.string.platform_apis_location_loading)
-            val errorText = stringResource(Res.string.platform_apis_location_error)
+            val loadingText = stringResource(R.string.platform_apis_location_loading)
+            val errorText = stringResource(R.string.platform_apis_location_error)
             val location = state.location
             PlatformApiCard(
                 icon = Icons.Outlined.LocationOn,
-                title = stringResource(Res.string.platform_apis_location_title)
+                title = stringResource(R.string.platform_apis_location_title)
             ) {
                 when {
                     state.locationLoading -> TextBodyMediumNeutral80(loadingText)
@@ -229,18 +199,18 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
                 }
                 Spacer2()
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_location_action),
+                    text = stringResource(R.string.platform_apis_location_action),
                     onClick = { handleLocationAction(PendingLocationAction.GET_LOCATION) }
                 )
             }
         }
 
         item {
-            val errorText = stringResource(Res.string.platform_apis_location_updates_error)
+            val errorText = stringResource(R.string.platform_apis_location_updates_error)
             val trackedLocation = state.trackedLocation
             PlatformApiCard(
                 icon = Icons.Outlined.MyLocation,
-                title = stringResource(Res.string.platform_apis_location_updates_title)
+                title = stringResource(R.string.platform_apis_location_updates_title)
             ) {
                 when {
                     state.locationUpdatesError -> TextBodyMediumNeutral80(errorText)
@@ -251,8 +221,8 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
                 Spacer2()
                 ApiCardButton(
                     text = stringResource(
-                        if (state.isTrackingLocation) Res.string.platform_apis_location_updates_stop
-                        else Res.string.platform_apis_location_updates_start
+                        if (state.isTrackingLocation) R.string.platform_apis_location_updates_stop
+                        else R.string.platform_apis_location_updates_start
                     ),
                     onClick = {
                         if (state.isTrackingLocation) viewModel.stopLocationUpdates()
@@ -263,15 +233,15 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
         }
 
         item {
-            val successText = stringResource(Res.string.platform_apis_biometrics_success)
-            val failedText = stringResource(Res.string.platform_apis_biometrics_failed)
-            val cancelledText = stringResource(Res.string.platform_apis_biometrics_cancelled)
-            val notAvailableText = stringResource(Res.string.platform_apis_biometrics_not_available)
-            val activityNotAvailableText = stringResource(Res.string.platform_apis_biometrics_activity_not_available)
-            val unknownErrorText = stringResource(Res.string.platform_apis_biometrics_unknown_error)
+            val successText = stringResource(R.string.platform_apis_biometrics_success)
+            val failedText = stringResource(R.string.platform_apis_biometrics_failed)
+            val cancelledText = stringResource(R.string.platform_apis_biometrics_cancelled)
+            val notAvailableText = stringResource(R.string.platform_apis_biometrics_not_available)
+            val activityNotAvailableText = stringResource(R.string.platform_apis_biometrics_activity_not_available)
+            val unknownErrorText = stringResource(R.string.platform_apis_biometrics_unknown_error)
             PlatformApiCard(
                 icon = Icons.Outlined.Fingerprint,
-                title = stringResource(Res.string.platform_apis_biometrics_title)
+                title = stringResource(R.string.platform_apis_biometrics_title)
             ) {
                 when {
                     !state.biometricsAvailable -> TextBodyMediumNeutral80(notAvailableText)
@@ -290,7 +260,7 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
                 }
                 Spacer2()
                 ApiCardButton(
-                    text = stringResource(Res.string.platform_apis_biometrics_action),
+                    text = stringResource(R.string.platform_apis_biometrics_action),
                     onClick = viewModel::authenticateWithBiometrics,
                     enabled = state.biometricsAvailable && !state.biometricsLoading
                 )
@@ -305,7 +275,9 @@ private fun PlatformApiCard(
     title: String,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+    AppElevatedCard(modifier = Modifier
+        .fillMaxWidth()
+        .padding(space4)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.width(space4))
@@ -341,7 +313,7 @@ private const val COORDINATE_DECIMAL_PLACES = 6
 @Composable
 private fun formatLocationText(lat: Double, lon: Double): String {
     return stringResource(
-        Res.string.platform_apis_location_result,
+        R.string.platform_apis_location_result,
         StringFormatter.formatDouble(lat, COORDINATE_DECIMAL_PLACES),
         StringFormatter.formatDouble(lon, COORDINATE_DECIMAL_PLACES)
     )

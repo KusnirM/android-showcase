@@ -1,30 +1,37 @@
 package mk.digital.androidshowcase.data.repository.database
 
-import kotlin.time.Clock
-import mk.digital.androidshowcase.data.database.AppDatabase
+import mk.digital.androidshowcase.data.database.dao.RegisteredUserDao
+import mk.digital.androidshowcase.data.database.entity.RegisteredUserEntity
 import mk.digital.androidshowcase.domain.model.RegisteredUser
 import mk.digital.androidshowcase.domain.repository.AuthRepository
+import kotlin.time.Clock
 
 class AuthRepositoryImpl(
-    database: AppDatabase
+    private val registeredUserDao: RegisteredUserDao
 ) : AuthRepository {
-
-    private val queries = database.registeredUserQueries
 
     override suspend fun register(name: String, email: String, password: String): RegisteredUser {
         val createdAt = Clock.System.now().toEpochMilliseconds()
-        queries.insert(name, email, password, createdAt)
-        return queries.selectByEmail(email).executeAsOne().transform()
+        val entity = RegisteredUserEntity(
+            name = name,
+            email = email,
+            password = password,
+            createdAt = createdAt
+        )
+        registeredUserDao.insert(entity)
+        return registeredUserDao.getByEmail(email)!!.toDomain()
     }
 
     override suspend fun login(email: String, password: String): RegisteredUser? {
-        val user = queries.selectByEmail(email).executeAsOneOrNull()?.transform()
+        val user = registeredUserDao.getByEmail(email)?.toDomain()
         return if (user?.password == password) user else null
     }
 
-    override suspend fun getUserByEmail(email: String): RegisteredUser? =
-        queries.selectByEmail(email).executeAsOneOrNull()?.transform()
+    override suspend fun getUserByEmail(email: String): RegisteredUser? {
+        return registeredUserDao.getByEmail(email)?.toDomain()
+    }
 
-    override suspend fun emailExists(email: String): Boolean =
-        queries.selectByEmail(email).executeAsOneOrNull() != null
+    override suspend fun emailExists(email: String): Boolean {
+        return registeredUserDao.emailExists(email)
+    }
 }
