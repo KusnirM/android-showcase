@@ -34,7 +34,7 @@ class DatabaseViewModel @Inject constructor(
     private var debounceJob: Job? = null
 
     @OptIn(FlowPreview::class)
-    fun onResumed() {
+    override fun onResume() {
         debounceJob = searchTrigger
             .debounce(SEARCH_DEBOUNCE_MS)
             .onEach { trigger -> executeSearch(trigger.query, trigger.sortOption) }
@@ -43,7 +43,7 @@ class DatabaseViewModel @Inject constructor(
         triggerSearch()
     }
 
-    fun onPaused() {
+    override fun onPause() {
         debounceJob?.cancel()
         debounceJob = null
         searchJob?.cancel()

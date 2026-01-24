@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import mk.digital.androidshowcase.data.service.LocalNotificationServiceImpl
+import mk.digital.androidshowcase.domain.repository.PushNotificationService
 import mk.digital.androidshowcase.presentation.base.AppCallbacks
 import mk.digital.androidshowcase.presentation.base.router.ExternalRouter
 import mk.digital.androidshowcase.presentation.screen.MainView
@@ -22,6 +25,10 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var externalRouter: ExternalRouter
+
+    @Inject
+    lateinit var pushService: PushNotificationService
+
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -46,6 +53,17 @@ class MainActivity : AppCompatActivity() {
                     setThemeMode = mainViewModel::setThemeMode
                 )
             )
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleDeepLinkIntent(intent)
+    }
+
+    private fun handleDeepLinkIntent(intent: Intent?) {
+        intent?.getStringExtra(LocalNotificationServiceImpl.EXTRA_DEEP_LINK)?.let { deepLink ->
+            pushService.onDeepLinkReceived(deepLink)
         }
     }
 }

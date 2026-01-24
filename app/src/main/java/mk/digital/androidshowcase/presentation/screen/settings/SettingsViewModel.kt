@@ -51,7 +51,7 @@ class SettingsViewModel @Inject constructor(
         loadCurrentLanguage()
     }
 
-    fun onResumed() {
+    override fun onResume() {
         loadCurrentLanguage()
     }
 

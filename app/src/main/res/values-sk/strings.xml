@@ -15,7 +15,7 @@
     <string name="nav_settings">Nastavenia</string>
 
     <!-- Screen Titles -->
-    <string name="screen_home">KMP Showcase</string>
+    <string name="screen_home">Android Showcase</string>
     <string name="screen_ui_components">UI Komponenty</string>
     <string name="screen_networking">Sieť</string>
     <string name="screen_storage">Úložisko</string>
@@ -178,6 +178,10 @@
     <string name="platform_apis_copy_title">Schránka</string>
     <string name="platform_apis_copy_action">Kopírovať text</string>
     <string name="platform_apis_copied_message">Skopírované do schránky</string>
+    <string name="platform_apis_demo_email_subject">Ahoj z Android Showcase</string>
+    <string name="platform_apis_demo_email_body">Toto je demo email odoslaný z aplikácie Android Showcase.</string>
+    <string name="platform_apis_demo_share_text">Pozri Android Showcase - moderná Android demo aplikácia!</string>
+    <string name="platform_apis_demo_copy_text">Text skopírovaný z Android Showcase</string>
     <string name="platform_apis_location_title">Poloha</string>
     <string name="platform_apis_location_action">Získať polohu</string>
     <string name="platform_apis_location_loading">Získavam polohu…</string>

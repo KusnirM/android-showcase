@@ -22,9 +22,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
-import mk.digital.androidshowcase.presentation.base.LifecycleEffect
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
+import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.AppAlertDialog
 import mk.digital.androidshowcase.presentation.component.AppRadioButton
@@ -47,13 +47,11 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 @Composable
 fun SettingsScreen(
     router: NavRouter<Route>,
-    viewModel: SettingsViewModel = hiltViewModel(),
+    viewModel: SettingsViewModel = lifecycleAwareViewModel(),
     imagePickerViewModel: ImagePickerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val imagePickerState by imagePickerViewModel.state.collectAsStateWithLifecycle()
-
-    LifecycleEffect(onResume = viewModel::onResumed)
 
     val avatarState = when {
         imagePickerState.isLoading -> AvatarState.Loading

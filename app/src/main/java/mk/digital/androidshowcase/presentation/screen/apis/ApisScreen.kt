@@ -30,18 +30,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
-import mk.digital.androidshowcase.presentation.base.LifecycleEffect
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
+import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
 import mk.digital.androidshowcase.presentation.component.permission.rememberLocationPermissionState
@@ -93,16 +93,11 @@ private fun rememberLocationActionHandler(
 @Composable
 fun ApisScreen(
     router: NavRouter<Route>,
-    viewModel: ApisViewModel = hiltViewModel(),
+    viewModel: ApisViewModel = lifecycleAwareViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = LocalSnackbarHostState.current
     val copiedMessage = stringResource(R.string.platform_apis_copied_message)
-
-    LifecycleEffect(
-        onResume = viewModel::onResumed,
-        onPause = viewModel::onPaused
-    )
 
     val handleLocationAction = rememberLocationActionHandler(
         onGetLocation = viewModel::getLocation,
@@ -289,9 +284,11 @@ private fun ApiCard(
     title: String,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .padding(space4)) {
+    AppElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4)
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.width(space4))
@@ -338,13 +335,18 @@ private fun ApisNavEvents(
     router: NavRouter<Route>,
     navEvent: SharedFlow<NavEvent>,
 ) {
+    val context = LocalContext.current
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is ApisNavEvent.Share -> router.share(event.text)
-            is ApisNavEvent.Dial -> router.dial(event.number)
-            is ApisNavEvent.OpenLink -> router.openLink(event.url)
-            is ApisNavEvent.SendEmail -> router.sendEmail(event.to, event.subject, event.body)
-            is ApisNavEvent.CopyToClipboard -> router.copyToClipboard(event.text)
+            is ApisNavEvent.Share -> router.share(context.getString(event.textRes))
+            is ApisNavEvent.Dial -> router.dial(context.getString(event.numberRes))
+            is ApisNavEvent.OpenLink -> router.openLink(context.getString(event.urlRes))
+            is ApisNavEvent.SendEmail -> router.sendEmail(
+                context.getString(event.toRes),
+                context.getString(event.subjectRes),
+                context.getString(event.bodyRes)
+            )
+            is ApisNavEvent.CopyToClipboard -> router.copyToClipboard(context.getString(event.textRes))
         }
     }
 }

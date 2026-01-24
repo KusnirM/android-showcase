@@ -1,7 +1,9 @@
 package mk.digital.androidshowcase.presentation.screen.apis
 
+import androidx.annotation.StringRes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.domain.model.Location
 import mk.digital.androidshowcase.domain.repository.BiometricRepository
@@ -23,23 +25,29 @@ class ApisViewModel @Inject constructor(
     }
 
     fun share() {
-        navigate(ApisNavEvent.Share(DEMO_SHARE_TEXT))
+        navigate(ApisNavEvent.Share(R.string.platform_apis_demo_share_text))
     }
 
     fun dial() {
-        navigate(ApisNavEvent.Dial(DEMO_PHONE_NUMBER))
+        navigate(ApisNavEvent.Dial(R.string.platform_apis_demo_phone))
     }
 
     fun openLink() {
-        navigate(ApisNavEvent.OpenLink(DEMO_URL))
+        navigate(ApisNavEvent.OpenLink(R.string.platform_apis_demo_url))
     }
 
     fun sendEmail() {
-        navigate(ApisNavEvent.SendEmail(DEMO_EMAIL, DEMO_EMAIL_SUBJECT, DEMO_EMAIL_BODY))
+        navigate(
+            ApisNavEvent.SendEmail(
+                R.string.platform_apis_demo_email,
+                R.string.platform_apis_demo_email_subject,
+                R.string.platform_apis_demo_email_body
+            )
+        )
     }
 
     fun copyToClipboard() {
-        navigate(ApisNavEvent.CopyToClipboard(DEMO_COPY_TEXT))
+        navigate(ApisNavEvent.CopyToClipboard(R.string.platform_apis_demo_copy_text))
         newState { it.copy(copiedToClipboard = true) }
     }
 
@@ -60,11 +68,11 @@ class ApisViewModel @Inject constructor(
         )
     }
 
-    fun onResumed() {
+    override fun onResume() {
         requireState { state -> if (state.shouldTrackLocation) startLocationUpdates() }
     }
 
-    fun onPaused() {
+    override fun onPause() {
         requireState { currentState -> newState { it.copy(shouldTrackLocation = currentState.isTrackingLocation) } }
         stopLocationUpdates()
     }
@@ -105,16 +113,6 @@ class ApisViewModel @Inject constructor(
         super.onCleared()
         stopLocationUpdates()
     }
-
-    private companion object {
-        private const val DEMO_PHONE_NUMBER = "+1234567890"
-        private const val DEMO_URL = "https://github.com/anthropics/claude-code"
-        private const val DEMO_EMAIL = "example@example.com"
-        private const val DEMO_EMAIL_SUBJECT = "Hello from KMP Showcase"
-        private const val DEMO_EMAIL_BODY = "This is a demo email sent from the KMP Showcase app."
-        private const val DEMO_SHARE_TEXT = "Check out KMP Showcase - a Kotlin Multiplatform demo app!"
-        private const val DEMO_COPY_TEXT = "Text copied from KMP Showcase"
-    }
 }
 
 data class ApisUiState(
@@ -132,9 +130,13 @@ data class ApisUiState(
 )
 
 sealed interface ApisNavEvent : NavEvent {
-    data class Share(val text: String) : ApisNavEvent
-    data class Dial(val number: String) : ApisNavEvent
-    data class OpenLink(val url: String) : ApisNavEvent
-    data class SendEmail(val to: String, val subject: String, val body: String) : ApisNavEvent
-    data class CopyToClipboard(val text: String) : ApisNavEvent
+    data class Share(@param:StringRes val textRes: Int) : ApisNavEvent
+    data class Dial(@param:StringRes val numberRes: Int) : ApisNavEvent
+    data class OpenLink(@param:StringRes val urlRes: Int) : ApisNavEvent
+    data class SendEmail(
+        @param:StringRes val toRes: Int,
+        @param:StringRes val subjectRes: Int,
+        @param:StringRes val bodyRes: Int
+    ) : ApisNavEvent
+    data class CopyToClipboard(@param:StringRes val textRes: Int) : ApisNavEvent
 }

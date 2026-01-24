@@ -13,6 +13,9 @@ interface PushNotificationService {
     suspend fun requestPermission(): PushPermissionStatus
     suspend fun refreshToken()
     fun logToken()
+    suspend fun updateToken(token: String)
+    fun onNotificationReceived(title: String?, body: String?, data: Map<String, String>)
+    fun onDeepLinkReceived(deepLink: String)
 }
 
 enum class PushPermissionStatus {

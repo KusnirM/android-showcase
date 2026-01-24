@@ -16,7 +16,7 @@
     <string name="nav_settings">Settings</string>
 
     <!-- Screen Titles -->
-    <string name="screen_home">KMP Showcase</string>
+    <string name="screen_home">Android Showcase</string>
     <string name="screen_ui_components">UI Components</string>
     <string name="screen_networking">Networking</string>
     <string name="screen_storage">Storage</string>
@@ -179,6 +179,13 @@
     <string name="platform_apis_copy_title">Clipboard</string>
     <string name="platform_apis_copy_action">Copy Text</string>
     <string name="platform_apis_copied_message">Copied to clipboard</string>
+    <string name="platform_apis_demo_email" translatable="false">example@example.com</string>
+    <string name="platform_apis_demo_email_subject">Hello from Android Showcase</string>
+    <string name="platform_apis_demo_email_body">This is a demo email sent from the Android Showcase app.</string>
+    <string name="platform_apis_demo_share_text">Check out Android Showcase - a modern Android demo app!</string>
+    <string name="platform_apis_demo_copy_text">Text copied from Android Showcase</string>
+    <string name="platform_apis_demo_phone" translatable="false">+1234567890</string>
+    <string name="platform_apis_demo_url" translatable="false">https://github.com/anthropics/claude-code</string>
     <string name="platform_apis_location_title">Location</string>
     <string name="platform_apis_location_action">Get Location</string>
     <string name="platform_apis_location_loading">Getting location…</string>

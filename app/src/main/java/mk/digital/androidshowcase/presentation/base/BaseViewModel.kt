@@ -24,7 +24,6 @@ abstract class BaseViewModel<STATE : Any>(
 ) : ViewModel() {
 
 
-
     @Inject
     lateinit var trackScreenUseCase: TrackScreenUseCase
 
@@ -49,6 +48,12 @@ abstract class BaseViewModel<STATE : Any>(
     }
 
     protected open fun loadInitialData() {}
+
+    open fun onResume() {
+    }
+
+    open fun onPause() {
+    }
 
     protected fun navigate(event: NavEvent) {
         viewModelScope.launch { _navEvent.emit(event) }
