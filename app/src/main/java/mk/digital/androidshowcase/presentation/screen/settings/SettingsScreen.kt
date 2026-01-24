@@ -41,7 +41,6 @@ import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBody
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
-import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 

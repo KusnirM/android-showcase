@@ -90,7 +90,14 @@ class ApisViewModel @Inject constructor(
             action = { biometricRepository.authenticate() },
             onLoading = { newState { it.copy(biometricsLoading = true, biometricsResult = null) } },
             onSuccess = { result -> newState { it.copy(biometricsLoading = false, biometricsResult = result) } },
-            onError = { error -> newState { it.copy(biometricsLoading = false, biometricsResult = BiometricResult.SystemError(error.message.orEmpty())) } }
+            onError = { error ->
+                newState {
+                    it.copy(
+                        biometricsLoading = false,
+                        biometricsResult = BiometricResult.SystemError(error.message)
+                    )
+                }
+            }
         )
     }
 

@@ -18,7 +18,6 @@ import mk.digital.androidshowcase.domain.useCase.analytics.TrackScreenUseCase
 import mk.digital.androidshowcase.util.Logger
 import javax.inject.Inject
 
-
 abstract class BaseViewModel<STATE : Any>(
     defaultState: STATE,
     val excludedFromTracking: Boolean = false

@@ -23,7 +23,11 @@ class StorageViewModel @Inject constructor(
         observe(
             onStart = { loadStorageDataUseCase() },
             flow = observeStorageDataUseCase(),
-            onEach = { data -> newState { it.copy(sessionCounter = data.sessionCounter, persistentCounter = data.persistentCounter) } }
+            onEach = { data ->
+                newState {
+                    it.copy(sessionCounter = data.sessionCounter, persistentCounter = data.persistentCounter)
+                }
+            }
         )
     }
 
