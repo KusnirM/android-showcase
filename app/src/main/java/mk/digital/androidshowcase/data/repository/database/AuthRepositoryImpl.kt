@@ -19,16 +19,16 @@ class AuthRepositoryImpl(
             createdAt = createdAt
         )
         registeredUserDao.insert(entity)
-        return registeredUserDao.getByEmail(email)!!.toDomain()
+        return registeredUserDao.getByEmail(email)!!.transform()
     }
 
     override suspend fun login(email: String, password: String): RegisteredUser? {
-        val user = registeredUserDao.getByEmail(email)?.toDomain()
+        val user = registeredUserDao.getByEmail(email)?.transform()
         return if (user?.password == password) user else null
     }
 
     override suspend fun getUserByEmail(email: String): RegisteredUser? {
-        return registeredUserDao.getByEmail(email)?.toDomain()
+        return registeredUserDao.getByEmail(email)?.transform()
     }
 
     override suspend fun emailExists(email: String): Boolean {

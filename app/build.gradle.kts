@@ -146,9 +146,10 @@ dependencies {
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
 
-    // SQLDelight Database
-    implementation(libs.sqldelight.android)
-    implementation(libs.sqldelight.coroutines)
+    // Room Database
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     // AndroidX Extras
     implementation(libs.exifinterface)
