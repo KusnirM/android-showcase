@@ -1,7 +1,9 @@
 package mk.digital.androidshowcase.presentation.screen.settings
 
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
-import mk.digital.androidshowcase.AppConfig
+import mk.digital.androidshowcase.BuildConfig
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.analytics.AnalyticsClient
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.domain.useCase.settings.GetThemeModeUseCase
@@ -10,25 +12,20 @@ import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.foundation.AppIcons
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.language_en
-import mk.digital.androidshowcase.shared.generated.resources.language_sk
-import mk.digital.androidshowcase.shared.generated.resources.settings_theme_dark
-import mk.digital.androidshowcase.shared.generated.resources.settings_theme_light
-import mk.digital.androidshowcase.shared.generated.resources.settings_theme_system
 import mk.digital.androidshowcase.util.getCurrentLanguageTag
-import org.jetbrains.compose.resources.StringResource
 
 data class SettingsState(
     val themeModeState: ThemeModeState = ThemeModeState.SYSTEM,
     val currentLanguage: LanguageState = LanguageState.EN,
     val showThemeDialog: Boolean = false,
-    val showCrashButton: Boolean,
-    val versionName: String,
-    val versionCode: String,
-)
+) {
+    val showCrashButton: Boolean
+        get() = BuildConfig.DEBUG
+    val versionName: String = BuildConfig.VERSION_NAME
+    val versionCode: String = BuildConfig.VERSION_CODE.toString()
+}
 
-enum class ThemeModeState(val textId: StringResource, val mode: ThemeMode) {
+enum class ThemeModeState(@get:StringRes val textId: Int, val mode: ThemeMode) {
     LIGHT(R.string.settings_theme_light, ThemeMode.LIGHT),
     DARK(R.string.settings_theme_dark, ThemeMode.DARK),
     SYSTEM(R.string.settings_theme_system, ThemeMode.SYSTEM);
@@ -43,13 +40,8 @@ class SettingsViewModel(
     private val getThemeModeUseCase: GetThemeModeUseCase,
     private val setThemeModeUseCase: SetThemeModeUseCase,
     private val analyticsClient: AnalyticsClient,
-    appConfig: AppConfig,
 ) : BaseViewModel<SettingsState>(
-    SettingsState(
-        showCrashButton = appConfig.buildType.isDebug,
-        versionName = appConfig.versionName,
-        versionCode = appConfig.versionCode
-    )
+    SettingsState()
 ) {
 
     override fun loadInitialData() {
@@ -108,7 +100,7 @@ class SettingsViewModel(
 }
 
 enum class LanguageState(
-    val stringRes: StringResource,
+    @get:StringRes val stringRes: Int,
     val icon: ImageVector,
     val tag: String,
 ) {

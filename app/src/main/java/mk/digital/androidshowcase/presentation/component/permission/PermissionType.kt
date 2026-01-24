@@ -1,19 +1,14 @@
 package mk.digital.androidshowcase.presentation.component.permission
 
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.camera_permission_denied
-import mk.digital.androidshowcase.shared.generated.resources.camera_permission_rationale
-import mk.digital.androidshowcase.shared.generated.resources.gallery_permission_denied
-import mk.digital.androidshowcase.shared.generated.resources.gallery_permission_rationale
-import mk.digital.androidshowcase.shared.generated.resources.location_permission_denied
-import mk.digital.androidshowcase.shared.generated.resources.location_permission_rationale
-import mk.digital.androidshowcase.shared.generated.resources.notification_permission_denied
-import mk.digital.androidshowcase.shared.generated.resources.notification_permission_rationale
-import org.jetbrains.compose.resources.StringResource
+import androidx.annotation.StringRes
+import mk.digital.androidshowcase.R
 
-enum class PermissionType(val deniedMessage: StringResource, val rationaleMessage: StringResource) {
-    CAMERA(Res.string.camera_permission_denied, Res.string.camera_permission_rationale),
-    GALLERY(Res.string.gallery_permission_denied, Res.string.gallery_permission_rationale),
-    LOCATION(Res.string.location_permission_denied, Res.string.location_permission_rationale),
-    NOTIFICATION(Res.string.notification_permission_denied, Res.string.notification_permission_rationale)
+enum class PermissionType(
+    @get:StringRes val deniedMessage: Int,
+    @get:StringRes val rationaleMessage: Int
+) {
+    CAMERA(R.string.camera_permission_denied, R.string.camera_permission_rationale),
+    GALLERY(R.string.gallery_permission_denied, R.string.gallery_permission_rationale),
+    LOCATION(R.string.location_permission_denied, R.string.location_permission_rationale),
+    NOTIFICATION(R.string.notification_permission_denied, R.string.notification_permission_rationale)
 }
