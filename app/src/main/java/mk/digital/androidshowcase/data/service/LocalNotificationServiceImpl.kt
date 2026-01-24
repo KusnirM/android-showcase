@@ -11,9 +11,10 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.model.Notification
 import mk.digital.androidshowcase.domain.repository.LocalNotificationService
-import kotlin.hashCode
+import mk.digital.androidshowcase.domain.model.NotificationChannel as AppNotificationChannel
 
 class LocalNotificationServiceImpl(
     private val context: Context,
