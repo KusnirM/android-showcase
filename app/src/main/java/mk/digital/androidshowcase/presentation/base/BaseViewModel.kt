@@ -118,6 +118,7 @@ abstract class BaseViewModel<STATE : Any>(
                     logger.e("${tag}: ${e.message}", e)
                     onError(e)
                 }
+
                 else -> {
                     logger.e("${tag}: ${e.message}", e)
                     onError(UnknownException(e))

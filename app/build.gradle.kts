@@ -140,13 +140,11 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
 
-    // Ktor - Networking
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.serialization.json)
+    // Retrofit & OkHttp - Networking
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.kotlinx)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
 
     // SQLDelight Database
     implementation(libs.sqldelight.android)
