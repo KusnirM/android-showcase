@@ -2,13 +2,12 @@ package mk.digital.androidshowcase.presentation.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import kotlinx.coroutines.flow.Flow
 
 /**
  * A composable that observes lifecycle events (onResume, onPause).
@@ -40,15 +39,16 @@ fun LifecycleEffect(
     }
 }
 
+/**
+ * A lifecycle-aware version of hiltViewModel that automatically connects
+ * ViewModel's onResumed/onPaused to the composable's lifecycle.
+ */
 @Composable
-fun <T:NavEvent> CollectNavEvents(
-    navEventFlow: Flow<T>,
-    onEvent: (T) -> Unit
-) {
-    val currentOnEvent by rememberUpdatedState(onEvent)
-    LaunchedEffect(navEventFlow) {
-        navEventFlow.collect { event ->
-            currentOnEvent(event)
-        }
-    }
+inline fun <reified VM : BaseViewModel<*>> lifecycleAwareViewModel(): VM {
+    val viewModel = hiltViewModel<VM>()
+    LifecycleEffect(
+        onResume = viewModel::onResume,
+        onPause = viewModel::onPause
+    )
+    return viewModel
 }

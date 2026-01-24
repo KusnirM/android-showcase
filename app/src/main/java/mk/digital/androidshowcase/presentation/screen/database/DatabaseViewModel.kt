@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.database
 
-import android.app.Application
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -24,19 +23,18 @@ private const val SEARCH_DEBOUNCE_MS = 300L
 
 @HiltViewModel
 class DatabaseViewModel @Inject constructor(
-    application: Application,
     private val searchNotesUseCase: SearchNotesUseCase,
     private val insertNoteUseCase: InsertNoteUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val deleteAllNotesUseCase: DeleteAllNotesUseCase,
-) : BaseViewModel<DatabaseUiState>(application, DatabaseUiState()) {
+) : BaseViewModel<DatabaseUiState>(DatabaseUiState()) {
 
     private val searchTrigger = MutableStateFlow(SearchTrigger())
     private var searchJob: Job? = null
     private var debounceJob: Job? = null
 
     @OptIn(FlowPreview::class)
-    fun onResumed() {
+    override fun onResume() {
         debounceJob = searchTrigger
             .debounce(SEARCH_DEBOUNCE_MS)
             .onEach { trigger -> executeSearch(trigger.query, trigger.sortOption) }
@@ -45,7 +43,7 @@ class DatabaseViewModel @Inject constructor(
         triggerSearch()
     }
 
-    fun onPaused() {
+    override fun onPause() {
         debounceJob?.cancel()
         debounceJob = null
         searchJob?.cancel()

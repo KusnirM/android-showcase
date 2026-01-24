@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.scanner
 
-import android.app.Application
 import androidx.compose.ui.graphics.ImageBitmap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
@@ -10,9 +9,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScannerViewModel @Inject constructor(
-    application: Application,
     private val codeGenerator: CodeGenerator
-) : BaseViewModel<ScannerUiState>(application, ScannerUiState()) {
+) : BaseViewModel<ScannerUiState>(ScannerUiState()) {
 
     fun onModeChanged(index: Int) {
         newState { it.copy(selectedModeIndex = index, scannedResult = null) }

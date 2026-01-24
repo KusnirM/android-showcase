@@ -2,6 +2,7 @@ package mk.digital.androidshowcase.data.notification
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessaging
@@ -13,7 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.tasks.await
+import mk.digital.androidshowcase.data.analytics.AnalyticsClient
 import mk.digital.androidshowcase.domain.model.Notification
+import mk.digital.androidshowcase.domain.model.NotificationChannel
 import mk.digital.androidshowcase.domain.repository.NotificationRepository
 import mk.digital.androidshowcase.domain.repository.PushNotificationService
 import mk.digital.androidshowcase.domain.repository.PushPermissionStatus
@@ -24,6 +27,7 @@ import javax.inject.Singleton
 class PushNotificationServiceImpl @Inject constructor(
     @param:ApplicationContext private val context: android.content.Context,
     private val notificationRepository: NotificationRepository,
+    private val analyticsClient: AnalyticsClient
 ) : PushNotificationService {
 
     private val _token = MutableStateFlow<String?>(null)
@@ -46,13 +50,14 @@ class PushNotificationServiceImpl @Inject constructor(
     }
 
     override fun getPermissionStatus(): PushPermissionStatus {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
                 ContextCompat.checkSelfPermission(
                     context,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) == PackageManager.PERMISSION_GRANTED -> PushPermissionStatus.GRANTED
-                else -> PushPermissionStatus.NOT_DETERMINED
+
+                else -> PushPermissionStatus.DENIED
             }
         } else {
             PushPermissionStatus.GRANTED
@@ -65,12 +70,11 @@ class PushNotificationServiceImpl @Inject constructor(
 
     override suspend fun refreshToken() {
         try {
-            FirebaseMessaging.getInstance().deleteToken().await()
-            val newToken = FirebaseMessaging.getInstance().token.await()
-            _token.value = newToken
-            notificationRepository.setToken(newToken)
+            val token = FirebaseMessaging.getInstance().token.await()
+            updateToken(token)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to refresh token", e)
+            analyticsClient.recordException(e)
         }
     }
 
@@ -78,20 +82,47 @@ class PushNotificationServiceImpl @Inject constructor(
         Log.d(TAG, "FCM Token: ${_token.value}")
     }
 
-    suspend fun onNewToken(token: String) {
+    override suspend fun updateToken(token: String) {
         _token.value = token
         notificationRepository.setToken(token)
+        Log.d(TAG, "FCM Token updated: ${token.take(TOKEN_PREFIX_LENGTH)}...")
+        analyticsClient.log("FCM token updated")
     }
 
-    suspend fun onNotificationReceived(notification: Notification) {
-        _notifications.emit(notification)
+    override fun onNotificationReceived(
+        title: String?,
+        body: String?,
+        data: Map<String, String>
+    ) {
+        val deepLink = data[KEY_DEEP_LINK]
+
+        val notification = Notification(
+            id = data[KEY_NOTIFICATION_ID] ?: System.currentTimeMillis().toString(),
+            title = title ?: data[KEY_TITLE] ?: DEFAULT_TITLE,
+            message = body ?: data[KEY_BODY] ?: data[KEY_MESSAGE] ?: "",
+            channel = NotificationChannel.GENERAL,
+            data = data,
+            deepLink = deepLink
+        )
+
+        _notifications.tryEmit(notification)
+        deepLink?.let { _deepLinks.tryEmit(it) }
+
+        analyticsClient.log("Push notification received: ${notification.title}")
     }
 
-    suspend fun onDeepLinkReceived(deepLink: String) {
-        _deepLinks.emit(deepLink)
+    override fun onDeepLinkReceived(deepLink: String) {
+        _deepLinks.tryEmit(deepLink)
     }
 
-    private companion object {
+    companion object {
         private const val TAG = "PushNotificationService"
+        private const val TOKEN_PREFIX_LENGTH = 10
+        private const val KEY_DEEP_LINK = "deep_link"
+        private const val KEY_NOTIFICATION_ID = "notificationId"
+        private const val KEY_TITLE = "title"
+        private const val KEY_BODY = "body"
+        private const val KEY_MESSAGE = "message"
+        private const val DEFAULT_TITLE = "Notification"
     }
 }

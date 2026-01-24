@@ -4,7 +4,9 @@ import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FirebaseAnalyticsClient @Inject constructor(
     private val firebaseAnalytics: FirebaseAnalytics,
     private val firebaseCrashlytics: FirebaseCrashlytics,

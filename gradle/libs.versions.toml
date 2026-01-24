@@ -1,7 +1,10 @@
 [versions]
 # SDK
+#noinspection UnusedVersionCatalogEntry
 androidMinSdk = "26"
+#noinspection UnusedVersionCatalogEntry
 androidCompileSdk = "36"
+#noinspection UnusedVersionCatalogEntry
 androidTargetSdk = "36"
 
 # Kotlin & KotlinX
@@ -31,12 +34,6 @@ lifecycle = "2.10.0"
 hilt = "2.59"
 hiltNavigationCompose = "1.3.0"
 
-# DI - Koin
-koin = "4.0.0"
-
-# Networking - Ktor
-ktor = "3.0.0"
-
 # Networking - Retrofit & OkHttp
 retrofit = "3.0.0"
 okhttp = "5.3.2"
@@ -44,12 +41,9 @@ okhttp = "5.3.2"
 # Database - Room
 room = "2.8.4"
 
-# Database - SQLDelight
-sqldelight = "2.0.2"
-
 # AndroidX Extras
-exifinterface = "1.4.0"
-appcompat = "1.7.0"
+exifinterface = "1.4.2"
+appcompat = "1.7.1"
 
 # Images - Coil 3
 coil = "3.3.0"
@@ -105,7 +99,6 @@ compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-runtime = { module = "androidx.compose.runtime:runtime" }
 
 # Navigation
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
 navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
 lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
@@ -121,20 +114,6 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
-# Koin - DI
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
-
-# Ktor - Networking
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
 # Retrofit & OkHttp - Networking
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-kotlinx = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
@@ -146,17 +125,12 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
-# SQLDelight - Database
-sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
-sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
-
 # AndroidX Extras
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 
 # Coil - Image Loading
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
-coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
 

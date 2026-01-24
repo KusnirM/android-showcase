@@ -15,11 +15,11 @@
     <string name="nav_settings">Nastavenia</string>
 
     <!-- Screen Titles -->
-    <string name="screen_home">KMP Showcase</string>
+    <string name="screen_home">Android Showcase</string>
     <string name="screen_ui_components">UI Komponenty</string>
     <string name="screen_networking">Sieť</string>
     <string name="screen_storage">Úložisko</string>
-    <string name="screen_platform_apis">Platform APIs</string>
+    <string name="screen_apis">APIs</string>
     <string name="screen_scanner">Skener</string>
     <string name="screen_database">Databáza</string>
     <string name="screen_calendar">Kalendár</string>
@@ -33,8 +33,8 @@
     <string name="feature_networking_subtitle">Ktor HTTP Klient, REST API</string>
     <string name="feature_storage_title">Úložisko</string>
     <string name="feature_storage_subtitle">DataStore, NSUserDefaults</string>
-    <string name="feature_platform_apis_title">Platform APIs</string>
-    <string name="feature_platform_apis_subtitle">Zdieľanie, Volanie, Externé odkazy</string>
+    <string name="feature_apis_title">APIs</string>
+    <string name="feature_apis_subtitle">Zdieľanie, Volanie, Externé odkazy</string>
     <string name="feature_scanner_title">Skener</string>
     <string name="feature_scanner_subtitle">Generovanie a skenovanie QR kódov a čiarových kódov</string>
     <string name="feature_database_title">Databáza</string>
@@ -178,6 +178,10 @@
     <string name="platform_apis_copy_title">Schránka</string>
     <string name="platform_apis_copy_action">Kopírovať text</string>
     <string name="platform_apis_copied_message">Skopírované do schránky</string>
+    <string name="platform_apis_demo_email_subject">Ahoj z Android Showcase</string>
+    <string name="platform_apis_demo_email_body">Toto je demo email odoslaný z aplikácie Android Showcase.</string>
+    <string name="platform_apis_demo_share_text">Pozri Android Showcase - moderná Android demo aplikácia!</string>
+    <string name="platform_apis_demo_copy_text">Text skopírovaný z Android Showcase</string>
     <string name="platform_apis_location_title">Poloha</string>
     <string name="platform_apis_location_action">Získať polohu</string>
     <string name="platform_apis_location_loading">Získavam polohu…</string>

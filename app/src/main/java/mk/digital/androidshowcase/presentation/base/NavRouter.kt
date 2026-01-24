@@ -27,7 +27,6 @@ interface NavRouter<T : NavKey> {
     fun share(text: String)
     fun copyToClipboard(text: String)
     fun sendEmail(to: String, subject: String, body: String)
-    fun openSettings()
     fun openNotificationSettings()
 
     // App settings
@@ -70,7 +69,6 @@ class NavRouterImpl<T : NavKey>(
     override fun share(text: String) = callbacks.share(text)
     override fun copyToClipboard(text: String) = callbacks.copyToClipboard(text)
     override fun sendEmail(to: String, subject: String, body: String) = callbacks.sendEmail(to, subject, body)
-    override fun openSettings() = callbacks.openSettings()
     override fun openNotificationSettings() = callbacks.openNotificationSettings()
     override fun setLocale(tag: String) = callbacks.setLocale(tag)
     override fun setThemeMode(mode: ThemeMode) = callbacks.setThemeMode(mode)

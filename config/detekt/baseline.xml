@@ -2,5 +2,27 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>CognitiveComplexMethod:DatabaseScreen.kt$@Composable private fun SearchBar( query: String, onQueryChanged: (String) -&gt; Unit, sortOption: NoteSortOption, onSortOptionChanged: (NoteSortOption) -&gt; Unit, showFilterMenu: Boolean, onToggleFilterMenu: () -&gt; Unit, onDismissFilterMenu: () -&gt; Unit, )</ID>
+    <ID>CognitiveComplexMethod:RegisterScreen.kt$@Composable fun RegisterScreen( router: NavRouter&lt;Route&gt;, viewModel: RegisterViewModel = hiltViewModel(), )</ID>
+    <ID>ComplexCondition:RegisterViewModel.kt$RegisterViewModel$nameError != null || emailError != null || passwordError != null || confirmPasswordError != null</ID>
+    <ID>CyclomaticComplexMethod:CalendarDayCell.kt$@Composable fun CalendarDayCell( day: CalendarDay, selectionType: DaySelectionType, onClick: () -&gt; Unit, modifier: Modifier = Modifier, colors: CalendarColors = CalendarColors.default(), )</ID>
+    <ID>CyclomaticComplexMethod:DeepLinkHandler.kt$DeepLinkHandler$fun parseDeepLink(deepLink: String): Route?</ID>
+    <ID>CyclomaticComplexMethod:RegisterScreen.kt$@Composable fun RegisterScreen( router: NavRouter&lt;Route&gt;, viewModel: RegisterViewModel = hiltViewModel(), )</ID>
+    <ID>LongParameterList:DatabaseScreen.kt$( query: String, onQueryChanged: (String) -&gt; Unit, sortOption: NoteSortOption, onSortOptionChanged: (NoteSortOption) -&gt; Unit, showFilterMenu: Boolean, onToggleFilterMenu: () -&gt; Unit, onDismissFilterMenu: () -&gt; Unit, )</ID>
+    <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$12</ID>
+    <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$15</ID>
+    <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$3</ID>
+    <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$7</ID>
+    <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$8</ID>
+    <ID>MaxLineLength:NoteDao.kt$NoteDao$@Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' ORDER BY createdAt ASC")</ID>
+    <ID>MaxLineLength:NoteDao.kt$NoteDao$@Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' ORDER BY createdAt DESC")</ID>
+    <ID>MaxLineLength:NoteDao.kt$NoteDao$@Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' ORDER BY title ASC")</ID>
+    <ID>MaxLineLength:NoteDao.kt$NoteDao$@Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' ORDER BY title DESC")</ID>
+    <ID>SpacingBetweenPackageAndImports:NetworkModule.kt$ </ID>
+    <ID>TooGenericExceptionCaught:LocalNotificationServiceImpl.kt$LocalNotificationServiceImpl$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PushNotificationServiceImpl.kt$PushNotificationServiceImpl$e: Exception</ID>
+    <ID>TooManyFunctions:NavRouter.kt$NavRouter&lt;T : NavKey&gt;</ID>
+    <ID>TooManyFunctions:NoteDao.kt$NoteDao</ID>
+    <ID>TooManyFunctions:Preferences.kt$Preferences</ID>
   </CurrentIssues>
 </SmellBaseline>

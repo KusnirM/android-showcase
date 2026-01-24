@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.main
 
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.domain.useCase.settings.GetThemeModeUseCase
@@ -14,9 +13,8 @@ data class MainState(
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    application: Application,
     private val getThemeModeUseCase: GetThemeModeUseCase
-) : BaseViewModel<MainState>(application, MainState()) {
+) : BaseViewModel<MainState>(MainState()) {
 
     override fun loadInitialData() {
         loadThemeMode()
