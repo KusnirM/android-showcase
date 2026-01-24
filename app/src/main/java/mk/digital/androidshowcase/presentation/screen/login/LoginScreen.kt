@@ -29,10 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
@@ -41,36 +43,17 @@ import mk.digital.androidshowcase.presentation.component.AppTextField
 import mk.digital.androidshowcase.presentation.component.biometric.BiometricView
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
 import mk.digital.androidshowcase.presentation.component.image.AppIconNeutral80
-import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
-import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
-import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonPrimary
-import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer4
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer6
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer8
+import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
+import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
+import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonPrimary
+import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
 import mk.digital.androidshowcase.presentation.foundation.appColorScheme
 import mk.digital.androidshowcase.presentation.foundation.space2
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.login_button
-import mk.digital.androidshowcase.shared.generated.resources.login_email_empty
-import mk.digital.androidshowcase.shared.generated.resources.login_email_invalid
-import mk.digital.androidshowcase.shared.generated.resources.login_email_label
-import mk.digital.androidshowcase.shared.generated.resources.login_email_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.login_no_account
-import mk.digital.androidshowcase.shared.generated.resources.login_or_divider
-import mk.digital.androidshowcase.shared.generated.resources.login_password_empty
-import mk.digital.androidshowcase.shared.generated.resources.login_password_label
-import mk.digital.androidshowcase.shared.generated.resources.login_password_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.login_password_short
-import mk.digital.androidshowcase.shared.generated.resources.login_password_weak
-import mk.digital.androidshowcase.shared.generated.resources.login_register
-import mk.digital.androidshowcase.shared.generated.resources.login_skip
-import mk.digital.androidshowcase.shared.generated.resources.login_test_account_fill
-import mk.digital.androidshowcase.shared.generated.resources.login_test_account_hint
-import mk.digital.androidshowcase.shared.generated.resources.login_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
@@ -175,7 +158,7 @@ fun LoginScreen(
         ) {
             TextBodyMediumNeutral80(stringResource(R.string.login_no_account))
             TextButton(onClick = viewModel::toRegister) {
-                TextButtonPrimary(stringResource(R.stringlogin_register))
+                TextButtonPrimary(stringResource(R.string.login_register))
             }
         }
 
@@ -189,7 +172,7 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.spacedBy(space2)
             ) {
                 HorizontalDivider(modifier = Modifier.weight(1f))
-                TextBodyMediumNeutral80(stringResource(R.stringlogin_or_divider))
+                TextBodyMediumNeutral80(stringResource(R.string.login_or_divider))
                 HorizontalDivider(modifier = Modifier.weight(1f))
             }
 
@@ -201,7 +184,7 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             } else {
-                BiometricView(onClick = viewModel::authenticateWithBiometrics)
+                BiometricView(modifier = Modifier, onClick = viewModel::authenticateWithBiometrics)
             }
         }
 
@@ -221,7 +204,7 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextBodySmallNeutral80(stringResource(R.stringlogin_test_account_hint))
+                TextBodySmallNeutral80(stringResource(R.string.login_test_account_hint))
 
                 Spacer2()
 
@@ -233,7 +216,7 @@ fun LoginScreen(
                 OutlinedButton(
                     onClick = viewModel::fillTestAccount
                 ) {
-                    TextButtonPrimary(stringResource(Res.string.login_test_account_fill))
+                    TextButtonPrimary(stringResource(R.string.login_test_account_fill))
                 }
             }
         }
@@ -253,6 +236,7 @@ fun LoginNavEvents(
             is LoginNavEvent.ToHome -> {
                 router.replaceAll(Route.HomeSection.Home)
             }
+
             is LoginNavEvent.ToRegister -> {
                 router.navigateTo(Route.Register)
             }

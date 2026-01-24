@@ -5,14 +5,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.buttons.AppTextButton
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
 import mk.digital.androidshowcase.presentation.foundation.appColorScheme
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.button_cancel
-import mk.digital.androidshowcase.shared.generated.resources.button_ok
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AppAlertDialog(
@@ -44,7 +42,7 @@ fun AppConfirmDialog(
         title = title,
         text = text,
         confirmButton = {
-            AppTextButton(text = stringResource(Res.string.button_ok), onClick = onDismissRequest)
+            AppTextButton(text = stringResource(R.string.button_ok), onClick = onDismissRequest)
         },
     )
 }
@@ -53,8 +51,8 @@ fun AppConfirmDialog(
 fun AppAlertDialog(
     text: String,
     title: String? = null,
-    confirmButtonText: String = stringResource(Res.string.button_ok),
-    dismissButtonText: String = stringResource(Res.string.button_cancel),
+    confirmButtonText: String = stringResource(R.string.button_ok),
+    dismissButtonText: String = stringResource(R.string.button_cancel),
     onConfirm: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {

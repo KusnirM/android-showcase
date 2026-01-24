@@ -26,7 +26,7 @@ fun TextBodyMedium(
     Text(
         text = text,
         style = MaterialTheme.typography.bodyMedium,
-        color = { color },
+        color = color,
         fontWeight = fontWeight,
         modifier = modifier,
         textAlign = textAlign,

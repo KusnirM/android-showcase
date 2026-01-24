@@ -15,10 +15,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
@@ -28,15 +30,6 @@ import mk.digital.androidshowcase.presentation.component.text.headlineMedium.Tex
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.storage_clear_session
-import mk.digital.androidshowcase.shared.generated.resources.storage_persistent_hint
-import mk.digital.androidshowcase.shared.generated.resources.storage_persistent_label
-import mk.digital.androidshowcase.shared.generated.resources.storage_session_hint
-import mk.digital.androidshowcase.shared.generated.resources.storage_session_label
-import mk.digital.androidshowcase.shared.generated.resources.storage_subtitle
-import mk.digital.androidshowcase.shared.generated.resources.storage_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageScreen(viewModel: StorageViewModel) {
@@ -96,7 +89,9 @@ private fun CounterCard(
     onIncrement: () -> Unit,
     onDecrement: () -> Unit
 ) {
-    AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+    AppElevatedCard(modifier = Modifier
+        .fillMaxWidth()
+        .padding(space4)) {
         TextBodyLargeNeutral80(label)
         Spacer2()
         TextBodyMediumNeutral80(hint)

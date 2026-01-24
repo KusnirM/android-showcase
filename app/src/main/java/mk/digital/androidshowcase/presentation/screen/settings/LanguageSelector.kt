@@ -15,7 +15,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import mk.digital.androidshowcase.R
+import mk.digital.androidshowcase.presentation.component.AppAlertDialog
+import mk.digital.androidshowcase.presentation.component.AppRadioButton
+import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
+import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
+import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBodyLargeNeutral100
+import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBodyLargePrimary
+import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
+import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
 fun LanguageSelector(
@@ -29,17 +39,19 @@ fun LanguageSelector(
         onClick = { showDialog = true }
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(space4),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space4),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(space4)
         ) {
             Image(
                 imageVector = currentLanguage.icon,
-                contentDescription = stringResource(Res.string.settings_language),
+                contentDescription = stringResource(R.string.settings_language),
                 modifier = Modifier.size(24.dp)
             )
             Column(modifier = Modifier.weight(1f)) {
-                TextBodyLargePrimary(stringResource(Res.string.settings_language))
+                TextBodyLargePrimary(stringResource(R.string.settings_language))
                 Spacer2()
                 TextBodyMediumNeutral80(stringResource(currentLanguage.stringRes))
             }
@@ -48,7 +60,7 @@ fun LanguageSelector(
 
     if (showDialog) {
         AppAlertDialog(
-            title = stringResource(Res.string.settings_language),
+            title = stringResource(R.string.settings_language),
             onDismissRequest = { showDialog = false },
         ) {
             Column {
@@ -85,4 +97,3 @@ fun LanguageSelector(
         }
     }
 }
-

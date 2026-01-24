@@ -17,7 +17,7 @@ internal fun TextTitleLarge(
     Text(
         text = text,
         style = MaterialTheme.typography.titleLarge,
-        color = { color },
+        color = color,
         modifier = modifier,
         textAlign = textAlign
     )

@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,9 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
@@ -41,35 +42,10 @@ import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Sp
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
-import mk.digital.androidshowcase.presentation.foundation.appColorScheme
+import mk.digital.androidshowcase.presentation.foundation.space12
 import mk.digital.androidshowcase.presentation.foundation.space2
 import mk.digital.androidshowcase.presentation.foundation.space4
 import mk.digital.androidshowcase.presentation.foundation.space6
-import mk.digital.androidshowcase.presentation.foundation.space12
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.register_button
-import mk.digital.androidshowcase.shared.generated.resources.register_confirm_password_empty
-import mk.digital.androidshowcase.shared.generated.resources.register_confirm_password_label
-import mk.digital.androidshowcase.shared.generated.resources.register_confirm_password_mismatch
-import mk.digital.androidshowcase.shared.generated.resources.register_confirm_password_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.register_email_already_exists
-import mk.digital.androidshowcase.shared.generated.resources.register_email_empty
-import mk.digital.androidshowcase.shared.generated.resources.register_email_invalid
-import mk.digital.androidshowcase.shared.generated.resources.register_email_label
-import mk.digital.androidshowcase.shared.generated.resources.register_email_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.register_has_account
-import mk.digital.androidshowcase.shared.generated.resources.register_login
-import mk.digital.androidshowcase.shared.generated.resources.register_name_empty
-import mk.digital.androidshowcase.shared.generated.resources.register_name_label
-import mk.digital.androidshowcase.shared.generated.resources.register_name_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.register_name_short
-import mk.digital.androidshowcase.shared.generated.resources.register_password_empty
-import mk.digital.androidshowcase.shared.generated.resources.register_password_label
-import mk.digital.androidshowcase.shared.generated.resources.register_password_placeholder
-import mk.digital.androidshowcase.shared.generated.resources.register_password_short
-import mk.digital.androidshowcase.shared.generated.resources.register_password_weak
-import mk.digital.androidshowcase.shared.generated.resources.register_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RegisterScreen(
@@ -155,13 +131,13 @@ fun RegisterScreen(
             onValueChange = viewModel::onPasswordChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.register_password_label),
-            placeholder = stringResource(Res.string.register_password_placeholder),
+            placeholder = stringResource(R.string.register_password_placeholder),
             isError = state.passwordError != null,
             supportingText = state.passwordError?.let { error ->
                 when (error) {
-                    RegisterPasswordError.EMPTY -> stringResource(Res.string.register_password_empty)
-                    RegisterPasswordError.TOO_SHORT -> stringResource(Res.string.register_password_short)
-                    RegisterPasswordError.WEAK -> stringResource(Res.string.register_password_weak)
+                    RegisterPasswordError.EMPTY -> stringResource(R.string.register_password_empty)
+                    RegisterPasswordError.TOO_SHORT -> stringResource(R.string.register_password_short)
+                    RegisterPasswordError.WEAK -> stringResource(R.string.register_password_weak)
                 }
             },
             keyboardActions = KeyboardActions(
@@ -176,13 +152,13 @@ fun RegisterScreen(
             value = state.confirmPassword,
             onValueChange = viewModel::onConfirmPasswordChange,
             modifier = Modifier.fillMaxWidth(),
-            label = stringResource(Res.string.register_confirm_password_label),
-            placeholder = stringResource(Res.string.register_confirm_password_placeholder),
+            label = stringResource(R.string.register_confirm_password_label),
+            placeholder = stringResource(R.string.register_confirm_password_placeholder),
             isError = state.confirmPasswordError != null,
             supportingText = state.confirmPasswordError?.let { error ->
                 when (error) {
-                    RegisterConfirmPasswordError.EMPTY -> stringResource(Res.string.register_confirm_password_empty)
-                    RegisterConfirmPasswordError.MISMATCH -> stringResource(Res.string.register_confirm_password_mismatch)
+                    RegisterConfirmPasswordError.EMPTY -> stringResource(R.string.register_confirm_password_empty)
+                    RegisterConfirmPasswordError.MISMATCH -> stringResource(R.string.register_confirm_password_mismatch)
                 }
             },
             keyboardActions = KeyboardActions(
@@ -203,7 +179,7 @@ fun RegisterScreen(
             )
         } else {
             ContainedButton(
-                text = stringResource(Res.string.register_button),
+                text = stringResource(R.string.register_button),
                 onClick = {
                     focusManager.clearFocus()
                     viewModel.register()
@@ -218,9 +194,9 @@ fun RegisterScreen(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TextBodyMediumNeutral80(stringResource(Res.string.register_has_account))
+            TextBodyMediumNeutral80(stringResource(R.string.register_has_account))
             TextButton(onClick = viewModel::toLogin) {
-                TextButtonPrimary(stringResource(Res.string.register_login))
+                TextButtonPrimary(stringResource(R.string.register_login))
             }
         }
 

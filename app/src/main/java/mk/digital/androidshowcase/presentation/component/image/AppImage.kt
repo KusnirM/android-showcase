@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.component.image
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,20 +11,19 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.res.painterResource
 
 
 @Composable
 fun AppImage(
-    resource: DrawableResource,
+    @DrawableRes resource: Int,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
     contentScale: ContentScale = ContentScale.Fit,
     colorFilter: ColorFilter? = null
 ) {
     AppImage(
-        painter = painterResource(resource = resource),
+        painter = painterResource(id = resource),
         contentDescription = contentDescription,
         modifier = modifier,
         contentScale = contentScale,

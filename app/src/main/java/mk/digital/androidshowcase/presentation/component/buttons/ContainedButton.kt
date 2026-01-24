@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.component.buttons
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -7,11 +8,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonNeutral0
 import mk.digital.androidshowcase.presentation.foundation.cardCornerRadius6
 import mk.digital.androidshowcase.presentation.foundation.space4
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -37,9 +37,9 @@ fun ContainedButton(
 
 @Composable
 fun ContainedButton(
-    id: StringResource,
+    @StringRes id: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ContainedButton(text = stringResource(resource = id), onClick = onClick, modifier = modifier)
+    ContainedButton(text = stringResource(id = id), onClick = onClick, modifier = modifier)
 }

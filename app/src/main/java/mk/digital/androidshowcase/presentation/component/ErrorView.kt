@@ -7,15 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.button_retry
-import mk.digital.androidshowcase.shared.generated.resources.error_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ErrorView(
@@ -28,13 +26,13 @@ fun ErrorView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TextHeadlineMediumPrimary(stringResource(Res.string.error_title))
+        TextHeadlineMediumPrimary(stringResource(R.string.error_title))
         Spacer2()
         TextBodyMediumNeutral80(message)
         if (onRetry != null) {
             Spacer2()
             ContainedButton(
-                text = stringResource(Res.string.button_retry),
+                text = stringResource(R.string.button_retry),
                 onClick = onRetry
             )
         }

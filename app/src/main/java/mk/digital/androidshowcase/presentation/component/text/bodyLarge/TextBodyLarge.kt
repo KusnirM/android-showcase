@@ -20,7 +20,7 @@ fun TextBodyLarge(
     Text(
         text = text,
         style = MaterialTheme.typography.bodyLarge,
-        color = { color },
+        color = color,
         fontWeight = fontWeight,
         modifier = modifier,
         textAlign = textAlign

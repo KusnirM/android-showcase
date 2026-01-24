@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,17 +21,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
+import mk.digital.androidshowcase.R
+import mk.digital.androidshowcase.presentation.component.AppAlertDialog
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer4
 import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBodyLargeNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.permission_allow
-import mk.digital.androidshowcase.shared.generated.resources.permission_required
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PermissionView(
@@ -60,7 +62,6 @@ private fun PermissionType.toManifestPermission() = when (this) {
     } else null
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun PermissionContendDefault(
     permission: PermissionType,
@@ -114,18 +115,49 @@ private fun launchSettings(context: Context) {
 
 @Composable
 private fun PermissionRationaleUi(
-    message: StringResource,
+    @StringRes message: Int,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     AppAlertDialog(
-        title = stringResource(Res.string.permission_required),
+        title = stringResource(R.string.permission_required),
         text = stringResource(message),
-        confirmButtonText = stringResource(Res.string.permission_allow),
-        dismissButtonText = stringResource(Res.string.permission_cancel),
+        confirmButtonText = stringResource(R.string.permission_allow),
+        dismissButtonText = stringResource(R.string.permission_cancel),
         onConfirm = onConfirm,
         onDismissRequest = onDismiss,
     )
 }
+
+@Composable
+fun PermissionDenyUi(
+    @StringRes message: Int,
+    onConfirm: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(space4),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextTitleLargePrimary(
+            text = stringResource(R.string.permission_required),
+            textAlign = TextAlign.Center
+        )
+        Spacer4()
+        TextBodyLargeNeutral80(
+            text = stringResource(message),
+            textAlign = TextAlign.Center
+        )
+        Spacer4()
+        ContainedButton(
+            id = R.string.permission_allow,
+            onClick = onConfirm,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
 
 

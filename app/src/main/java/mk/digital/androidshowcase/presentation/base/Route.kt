@@ -1,25 +1,14 @@
 package mk.digital.androidshowcase.presentation.base
 
+import androidx.annotation.StringRes
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.screen_home
-import mk.digital.androidshowcase.shared.generated.resources.screen_networking
-import mk.digital.androidshowcase.shared.generated.resources.screen_scanner
-import mk.digital.androidshowcase.shared.generated.resources.screen_platform_apis
-import mk.digital.androidshowcase.shared.generated.resources.screen_settings
-import mk.digital.androidshowcase.shared.generated.resources.screen_storage
-import mk.digital.androidshowcase.shared.generated.resources.screen_calendar
-import mk.digital.androidshowcase.shared.generated.resources.screen_database
-import mk.digital.androidshowcase.shared.generated.resources.screen_notifications
-import mk.digital.androidshowcase.shared.generated.resources.screen_ui_components
-import mk.digital.androidshowcase.shared.generated.resources.screen_login
-import mk.digital.androidshowcase.shared.generated.resources.screen_register
-import org.jetbrains.compose.resources.StringResource
+import mk.digital.androidshowcase.R
 
 @Serializable
 sealed interface Route : NavKey {
-    val titleRes: StringResource
+    @get:StringRes
+    val titleRes: Int
     val showBackArrow: Boolean get() = true
     val showTopBar: Boolean get() = true
     val showBottomNav: Boolean get() = true
@@ -85,13 +74,13 @@ sealed interface Route : NavKey {
 
         @Serializable
         data object Notifications : HomeSection {
-            override val titleRes = Res.string.screen_notifications
+            override val titleRes = R.string.screen_notifications
         }
     }
 
     @Serializable
     data object Settings : Route {
-        override val titleRes = Res.string.screen_settings
+        override val titleRes = R.string.screen_settings
         override val showBackArrow = false
     }
 }

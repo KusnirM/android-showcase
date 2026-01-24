@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
 import mk.digital.androidshowcase.presentation.component.image.AppIconPrimary
 import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer4
@@ -16,7 +17,6 @@ import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTit
 import mk.digital.androidshowcase.presentation.foundation.space10
 import mk.digital.androidshowcase.presentation.foundation.space4
 import mk.digital.androidshowcase.presentation.foundation.space8
-import org.jetbrains.compose.resources.stringResource
 
 
 private val featureCardIconSize = space10

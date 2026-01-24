@@ -13,12 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.calendar_header_format
-import mk.digital.androidshowcase.shared.generated.resources.calendar_next_month
-import mk.digital.androidshowcase.shared.generated.resources.calendar_previous_month
-import org.jetbrains.compose.resources.stringResource
+import mk.digital.androidshowcase.R
 
 @Composable
 fun CalendarHeader(
@@ -40,13 +37,13 @@ fun CalendarHeader(
         IconButton(onClick = onPreviousMonth) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = stringResource(Res.string.calendar_previous_month),
+                contentDescription = stringResource(R.string.calendar_previous_month),
                 tint = colors.navigationIconColor,
             )
         }
 
         Text(
-            text = stringResource(Res.string.calendar_header_format, monthName, year),
+            text = stringResource(R.string.calendar_header_format, monthName, year),
             color = colors.headerTextColor,
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
         )
@@ -54,7 +51,7 @@ fun CalendarHeader(
         IconButton(onClick = onNextMonth) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = stringResource(Res.string.calendar_next_month),
+                contentDescription = stringResource(R.string.calendar_next_month),
                 tint = colors.navigationIconColor,
             )
         }

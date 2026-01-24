@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
+import mk.digital.androidshowcase.domain.model.calendar.DateRange
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.calendar.CalendarView
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
@@ -21,17 +24,6 @@ import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTit
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space16
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.domain.model.calendar.DateRange
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.calendar_clear_selection
-import mk.digital.androidshowcase.shared.generated.resources.calendar_no_dates_selected
-import mk.digital.androidshowcase.shared.generated.resources.calendar_range_format
-import mk.digital.androidshowcase.shared.generated.resources.calendar_selected_range
-import mk.digital.androidshowcase.shared.generated.resources.calendar_single_date
-import mk.digital.androidshowcase.shared.generated.resources.calendar_start_date
-import mk.digital.androidshowcase.shared.generated.resources.calendar_subtitle
-import mk.digital.androidshowcase.shared.generated.resources.calendar_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel) {
@@ -56,7 +48,11 @@ fun CalendarScreen(viewModel: CalendarViewModel) {
 
         state.today?.let { today ->
             item {
-                AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+                AppElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(space4)
+                ) {
                     CalendarView(
                         selectedRange = state.selectedRange,
                         onDateClick = viewModel::onDateClick,
@@ -70,7 +66,11 @@ fun CalendarScreen(viewModel: CalendarViewModel) {
         }
 
         item {
-            AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+            AppElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space4)
+            ) {
                 TextTitleLargeNeutral80(stringResource(R.string.calendar_selected_range))
                 Spacer2()
                 val rangeText = buildRangeText(state.selectedRange)

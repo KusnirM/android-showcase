@@ -16,13 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.ext.noRippleClickable
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
 import mk.digital.androidshowcase.presentation.foundation.appColorScheme
 import mk.digital.androidshowcase.presentation.foundation.space6
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.content_description_back
-import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -34,15 +33,19 @@ fun TopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
-        modifier = modifier.fillMaxWidth().statusBarsPadding(),
+        modifier = modifier
+            .fillMaxWidth()
+            .statusBarsPadding(),
         title = { title?.let { TextTitleLargeNeutral80(text = title) } },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         navigationIcon = {
             navIcon?.let {
                 Icon(
-                    modifier = Modifier.size(space6).noRippleClickable(backClick),
+                    modifier = Modifier
+                        .size(space6)
+                        .noRippleClickable(backClick),
                     imageVector = navIcon,
-                    contentDescription = stringResource(Res.string.content_description_back),
+                    contentDescription = stringResource(R.string.content_description_back),
                     tint = MaterialTheme.appColorScheme.neutral80,
                 )
             }

@@ -20,7 +20,7 @@ internal fun TextLabelLarge(
         modifier = modifier,
         text = text.uppercase(),
         style = MaterialTheme.typography.labelLarge,
-        color = { color },
+        color = color,
         fontWeight = FontWeight.Medium,
         textAlign = textAlign
     )

@@ -16,16 +16,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.AppAlertDialog
 import mk.digital.androidshowcase.presentation.component.AppRadioButton
-import mk.digital.androidshowcase.presentation.component.buttons.AppTextButtonError
-import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import mk.digital.androidshowcase.presentation.component.AvatarState
 import mk.digital.androidshowcase.presentation.component.AvatarView
+import mk.digital.androidshowcase.presentation.component.buttons.AppTextButtonError
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
 import mk.digital.androidshowcase.presentation.component.image.AppIconPrimary
 import mk.digital.androidshowcase.presentation.component.imagepicker.ImagePickerView
@@ -36,17 +37,9 @@ import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBody
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
+import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.settings_appearance
-import mk.digital.androidshowcase.shared.generated.resources.settings_logout
-import mk.digital.androidshowcase.shared.generated.resources.settings_profile
-import mk.digital.androidshowcase.shared.generated.resources.settings_profile_photo
-import mk.digital.androidshowcase.shared.generated.resources.settings_profile_photo_hint
-import mk.digital.androidshowcase.shared.generated.resources.settings_theme
-import mk.digital.androidshowcase.shared.generated.resources.settings_version
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(
@@ -175,7 +168,9 @@ private fun ProfileItem(
     hint: String,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(space4),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(space4)
     ) {
@@ -195,7 +190,9 @@ private fun SettingsItem(
     value: String,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(space4),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(space4)
     ) {
@@ -215,7 +212,7 @@ private fun ThemeSelectionDialog(
     onDismiss: () -> Unit,
 ) {
     AppAlertDialog(
-        title = stringResource(Res.string.settings_theme),
+        title = stringResource(R.string.settings_theme),
         onDismissRequest = onDismiss,
     ) {
         Column {
@@ -254,7 +251,7 @@ private fun VersionFooter(
     versionCode: String,
 ) {
     TextBodySmallNeutral80(
-        text = stringResource(Res.string.settings_version, versionName, versionCode),
+        text = stringResource(R.string.settings_version, versionName, versionCode),
         modifier = Modifier.fillMaxWidth(),
         textAlign = androidx.compose.ui.text.style.TextAlign.End,
     )

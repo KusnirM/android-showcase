@@ -20,7 +20,7 @@ internal fun TextLabelSmall(
         modifier = modifier,
         text = text,
         style = MaterialTheme.typography.labelSmall,
-        color = { color },
+        color = color,
         textAlign = textAlign
     )
 }

@@ -26,7 +26,7 @@ fun TextBodySmall(
     Text(
         text = text,
         style = MaterialTheme.typography.bodySmall,
-        color = { color },
+        color = color,
         fontWeight = fontWeight,
         modifier = modifier,
         textAlign = textAlign,

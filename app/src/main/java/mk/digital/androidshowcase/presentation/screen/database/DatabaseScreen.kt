@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.model.Note
 import mk.digital.androidshowcase.domain.model.NoteSortOption
 import mk.digital.androidshowcase.presentation.component.AppSearchField
@@ -30,31 +32,14 @@ import mk.digital.androidshowcase.presentation.component.AppTextField
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
-import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
 import mk.digital.androidshowcase.presentation.component.image.AppIconNeutral80
+import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Spacer2
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.labelMedium.TextLabelMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.database_add_note
-import mk.digital.androidshowcase.shared.generated.resources.database_clear_all
-import mk.digital.androidshowcase.shared.generated.resources.database_content_hint
-import mk.digital.androidshowcase.shared.generated.resources.database_content_label
-import mk.digital.androidshowcase.shared.generated.resources.database_delete
-import mk.digital.androidshowcase.shared.generated.resources.database_empty
-import mk.digital.androidshowcase.shared.generated.resources.database_filter
-import mk.digital.androidshowcase.shared.generated.resources.database_search_hint
-import mk.digital.androidshowcase.shared.generated.resources.database_sort_by
-import mk.digital.androidshowcase.shared.generated.resources.database_sort_date_newest
-import mk.digital.androidshowcase.shared.generated.resources.database_sort_date_oldest
-import mk.digital.androidshowcase.shared.generated.resources.database_sort_title_asc
-import mk.digital.androidshowcase.shared.generated.resources.database_sort_title_desc
-import mk.digital.androidshowcase.shared.generated.resources.database_title_hint
-import mk.digital.androidshowcase.shared.generated.resources.database_title_label
-import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Instant
 
 @Composable
@@ -170,14 +155,14 @@ private fun SearchBar(
                     } else null
                 )
                 DropdownMenuItem(
-                    text = { TextBodyMediumNeutral80(stringResource(Res.string.database_sort_title_asc)) },
+                    text = { TextBodyMediumNeutral80(stringResource(R.string.database_sort_title_asc)) },
                     onClick = { onSortOptionChanged(NoteSortOption.TITLE_ASC) },
                     leadingIcon = if (sortOption == NoteSortOption.TITLE_ASC) {
                         { TextBodyMediumNeutral80("✓") }
                     } else null
                 )
                 DropdownMenuItem(
-                    text = { TextBodyMediumNeutral80(stringResource(Res.string.database_sort_title_desc)) },
+                    text = { TextBodyMediumNeutral80(stringResource(R.string.database_sort_title_desc)) },
                     onClick = { onSortOptionChanged(NoteSortOption.TITLE_DESC) },
                     leadingIcon = if (sortOption == NoteSortOption.TITLE_DESC) {
                         { TextBodyMediumNeutral80("✓") }
@@ -196,25 +181,27 @@ private fun AddNoteCard(
     onContentChanged: (String) -> Unit,
     onAddClick: () -> Unit,
 ) {
-    AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+    AppElevatedCard(modifier = Modifier
+        .fillMaxWidth()
+        .padding(space4)) {
         AppTextField(
             value = title,
             onValueChange = onTitleChanged,
-            label = stringResource(Res.string.database_title_label),
-            placeholder = stringResource(Res.string.database_title_hint),
+            label = stringResource(R.string.database_title_label),
+            placeholder = stringResource(R.string.database_title_hint),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer2()
         AppTextField(
             value = content,
             onValueChange = onContentChanged,
-            label = stringResource(Res.string.database_content_label),
-            placeholder = stringResource(Res.string.database_content_hint),
+            label = stringResource(R.string.database_content_label),
+            placeholder = stringResource(R.string.database_content_hint),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer2()
         ContainedButton(
-            text = stringResource(Res.string.database_add_note),
+            text = stringResource(R.string.database_add_note),
             onClick = onAddClick,
             enabled = title.isNotBlank()
         )
@@ -226,7 +213,9 @@ private fun NoteCard(
     note: Note,
     onDeleteClick: () -> Unit,
 ) {
-    AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+    AppElevatedCard(modifier = Modifier
+        .fillMaxWidth()
+        .padding(space4)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -244,7 +233,7 @@ private fun NoteCard(
             IconButton(onClick = onDeleteClick) {
                 AppIconNeutral80(
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = stringResource(Res.string.database_delete)
+                    contentDescription = stringResource(R.string.database_delete)
                 )
             }
         }

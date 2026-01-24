@@ -39,23 +39,7 @@ import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBody
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
-import mk.digital.androidshowcase.presentation.foundation.keyboardPadding
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.scanner_format_barcode
-import mk.digital.androidshowcase.shared.generated.resources.scanner_format_qr
-import mk.digital.androidshowcase.shared.generated.resources.scanner_generate_button
-import mk.digital.androidshowcase.shared.generated.resources.scanner_input_hint
-import mk.digital.androidshowcase.shared.generated.resources.scanner_input_label
-import mk.digital.androidshowcase.shared.generated.resources.scanner_mode_generate
-import mk.digital.androidshowcase.shared.generated.resources.scanner_mode_scan
-import mk.digital.androidshowcase.shared.generated.resources.scanner_result_title
-import mk.digital.androidshowcase.shared.generated.resources.scanner_scan_again
-import mk.digital.androidshowcase.shared.generated.resources.scanner_scanned_result
-import mk.digital.androidshowcase.shared.generated.resources.scanner_subtitle
-import mk.digital.androidshowcase.shared.generated.resources.scanner_title
-import mk.digital.androidshowcase.shared.generated.resources.scanner_hint
-import org.jetbrains.compose.resources.stringResource
 
 @Suppress("CognitiveComplexMethod")
 @Composable
@@ -73,7 +57,9 @@ fun ScannerScreen(viewModel: ScannerViewModel) {
     )
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize().imePadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
         contentPadding = PaddingValues(
             start = space4,
             end = space4,
@@ -100,7 +86,9 @@ fun ScannerScreen(viewModel: ScannerViewModel) {
 
         if (state.selectedModeIndex == 0) {
             item {
-                AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+                AppElevatedCard(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space4)) {
                     AppSegmentedButton(
                         options = formatOptions,
                         selectedIndex = state.selectedFormatIndex,
@@ -126,7 +114,9 @@ fun ScannerScreen(viewModel: ScannerViewModel) {
 
             state.generatedBitmap?.let { bitmap ->
                 item {
-                    AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+                    AppElevatedCard(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(space4)) {
                         TextBodyMediumNeutral80(stringResource(R.string.scanner_result_title))
                         Spacer2()
                         Image(
@@ -149,7 +139,9 @@ fun ScannerScreen(viewModel: ScannerViewModel) {
             }
         } else {
             item {
-                AppElevatedCard(modifier = Modifier.fillMaxWidth().padding(space4)) {
+                AppElevatedCard(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space4)) {
                     TextBodyMediumNeutral80(stringResource(R.string.scanner_hint))
                     Spacer4()
 

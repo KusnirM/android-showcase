@@ -1,6 +1,17 @@
 package mk.digital.androidshowcase.data.local.preferences
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStoreFile
 import kotlinx.coroutines.flow.first
 
 interface Preferences {
@@ -31,11 +42,12 @@ interface Preferences {
 class PreferencesImpl(
     context: Context,
     override val storageName: String
-) : Preferences {
+) : mk.digital.androidshowcase.data.local.preferences.Preferences {
 
-    private val dataStore: DataStore<Preferences> = PreferenceDataStoreFactory.create(
-        produceFile = { context.preferencesDataStoreFile(storageName) }
-    )
+    private val dataStore: DataStore<Preferences> =
+        PreferenceDataStoreFactory.create(
+            produceFile = { context.preferencesDataStoreFile(storageName) }
+        )
 
     override suspend fun putString(key: String, value: String?) =
         setOrRemoveIfNull(stringPreferencesKey(key), value)

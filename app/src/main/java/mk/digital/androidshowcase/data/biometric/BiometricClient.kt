@@ -1,8 +1,14 @@
 package mk.digital.androidshowcase.data.biometric
 
 import android.content.Context
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.suspendCancellableCoroutine
+import mk.digital.androidshowcase.R
 import kotlin.coroutines.resume
 
 interface BiometricClient {
@@ -67,9 +73,9 @@ class BiometricClientImpl(
             }
 
             val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle(context.getString(R.string..biometric_prompt_title))
-                .setSubtitle(context.getString(R.string..biometric_prompt_subtitle))
-                .setNegativeButtonText(context.getString(R.string..biometric_prompt_cancel))
+                .setTitle(context.getString(R.string.biometric_prompt_title))
+                .setSubtitle(context.getString(R.string.biometric_prompt_subtitle))
+                .setNegativeButtonText(context.getString(R.string.biometric_prompt_cancel))
                 .setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK)
                 .build()
 

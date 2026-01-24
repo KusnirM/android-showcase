@@ -20,7 +20,7 @@ internal fun TextLabelMedium(
         modifier = modifier,
         text = text,
         style = MaterialTheme.typography.labelMedium,
-        color = { color },
+        color = color,
         fontWeight = FontWeight.Medium,
         textAlign = textAlign
     )

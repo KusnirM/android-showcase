@@ -18,10 +18,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.model.User
 import mk.digital.androidshowcase.presentation.component.CircularProgress
 import mk.digital.androidshowcase.presentation.component.ErrorView
@@ -33,11 +35,6 @@ import mk.digital.androidshowcase.presentation.component.text.headlineMedium.Tex
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.networking_empty
-import mk.digital.androidshowcase.shared.generated.resources.networking_subtitle
-import mk.digital.androidshowcase.shared.generated.resources.networking_title
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NetworkingScreen(viewModel: NetworkingViewModel) {
@@ -50,6 +47,7 @@ fun NetworkingScreen(viewModel: NetworkingViewModel) {
                 message = state.error!!,
                 onRetry = viewModel::refresh
             )
+
             state.users.isEmpty() -> EmptyContent()
             else -> UserListContent(
                 users = state.users,
@@ -66,7 +64,7 @@ private fun EmptyContent() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        TextBodyMediumNeutral80(stringResource(Res.string.networking_empty))
+        TextBodyMediumNeutral80(stringResource(R.string.networking_empty))
     }
 }
 
@@ -86,8 +84,8 @@ private fun UserListContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
-                TextHeadlineMediumPrimary(stringResource(Res.string.networking_title))
-                TextBodyMediumNeutral80(stringResource(Res.string.networking_subtitle))
+                TextHeadlineMediumPrimary(stringResource(R.string.networking_title))
+                TextBodyMediumNeutral80(stringResource(R.string.networking_subtitle))
             }
             IconButton(onClick = onRefresh, enabled = !isRefreshing) {
                 if (isRefreshing) {

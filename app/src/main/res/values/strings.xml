@@ -342,4 +342,10 @@
     <!-- Languages (not translated - always in native language) -->
     <string name="language_sk" translatable="false">Slovenčina</string>
     <string name="language_en" translatable="false">English</string>
+
+<!--    biometrics-->
+    <string name="biometric_prompt_title">Biometric Authentication</string>
+    <string name="biometric_prompt_subtitle">Authenticate using your biometric credential</string>
+    <string name="biometric_prompt_cancel">Cancel</string>
+    <string name="biometric_activity_not_available">Activity not available</string>
 </resources>

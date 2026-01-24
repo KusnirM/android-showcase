@@ -16,16 +16,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.foundation.appColorScheme
-import mk.digital.androidshowcase.shared.generated.resources.Res
-import mk.digital.androidshowcase.shared.generated.resources.password_hide
-import mk.digital.androidshowcase.shared.generated.resources.password_show
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AppPasswordTextField(
@@ -66,7 +64,7 @@ fun AppPasswordTextField(
                         Icons.Filled.VisibilityOff
                     },
                     contentDescription = stringResource(
-                        if (passwordVisible) Res.string.password_hide else Res.string.password_show
+                        if (passwordVisible) R.string.password_hide else R.string.password_show
                     ),
                     tint = MaterialTheme.appColorScheme.neutral80
                 )

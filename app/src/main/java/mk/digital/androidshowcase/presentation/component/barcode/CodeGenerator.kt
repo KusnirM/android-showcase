@@ -4,13 +4,17 @@ import android.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.graphics.createBitmap
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.common.BitMatrix
 
 private const val CODE_SIZE = 512
 private const val BARCODE_HEIGHT = 256
 private const val CODE_MARGIN = 1
 
 class CodeGenerator {
-     fun generate(text: String, format: CodeFormat): ImageBitmap {
+    fun generate(text: String, format: CodeFormat): ImageBitmap {
         val (width, height) = when (format) {
             CodeFormat.BARCODE -> CODE_SIZE to BARCODE_HEIGHT
             CodeFormat.QR_CODE -> CODE_SIZE to CODE_SIZE

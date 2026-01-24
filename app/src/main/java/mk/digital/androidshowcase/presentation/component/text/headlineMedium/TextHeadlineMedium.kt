@@ -17,7 +17,7 @@ internal fun TextHeadlineMedium(
     Text(
         text = text,
         style = MaterialTheme.typography.headlineMedium,
-        color = { color },
+        color = color,
         modifier = modifier,
         textAlign = textAlign
     )

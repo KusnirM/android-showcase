@@ -307,4 +307,9 @@
     <string name="settings_version">Verzia %1$s (%2$s)</string>
     <string name="settings_logout">Odhlásiť sa</string>
 
+    <!--    biometrics-->
+    <string name="biometric_prompt_title">Biometrická autentifikácia</string>
+    <string name="biometric_prompt_subtitle">Autentifikujte sa pomocou biometrie</string>
+    <string name="biometric_prompt_cancel">Zrušiť</string>
+    <string name="biometric_activity_not_available">Aktivita nie je dostupná</string>
 </resources>

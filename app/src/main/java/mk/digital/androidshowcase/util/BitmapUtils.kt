@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.util.Log
+import androidx.exifinterface.media.ExifInterface
 
 object BitmapUtils {
 
@@ -59,10 +60,12 @@ object BitmapUtils {
                 matrix.postRotate(ROTATION_90)
                 matrix.preScale(-1f, 1f)
             }
+
             ExifInterface.ORIENTATION_TRANSVERSE -> {
                 matrix.postRotate(ROTATION_270)
                 matrix.preScale(-1f, 1f)
             }
+
             else -> return bitmap
         }
 
