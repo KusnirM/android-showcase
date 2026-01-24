@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.component.imagepicker
 
-import android.app.Application
 import androidx.compose.ui.graphics.ImageBitmap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
@@ -14,9 +13,7 @@ data class ImagePickerState(
 )
 
 @HiltViewModel
-class ImagePickerViewModel @Inject constructor(
-    application: Application
-) : BaseViewModel<ImagePickerState>(application, ImagePickerState()) {
+class ImagePickerViewModel @Inject constructor() : BaseViewModel<ImagePickerState>(ImagePickerState()) {
 
     fun showDialog() {
         newState { it.copy(showOptionDialog = true) }

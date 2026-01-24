@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.networking
 
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.model.User
 import mk.digital.androidshowcase.domain.useCase.GetUsersUseCase
@@ -10,9 +9,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NetworkingViewModel @Inject constructor(
-    application: Application,
     private val getUsersUseCase: GetUsersUseCase
-) : BaseViewModel<NetworkingUiState>(application, NetworkingUiState()) {
+) : BaseViewModel<NetworkingUiState>(NetworkingUiState()) {
 
     override fun loadInitialData() {
         fetchUsers()

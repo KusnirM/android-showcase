@@ -1,6 +1,5 @@
-package mk.digital.androidshowcase.presentation.screen.platformapis
+package mk.digital.androidshowcase.presentation.screen.apis
 
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import mk.digital.androidshowcase.data.biometric.BiometricResult
@@ -12,11 +11,10 @@ import mk.digital.androidshowcase.presentation.base.NavEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class PlatformApisViewModel @Inject constructor(
-    application: Application,
+class ApisViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val biometricRepository: BiometricRepository,
-) : BaseViewModel<PlatformApisUiState>(application, PlatformApisUiState()) {
+) : BaseViewModel<ApisUiState>(ApisUiState()) {
 
     private var locationUpdatesJob: Job? = null
 
@@ -25,23 +23,23 @@ class PlatformApisViewModel @Inject constructor(
     }
 
     fun share() {
-        navigate(PlatformApisNavEvent.Share(DEMO_SHARE_TEXT))
+        navigate(ApisNavEvent.Share(DEMO_SHARE_TEXT))
     }
 
     fun dial() {
-        navigate(PlatformApisNavEvent.Dial(DEMO_PHONE_NUMBER))
+        navigate(ApisNavEvent.Dial(DEMO_PHONE_NUMBER))
     }
 
     fun openLink() {
-        navigate(PlatformApisNavEvent.OpenLink(DEMO_URL))
+        navigate(ApisNavEvent.OpenLink(DEMO_URL))
     }
 
     fun sendEmail() {
-        navigate(PlatformApisNavEvent.SendEmail(DEMO_EMAIL, DEMO_EMAIL_SUBJECT, DEMO_EMAIL_BODY))
+        navigate(ApisNavEvent.SendEmail(DEMO_EMAIL, DEMO_EMAIL_SUBJECT, DEMO_EMAIL_BODY))
     }
 
     fun copyToClipboard() {
-        navigate(PlatformApisNavEvent.CopyToClipboard(DEMO_COPY_TEXT))
+        navigate(ApisNavEvent.CopyToClipboard(DEMO_COPY_TEXT))
         newState { it.copy(copiedToClipboard = true) }
     }
 
@@ -112,7 +110,7 @@ class PlatformApisViewModel @Inject constructor(
     }
 }
 
-data class PlatformApisUiState(
+data class ApisUiState(
     val copiedToClipboard: Boolean = false,
     val location: Location? = null,
     val locationLoading: Boolean = false,
@@ -126,10 +124,10 @@ data class PlatformApisUiState(
     val biometricsResult: BiometricResult? = null,
 )
 
-sealed interface PlatformApisNavEvent : NavEvent {
-    data class Share(val text: String) : PlatformApisNavEvent
-    data class Dial(val number: String) : PlatformApisNavEvent
-    data class OpenLink(val url: String) : PlatformApisNavEvent
-    data class SendEmail(val to: String, val subject: String, val body: String) : PlatformApisNavEvent
-    data class CopyToClipboard(val text: String) : PlatformApisNavEvent
+sealed interface ApisNavEvent : NavEvent {
+    data class Share(val text: String) : ApisNavEvent
+    data class Dial(val number: String) : ApisNavEvent
+    data class OpenLink(val url: String) : ApisNavEvent
+    data class SendEmail(val to: String, val subject: String, val body: String) : ApisNavEvent
+    data class CopyToClipboard(val text: String) : ApisNavEvent
 }

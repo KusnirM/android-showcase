@@ -1,12 +1,7 @@
 package mk.digital.androidshowcase.presentation.base
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,25 +16,19 @@ import mk.digital.androidshowcase.domain.exceptions.base.BaseException
 import mk.digital.androidshowcase.domain.exceptions.base.UnknownException
 import mk.digital.androidshowcase.domain.useCase.analytics.TrackScreenUseCase
 import mk.digital.androidshowcase.util.Logger
+import javax.inject.Inject
 
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-interface BaseViewModelEntryPoint {
-    fun trackScreenUseCase(): TrackScreenUseCase
-    fun logger(): Logger
-}
 
 abstract class BaseViewModel<STATE : Any>(
-    application: Application,
     defaultState: STATE,
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
-    private val entryPoint: BaseViewModelEntryPoint by lazy {
-        EntryPointAccessors.fromApplication(application, BaseViewModelEntryPoint::class.java)
-    }
 
-    private val trackScreenUseCase: TrackScreenUseCase by lazy { entryPoint.trackScreenUseCase() }
-    protected val logger: Logger by lazy { entryPoint.logger() }
+    @Inject
+    lateinit var trackScreenUseCase: TrackScreenUseCase
+
+    @Inject
+    lateinit var logger: Logger
 
     protected val tag = this::class.simpleName
 
@@ -51,7 +40,9 @@ abstract class BaseViewModel<STATE : Any>(
 
     private val scope get() = viewModelScope
 
-    init {
+    @Suppress("unused") // Called by Hilt after field injection
+    @Inject
+    fun afterInit() {
         logScreenName()
         loadInitialData()
     }

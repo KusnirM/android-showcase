@@ -20,7 +20,7 @@
     <string name="screen_ui_components">UI Components</string>
     <string name="screen_networking">Networking</string>
     <string name="screen_storage">Storage</string>
-    <string name="screen_platform_apis">Platform APIs</string>
+    <string name="screen_apis">APIs</string>
     <string name="screen_scanner">Scanner</string>
     <string name="screen_database">Database</string>
     <string name="screen_calendar">Calendar</string>
@@ -34,8 +34,8 @@
     <string name="feature_networking_subtitle">Ktor HTTP Client, REST API</string>
     <string name="feature_storage_title">Storage</string>
     <string name="feature_storage_subtitle">DataStore, NSUserDefaults</string>
-    <string name="feature_platform_apis_title">Platform APIs</string>
-    <string name="feature_platform_apis_subtitle">Share, Dial, External Links</string>
+    <string name="feature_apis_title">APIs</string>
+    <string name="feature_apis_subtitle">Share, Dial, External Links</string>
     <string name="feature_scanner_title">Scanner</string>
     <string name="feature_scanner_subtitle">Generate and scan QR codes &amp; barcodes</string>
     <string name="feature_database_title">Database</string>

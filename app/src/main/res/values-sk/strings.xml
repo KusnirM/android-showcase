@@ -19,7 +19,7 @@
     <string name="screen_ui_components">UI Komponenty</string>
     <string name="screen_networking">Sieť</string>
     <string name="screen_storage">Úložisko</string>
-    <string name="screen_platform_apis">Platform APIs</string>
+    <string name="screen_apis">APIs</string>
     <string name="screen_scanner">Skener</string>
     <string name="screen_database">Databáza</string>
     <string name="screen_calendar">Kalendár</string>
@@ -33,8 +33,8 @@
     <string name="feature_networking_subtitle">Ktor HTTP Klient, REST API</string>
     <string name="feature_storage_title">Úložisko</string>
     <string name="feature_storage_subtitle">DataStore, NSUserDefaults</string>
-    <string name="feature_platform_apis_title">Platform APIs</string>
-    <string name="feature_platform_apis_subtitle">Zdieľanie, Volanie, Externé odkazy</string>
+    <string name="feature_apis_title">APIs</string>
+    <string name="feature_apis_subtitle">Zdieľanie, Volanie, Externé odkazy</string>
     <string name="feature_scanner_title">Skener</string>
     <string name="feature_scanner_subtitle">Generovanie a skenovanie QR kódov a čiarových kódov</string>
     <string name="feature_database_title">Databáza</string>

@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.login
 
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.domain.useCase.base.invoke
@@ -13,10 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    application: Application,
     private val isBiometricEnabledUseCase: IsBiometricEnabledUseCase,
     private val authenticateWithBiometricUseCase: AuthenticateWithBiometricUseCase,
-) : BaseViewModel<LoginUiState>(application, LoginUiState()) {
+) : BaseViewModel<LoginUiState>(LoginUiState()) {
 
     fun skip() = navigate(LoginNavEvent.ToHome)
 

@@ -19,7 +19,7 @@ object DeepLinkHandler {
             path == "networking" -> Route.HomeSection.Networking
             path == "storage" -> Route.HomeSection.Storage
             path == "ui-components" || path == "uicomponents" -> Route.HomeSection.UiComponents
-            path == "platform-apis" || path == "platformapis" -> Route.HomeSection.PlatformApis
+            path == "apis" -> Route.HomeSection.Apis
             path == "scanner" -> Route.HomeSection.Scanner
             path == "database" -> Route.HomeSection.Database
             path == "calendar" -> Route.HomeSection.Calendar

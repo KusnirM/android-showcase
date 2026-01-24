@@ -2,7 +2,9 @@ package mk.digital.androidshowcase.domain.useCase.analytics
 
 import mk.digital.androidshowcase.data.analytics.AnalyticsClient
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TrackScreenUseCase @Inject constructor(
     private val analyticsClient: AnalyticsClient
 ) {
