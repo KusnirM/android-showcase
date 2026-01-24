@@ -1,1 +1,1 @@
-./gradlew testDebugUnittest detekt test --parallel
+./gradlew detekt testDebugUnitTest --parallel
