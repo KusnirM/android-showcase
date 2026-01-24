@@ -5,8 +5,9 @@ import mk.digital.androidshowcase.domain.model.Note
 import mk.digital.androidshowcase.domain.model.NoteSortOption
 import mk.digital.androidshowcase.domain.repository.NoteRepository
 import mk.digital.androidshowcase.domain.useCase.base.FlowUseCase
+import javax.inject.Inject
 
-class SearchNotesUseCase(
+class SearchNotesUseCase @Inject constructor(
     private val repository: NoteRepository
 ) : FlowUseCase<SearchNotesUseCase.Params, List<Note>>() {
 

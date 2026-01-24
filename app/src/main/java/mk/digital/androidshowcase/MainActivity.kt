@@ -4,41 +4,49 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.getValue
 import androidx.core.os.LocaleListCompat
-import mk.digital.androidshowcase.presentation.foundation.AppTheme
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dagger.hilt.android.AndroidEntryPoint
+import mk.digital.androidshowcase.presentation.base.AppCallbacks
+import mk.digital.androidshowcase.presentation.base.router.ExternalRouter
 import mk.digital.androidshowcase.presentation.screen.MainView
+import mk.digital.androidshowcase.presentation.screen.MainViewState
+import mk.digital.androidshowcase.presentation.screen.main.MainViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var externalRouter: ExternalRouter
+
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val mainState by mainViewModel.state.collectAsStateWithLifecycle()
             MainView(
-                onSetLocale = { tag ->
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
-                }
+                state = MainViewState(themeMode = mainState.themeMode),
+                appCallbacks = AppCallbacks(
+                    openLink = externalRouter::openLink,
+                    dial = externalRouter::dial,
+                    share = externalRouter::share,
+                    copyToClipboard = externalRouter::copyToClipboard,
+                    sendEmail = externalRouter::sendEmail,
+                    openSettings = externalRouter::openSettings,
+                    openNotificationSettings = externalRouter::openNotificationSettings,
+                    setLocale = { tag ->
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+                    },
+                    setThemeMode = mainViewModel::setThemeMode
+                )
             )
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppTheme {
-        Greeting("Android")
-    }
-}

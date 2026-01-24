@@ -31,11 +31,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.LifecycleEffect
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
@@ -87,10 +91,18 @@ private fun rememberLocationActionHandler(
 
 @Suppress("CyclomaticComplexMethod", "CognitiveComplexMethod")
 @Composable
-fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
+fun PlatformApisScreen(
+    router: NavRouter<Route>,
+    viewModel: PlatformApisViewModel = hiltViewModel(),
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = LocalSnackbarHostState.current
     val copiedMessage = stringResource(R.string.platform_apis_copied_message)
+
+    LifecycleEffect(
+        onResume = viewModel::onResumed,
+        onPause = viewModel::onPaused
+    )
 
     val handleLocationAction = rememberLocationActionHandler(
         onGetLocation = viewModel::getLocation,
@@ -267,6 +279,8 @@ fun PlatformApisScreen(viewModel: PlatformApisViewModel) {
             }
         }
     }
+
+    PlatformApisNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -320,12 +334,11 @@ private fun formatLocationText(lat: Double, lon: Double): String {
 }
 
 @Composable
-fun PlatformApisNavEvents(
-    viewModel: PlatformApisViewModel,
-    router: NavRouter<Route>
+private fun PlatformApisNavEvents(
+    router: NavRouter<Route>,
+    navEvent: SharedFlow<NavEvent>,
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) { event ->
-        if (event !is PlatformApisNavEvent) return@CollectNavEvents
+    CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
             is PlatformApisNavEvent.Share -> router.share(event.text)
             is PlatformApisNavEvent.Dial -> router.dial(event.number)

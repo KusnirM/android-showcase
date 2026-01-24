@@ -8,12 +8,13 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
+import javax.inject.Inject
 
 private const val CODE_SIZE = 512
 private const val BARCODE_HEIGHT = 256
 private const val CODE_MARGIN = 1
 
-class CodeGenerator {
+class CodeGenerator @Inject constructor() {
     fun generate(text: String, format: CodeFormat): ImageBitmap {
         val (width, height) = when (format) {
             CodeFormat.BARCODE -> CODE_SIZE to BARCODE_HEIGHT

@@ -3,8 +3,9 @@ package mk.digital.androidshowcase.data.repository.user
 import mk.digital.androidshowcase.data.base.transformAll
 import mk.digital.androidshowcase.domain.model.User
 import mk.digital.androidshowcase.domain.repository.UserRepository
+import javax.inject.Inject
 
-class UserRepositoryImpl(
+class UserRepositoryImpl @Inject constructor(
     private val client: UserClient
 ) : UserRepository {
     override suspend fun getUser(id: Int): User {

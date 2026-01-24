@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.component.AppTextField
@@ -43,7 +44,7 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Suppress("CognitiveComplexMethod")
 @Composable
-fun ScannerScreen(viewModel: ScannerViewModel) {
+fun ScannerScreen(viewModel: ScannerViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val modeOptions = listOf(

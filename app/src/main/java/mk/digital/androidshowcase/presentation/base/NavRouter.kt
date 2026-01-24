@@ -9,17 +9,19 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.savedstate.serialization.SavedStateConfiguration
-import mk.digital.androidshowcase.presentation.base.router.ExternalRouter
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import kotlin.reflect.KClass
 
 interface NavRouter<T : NavKey> {
     val backStack: NavBackStack<T>
+
+    // Navigation
     fun navigateTo(page: T)
     fun <R : Any> navigateTo(page: T, popUpTo: KClass<R>? = null, inclusive: Boolean = false)
     fun onBack()
     fun replaceAll(page: T)
+
+    // External actions
     fun openLink(url: String)
     fun dial(number: String)
     fun share(text: String)
@@ -27,13 +29,16 @@ interface NavRouter<T : NavKey> {
     fun sendEmail(to: String, subject: String, body: String)
     fun openSettings()
     fun openNotificationSettings()
+
+    // App settings
+    fun setLocale(tag: String)
+    fun setThemeMode(mode: ThemeMode)
 }
 
 class NavRouterImpl<T : NavKey>(
     override val backStack: NavBackStack<T>,
-) : NavRouter<T>, KoinComponent {
-
-    private val externalRouter: ExternalRouter by inject()
+    private val callbacks: AppCallbacks,
+) : NavRouter<T> {
 
     override fun navigateTo(page: T) {
         backStack.add(page)
@@ -60,19 +65,15 @@ class NavRouterImpl<T : NavKey>(
         backStack.add(page)
     }
 
-    override fun openLink(url: String) = externalRouter.openLink(url)
-
-    override fun dial(number: String) = externalRouter.dial(number)
-
-    override fun share(text: String) = externalRouter.share(text)
-
-    override fun copyToClipboard(text: String) = externalRouter.copyToClipboard(text)
-
-    override fun sendEmail(to: String, subject: String, body: String) = externalRouter.sendEmail(to, subject, body)
-
-    override fun openSettings() = externalRouter.openSettings()
-
-    override fun openNotificationSettings() = externalRouter.openNotificationSettings()
+    override fun openLink(url: String) = callbacks.openLink(url)
+    override fun dial(number: String) = callbacks.dial(number)
+    override fun share(text: String) = callbacks.share(text)
+    override fun copyToClipboard(text: String) = callbacks.copyToClipboard(text)
+    override fun sendEmail(to: String, subject: String, body: String) = callbacks.sendEmail(to, subject, body)
+    override fun openSettings() = callbacks.openSettings()
+    override fun openNotificationSettings() = callbacks.openNotificationSettings()
+    override fun setLocale(tag: String) = callbacks.setLocale(tag)
+    override fun setThemeMode(mode: ThemeMode) = callbacks.setThemeMode(mode)
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -80,10 +81,11 @@ class NavRouterImpl<T : NavKey>(
 fun <T : NavKey> rememberNavRouter(
     config: SavedStateConfiguration,
     initialRoute: T,
+    appCallbacks: AppCallbacks = AppCallbacks(),
 ): NavRouter<T> {
     val backStack = rememberNavBackStack(config, initialRoute)
-    return remember(backStack) {
-        NavRouterImpl(backStack as NavBackStack<T>)
+    return remember(backStack, appCallbacks) {
+        NavRouterImpl(backStack as NavBackStack<T>, appCallbacks)
     }
 }
 

@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import mk.digital.androidshowcase.data.local.StorageLocalStore
 import mk.digital.androidshowcase.domain.model.StorageData
 import mk.digital.androidshowcase.domain.repository.StorageRepository
+import javax.inject.Inject
 
-class StorageRepositoryImpl(
+class StorageRepositoryImpl @Inject constructor(
     private val storageLocalStore: StorageLocalStore
 ) : StorageRepository {
 

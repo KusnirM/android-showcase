@@ -1,9 +1,15 @@
 package mk.digital.androidshowcase.presentation.screen.home
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel<HomeUiState>(HomeUiState()) {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    application: Application
+) : BaseViewModel<HomeUiState>(application, HomeUiState()) {
 
     fun onFeatureClick(featureId: FeatureId) {
         navigate(HomeNavEvent.ToFeature(featureId))

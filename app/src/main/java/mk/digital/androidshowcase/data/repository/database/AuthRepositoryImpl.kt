@@ -4,9 +4,10 @@ import mk.digital.androidshowcase.data.database.dao.RegisteredUserDao
 import mk.digital.androidshowcase.data.database.entity.RegisteredUserEntity
 import mk.digital.androidshowcase.domain.model.RegisteredUser
 import mk.digital.androidshowcase.domain.repository.AuthRepository
+import javax.inject.Inject
 import kotlin.time.Clock
 
-class AuthRepositoryImpl(
+class AuthRepositoryImpl @Inject constructor(
     private val registeredUserDao: RegisteredUserDao
 ) : AuthRepository {
 

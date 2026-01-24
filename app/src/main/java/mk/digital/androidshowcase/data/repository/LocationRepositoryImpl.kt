@@ -6,8 +6,9 @@ import mk.digital.androidshowcase.domain.exceptions.base.LocationErrorCode
 import mk.digital.androidshowcase.domain.exceptions.base.LocationException
 import mk.digital.androidshowcase.domain.model.Location
 import mk.digital.androidshowcase.domain.repository.LocationRepository
+import javax.inject.Inject
 
-class LocationRepositoryImpl(
+class LocationRepositoryImpl @Inject constructor(
     private val locationClient: LocationClient
 ) : LocationRepository {
 

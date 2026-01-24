@@ -2,8 +2,9 @@ package mk.digital.androidshowcase.util
 
 import android.util.Log
 import mk.digital.androidshowcase.data.analytics.AnalyticsClient
+import javax.inject.Inject
 
-class Logger(
+class Logger @Inject constructor(
     private val analyticsClient: AnalyticsClient
 ) {
 

@@ -5,8 +5,9 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Clock
 import mk.digital.androidshowcase.domain.repository.DateRepository
+import javax.inject.Inject
 
-class DateRepositoryImpl : DateRepository {
+class DateRepositoryImpl @Inject constructor() : DateRepository {
     override fun today(): LocalDate {
         val now = Clock.System.now()
         return now.toLocalDateTime(TimeZone.currentSystemDefault()).date

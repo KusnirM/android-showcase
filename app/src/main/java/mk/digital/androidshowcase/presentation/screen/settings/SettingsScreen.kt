@@ -17,9 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.LifecycleEffect
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.AppAlertDialog
@@ -43,11 +47,14 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel,
-    imagePickerViewModel: ImagePickerViewModel,
+    router: NavRouter<Route>,
+    viewModel: SettingsViewModel = hiltViewModel(),
+    imagePickerViewModel: ImagePickerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val imagePickerState by imagePickerViewModel.state.collectAsStateWithLifecycle()
+
+    LifecycleEffect(onResume = viewModel::onResumed)
 
     val avatarState = when {
         imagePickerState.isLoading -> AvatarState.Loading
@@ -159,6 +166,8 @@ fun SettingsScreen(
             onDismiss = viewModel::hideThemeDialog
         )
     }
+
+    SettingsNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -258,20 +267,16 @@ private fun VersionFooter(
 }
 
 @Composable
-fun SettingsNavEvents(
-    viewModel: SettingsViewModel,
+private fun SettingsNavEvents(
     router: NavRouter<Route>,
-    onSetLocale: ((String) -> Unit)?,
-    onOpenSettings: (() -> Unit)?,
-    onThemeChanged: (ThemeMode) -> Unit,
+    navEvent: SharedFlow<NavEvent>,
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) { event ->
-        if (event !is SettingNavEvents) return@CollectNavEvents
+    CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is SettingNavEvents.SetLocaleTag -> onSetLocale?.invoke(event.tag)
-            is SettingNavEvents.ToSettings -> onOpenSettings?.invoke()
+            is SettingNavEvents.SetLocaleTag -> router.setLocale(event.tag)
+            is SettingNavEvents.ToSettings -> router.openSettings()
             is SettingNavEvents.Logout -> router.replaceAll(Route.Login)
-            is SettingNavEvents.ThemeChanged -> onThemeChanged(event.mode)
+            is SettingNavEvents.ThemeChanged -> router.setThemeMode(event.mode)
         }
     }
 }

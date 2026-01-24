@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="welcome">Vitaj v aplikácii</string>
-    <string name="loading">Načítava sa…</string>
 
     <!-- Common -->
     <string name="content_description_back">Späť</string>
@@ -24,6 +22,8 @@
     <string name="screen_platform_apis">Platform APIs</string>
     <string name="screen_scanner">Skener</string>
     <string name="screen_database">Databáza</string>
+    <string name="screen_calendar">Kalendár</string>
+    <string name="screen_notifications">Notifikácie</string>
     <string name="screen_settings">Nastavenia</string>
 
     <!-- Home Screen Features -->
@@ -39,8 +39,10 @@
     <string name="feature_scanner_subtitle">Generovanie a skenovanie QR kódov a čiarových kódov</string>
     <string name="feature_database_title">Databáza</string>
     <string name="feature_database_subtitle">SQLDelight, lokálna perzistencia</string>
-    <string name="feature_login_title">Prihlásenie</string>
-    <string name="feature_login_subtitle">Email, validácia hesla, biometria</string>
+    <string name="feature_calendar_title">Kalendár</string>
+    <string name="feature_calendar_subtitle">Výber rozsahu dátumov, štýl Airbnb</string>
+    <string name="feature_notifications_title">Notifikácie</string>
+    <string name="feature_notifications_subtitle">Lokálne a push notifikácie</string>
 
     <!-- UI Components Showcase -->
     <string name="section_buttons">Tlačidlá</string>
@@ -77,7 +79,7 @@
     <string name="image_description">Ukážkový obrázok načítaný cez Coil</string>
     <string name="section_text_fields">Textové polia</string>
     <string name="text_field_label">Popis</string>
-    <string name="text_field_placeholder">Zadajte text...</string>
+    <string name="text_field_placeholder">Zadajte text…</string>
     <string name="section_switches">Prepínače</string>
     <string name="switch_label">Povoliť funkciu</string>
     <string name="section_radio_buttons">Prepínacie tlačidlá</string>
@@ -89,26 +91,22 @@
     <string name="chip_assist">Pomoc</string>
     <string name="chip_input">Vstup</string>
     <string name="chip_suggestion">Návrh</string>
-    <string name="section_fab">Plávajúce akčné tlačidlo</string>
     <string name="fab_content_description">Pridať</string>
     <string name="section_sliders">Posuvníky</string>
     <string name="section_badges">Odznaky</string>
-    <string name="section_segmented_button">Segmentované tlačidlo</string>
     <string name="segment_day">Deň</string>
     <string name="segment_week">Týždeň</string>
     <string name="segment_month">Mesiac</string>
 
     <!-- Database Screen -->
-    <string name="database_title">Databáza</string>
-    <string name="database_subtitle">Demo lokálnej SQLDelight databázy</string>
     <string name="database_title_label">Nadpis</string>
-    <string name="database_title_hint">Zadajte nadpis poznámky...</string>
+    <string name="database_title_hint">Zadajte nadpis poznámky…</string>
     <string name="database_content_label">Obsah</string>
-    <string name="database_content_hint">Zadajte obsah poznámky...</string>
+    <string name="database_content_hint">Zadajte obsah poznámky…</string>
     <string name="database_add_note">Pridať poznámku</string>
     <string name="database_clear_all">Vymazať všetky poznámky</string>
     <string name="database_empty">Zatiaľ žiadne poznámky. Pridajte prvú poznámku vyššie!</string>
-    <string name="database_search_hint">Hľadať poznámky...</string>
+    <string name="database_search_hint">Hľadať poznámky…</string>
     <string name="database_filter">Filter</string>
     <string name="database_delete">Vymazať</string>
     <string name="database_sort_by">Zoradiť podľa</string>
@@ -118,9 +116,6 @@
     <string name="database_sort_title_desc">Názov (Z-A)</string>
 
     <!-- Calendar Screen -->
-    <string name="screen_calendar">Kalendár</string>
-    <string name="feature_calendar_title">Kalendár</string>
-    <string name="feature_calendar_subtitle">Výber rozsahu dátumov, štýl Airbnb</string>
     <string name="calendar_title">Výber rozsahu dátumov</string>
     <string name="calendar_subtitle">Vyberte rozsah dátumov kliknutím na dva dátumy</string>
     <string name="calendar_selected_range">Vybraný rozsah</string>
@@ -158,8 +153,6 @@
     <!-- Networking Screen -->
     <string name="networking_title">Používatelia</string>
     <string name="networking_subtitle">Načítané z JSONPlaceholder API</string>
-    <string name="networking_error_title">Chyba</string>
-    <string name="networking_retry">Skúsiť znova</string>
     <string name="networking_empty">Žiadni používatelia neboli nájdení</string>
 
     <!-- Storage Screen -->
@@ -175,38 +168,26 @@
     <string name="platform_apis_title">Platform APIs</string>
     <string name="platform_apis_subtitle">Natívne integrácie cez expect/actual</string>
     <string name="platform_apis_share_title">Zdieľanie</string>
-    <string name="platform_apis_share_hint">Zdieľanie obsahu cez natívny zdieľací panel</string>
     <string name="platform_apis_share_action">Zdieľať text</string>
     <string name="platform_apis_dial_title">Telefón</string>
-    <string name="platform_apis_dial_hint">Otvoriť vytáčanie s číslom</string>
     <string name="platform_apis_dial_action">Otvoriť vytáčanie</string>
     <string name="platform_apis_link_title">Externý odkaz</string>
-    <string name="platform_apis_link_hint">Otvoriť URL v predvolenom prehliadači</string>
     <string name="platform_apis_link_action">Otvoriť odkaz</string>
     <string name="platform_apis_email_title">Email</string>
-    <string name="platform_apis_email_hint">Napísať email cez predvolenú mailovú aplikáciu</string>
     <string name="platform_apis_email_action">Odoslať email</string>
     <string name="platform_apis_copy_title">Schránka</string>
-    <string name="platform_apis_copy_hint">Kopírovať text do systémovej schránky</string>
     <string name="platform_apis_copy_action">Kopírovať text</string>
     <string name="platform_apis_copied_message">Skopírované do schránky</string>
-    <string name="platform_apis_demo_share_text">Pozri si túto KMP Showcase aplikáciu!</string>
-    <string name="platform_apis_demo_copy_text">Skopírované z KMP Showcase</string>
-    <string name="platform_apis_demo_email_subject">KMP Showcase</string>
-    <string name="platform_apis_demo_email_body">Ahoj z KMP Showcase aplikácie!</string>
     <string name="platform_apis_location_title">Poloha</string>
-    <string name="platform_apis_location_hint">Získať aktuálnu polohu zariadenia pomocou GPS</string>
     <string name="platform_apis_location_action">Získať polohu</string>
     <string name="platform_apis_location_loading">Získavam polohu…</string>
     <string name="platform_apis_location_result">Lat: %1$s, Lon: %2$s</string>
     <string name="platform_apis_location_error">Nepodarilo sa získať polohu</string>
     <string name="platform_apis_location_updates_title">Sledovanie polohy</string>
-    <string name="platform_apis_location_updates_hint">Sledovanie zmien polohy v reálnom čase</string>
     <string name="platform_apis_location_updates_start">Spustiť sledovanie</string>
     <string name="platform_apis_location_updates_stop">Zastaviť sledovanie</string>
     <string name="platform_apis_location_updates_error">Nepodarilo sa sledovať polohu</string>
     <string name="platform_apis_biometrics_title">Biometria</string>
-    <string name="platform_apis_biometrics_hint">Autentifikácia pomocou odtlačku prsta alebo Face ID</string>
     <string name="platform_apis_biometrics_action">Autentifikovať</string>
     <string name="platform_apis_biometrics_success">Autentifikácia úspešná</string>
     <string name="platform_apis_biometrics_failed">Autentifikácia zlyhala</string>
@@ -223,12 +204,38 @@
     <string name="scanner_format_qr">QR kód</string>
     <string name="scanner_format_barcode">Čiarový kód</string>
     <string name="scanner_input_label">Text na zakódovanie</string>
-    <string name="scanner_input_hint">Zadajte text alebo URL...</string>
+    <string name="scanner_input_hint">Zadajte text alebo URL…</string>
     <string name="scanner_generate_button">Generovať</string>
     <string name="scanner_result_title">Vygenerovaný kód</string>
     <string name="scanner_hint">Nasmerujte kameru na QR kód alebo čiarový kód</string>
     <string name="scanner_scanned_result">Naskenovaný výsledok</string>
     <string name="scanner_scan_again">Skenovať znova</string>
+
+    <!-- Notifications Screen -->
+    <string name="notifications_title">Notifikácie</string>
+    <string name="notifications_subtitle">Test lokálnych a push notifikácií</string>
+    <string name="notifications_permission_title">Povolenie</string>
+    <string name="notifications_permission_granted">Stav: Povolené</string>
+    <string name="notifications_permission_denied">Stav: Zamietnuté</string>
+    <string name="notifications_permission_unknown">Stav: Neurčené</string>
+    <string name="notifications_request_permission">Požiadať o povolenie</string>
+    <string name="notifications_token_title">Push Token</string>
+    <string name="notifications_token">%1$s</string>
+    <string name="notifications_no_token">Zatiaľ nedostupný</string>
+    <string name="notifications_refresh_token">Obnoviť</string>
+    <string name="notifications_log_token">Zaznamenať</string>
+    <string name="notifications_send_title">Odoslať testovacie notifikácie</string>
+    <string name="notifications_send_reminder">Pripomienka</string>
+    <string name="notifications_send_promo">Promo</string>
+    <string name="notifications_reminder_title">Pripomienka</string>
+    <string name="notifications_reminder_message">Nezabudni si skontrolovať kalendár!</string>
+    <string name="notifications_promo_title">Špeciálna ponuka</string>
+    <string name="notifications_promo_message">Pozri si naše najnovšie akcie!</string>
+    <string name="notifications_last_sent">Naposledy odoslané: %1$s</string>
+    <string name="notifications_cancel_title">Správa notifikácií</string>
+    <string name="notifications_cancel_all">Zrušiť všetky</string>
+    <string name="notifications_open_settings">Otvoriť nastavenia</string>
+    <string name="notifications_last_received">Naposledy prijaté: %1$s</string>
 
     <!-- Permissions -->
     <string name="permission_required">Vyžaduje sa povolenie</string>
@@ -240,11 +247,26 @@
     <string name="gallery_permission_rationale">Prístup k fotogalérii je potrebný na výber obrázkov.</string>
     <string name="location_permission_denied">Prístup k polohe bol zamietnutý. Povoľte ho v Nastaveniach.</string>
     <string name="location_permission_rationale">Prístup k polohe je potrebný pre túto funkciu.</string>
+    <string name="notification_permission_denied">Prístup k notifikáciám bol zamietnutý. Povoľte ho v Nastaveniach.</string>
+    <string name="notification_permission_rationale">Prístup k notifikáciám je potrebný na prijímanie upozornení a aktualizácií.</string>
 
     <!-- Image Picker -->
     <string name="imagepicker_title">Vybrať zdroj obrázka</string>
     <string name="imagepicker_camera">Fotoaparát</string>
     <string name="imagepicker_gallery">Galéria</string>
+
+    <!-- Settings -->
+    <string name="settings_profile">Môj profil</string>
+    <string name="settings_profile_photo">Profilová fotka</string>
+    <string name="settings_profile_photo_hint">Klepni pre zmenu</string>
+    <string name="settings_appearance">Vzhľad</string>
+    <string name="settings_theme">Téma</string>
+    <string name="settings_theme_light">Svetlá</string>
+    <string name="settings_theme_dark">Tmavá</string>
+    <string name="settings_theme_system">Systémová</string>
+    <string name="settings_language">Jazyk</string>
+    <string name="settings_version">Verzia %1$s (%2$s)</string>
+    <string name="settings_logout">Odhlásiť sa</string>
 
     <!-- Login Screen -->
     <string name="screen_login">Prihlásenie</string>
@@ -264,7 +286,6 @@
     <string name="login_register">Registrovať</string>
     <string name="login_or_divider">alebo</string>
     <string name="login_biometric_hint_fingerprint">Použite odtlačok prsta</string>
-    <string name="login_biometric_hint_faceid">Použite Face ID</string>
     <string name="login_test_account_hint">Testovací účet</string>
     <string name="login_test_account_fill">Vyplniť</string>
 
@@ -293,23 +314,8 @@
     <string name="register_has_account">Už máte účet?</string>
     <string name="register_login">Prihlásiť sa</string>
 
-    <!-- Settings -->
-    <string name="settings_profile">Môj profil</string>
-    <string name="settings_profile_photo">Profilová fotka</string>
-    <string name="settings_profile_photo_hint">Klepni pre zmenu</string>
-    <string name="settings_appearance">Vzhľad</string>
-    <string name="settings_theme">Téma</string>
-    <string name="settings_theme_light">Svetlá</string>
-    <string name="settings_theme_dark">Tmavá</string>
-    <string name="settings_theme_system">Systémová</string>
-    <string name="settings_language">Jazyk</string>
-    <string name="settings_language_value">Slovenčina</string>
-    <string name="settings_version">Verzia %1$s (%2$s)</string>
-    <string name="settings_logout">Odhlásiť sa</string>
-
-    <!--    biometrics-->
+    <!-- Biometrics -->
     <string name="biometric_prompt_title">Biometrická autentifikácia</string>
     <string name="biometric_prompt_subtitle">Autentifikujte sa pomocou biometrie</string>
     <string name="biometric_prompt_cancel">Zrušiť</string>
-    <string name="biometric_activity_not_available">Aktivita nie je dostupná</string>
 </resources>

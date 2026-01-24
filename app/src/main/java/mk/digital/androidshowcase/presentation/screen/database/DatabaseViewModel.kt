@@ -1,6 +1,8 @@
 package mk.digital.androidshowcase.presentation.screen.database
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,24 +17,26 @@ import mk.digital.androidshowcase.domain.useCase.notes.DeleteNoteUseCase
 import mk.digital.androidshowcase.domain.useCase.notes.InsertNoteUseCase
 import mk.digital.androidshowcase.domain.useCase.notes.SearchNotesUseCase
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
+import javax.inject.Inject
 import kotlin.time.Clock
 
 private const val SEARCH_DEBOUNCE_MS = 300L
 
-class DatabaseViewModel(
+@HiltViewModel
+class DatabaseViewModel @Inject constructor(
+    application: Application,
     private val searchNotesUseCase: SearchNotesUseCase,
     private val insertNoteUseCase: InsertNoteUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val deleteAllNotesUseCase: DeleteAllNotesUseCase,
-) : BaseViewModel<DatabaseUiState>(DatabaseUiState()) {
+) : BaseViewModel<DatabaseUiState>(application, DatabaseUiState()) {
 
     private val searchTrigger = MutableStateFlow(SearchTrigger())
     private var searchJob: Job? = null
     private var debounceJob: Job? = null
 
     @OptIn(FlowPreview::class)
-    override fun onResumed() {
-        super.onResumed()
+    fun onResumed() {
         debounceJob = searchTrigger
             .debounce(SEARCH_DEBOUNCE_MS)
             .onEach { trigger -> executeSearch(trigger.query, trigger.sortOption) }
@@ -41,8 +45,7 @@ class DatabaseViewModel(
         triggerSearch()
     }
 
-    override fun onPaused() {
-        super.onPaused()
+    fun onPaused() {
         debounceJob?.cancel()
         debounceJob = null
         searchJob?.cancel()

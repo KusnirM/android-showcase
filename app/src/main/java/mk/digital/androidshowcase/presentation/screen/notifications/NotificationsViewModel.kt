@@ -1,5 +1,7 @@
 package mk.digital.androidshowcase.presentation.screen.notifications
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.model.Notification
 import mk.digital.androidshowcase.domain.model.NotificationChannel
 import mk.digital.androidshowcase.domain.repository.LocalNotificationService
@@ -7,13 +9,16 @@ import mk.digital.androidshowcase.domain.repository.PushNotificationService
 import mk.digital.androidshowcase.domain.repository.PushPermissionStatus
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
+import javax.inject.Inject
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-class NotificationsViewModel(
+@HiltViewModel
+class NotificationsViewModel @Inject constructor(
+    application: Application,
     private val pushNotificationService: PushNotificationService,
     private val localNotificationService: LocalNotificationService,
-) : BaseViewModel<NotificationsUiState>(NotificationsUiState()) {
+) : BaseViewModel<NotificationsUiState>(application, NotificationsUiState()) {
 
     override fun loadInitialData() {
         newState { it.copy(permissionStatus = pushNotificationService.getPermissionStatus()) }

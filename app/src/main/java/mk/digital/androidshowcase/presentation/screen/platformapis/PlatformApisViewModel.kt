@@ -1,5 +1,7 @@
 package mk.digital.androidshowcase.presentation.screen.platformapis
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.domain.model.Location
@@ -7,11 +9,14 @@ import mk.digital.androidshowcase.domain.repository.BiometricRepository
 import mk.digital.androidshowcase.domain.repository.LocationRepository
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
+import javax.inject.Inject
 
-class PlatformApisViewModel(
+@HiltViewModel
+class PlatformApisViewModel @Inject constructor(
+    application: Application,
     private val locationRepository: LocationRepository,
     private val biometricRepository: BiometricRepository,
-) : BaseViewModel<PlatformApisUiState>(PlatformApisUiState()) {
+) : BaseViewModel<PlatformApisUiState>(application, PlatformApisUiState()) {
 
     private var locationUpdatesJob: Job? = null
 
@@ -57,13 +62,11 @@ class PlatformApisViewModel(
         )
     }
 
-    override fun onResumed() {
-        super.onResumed()
+    fun onResumed() {
         requireState { state -> if (state.shouldTrackLocation) startLocationUpdates() }
     }
 
-    override fun onPaused() {
-        super.onPaused()
+    fun onPaused() {
         requireState { currentState -> newState { it.copy(shouldTrackLocation = currentState.isTrackingLocation) } }
         stopLocationUpdates()
     }

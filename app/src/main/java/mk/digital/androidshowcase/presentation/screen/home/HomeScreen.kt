@@ -6,16 +6,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    router: NavRouter<Route>,
+    viewModel: HomeViewModel = hiltViewModel(),
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    HomeNavEvents(router, viewModel.navEvent)
 
     LazyColumn(
         contentPadding = PaddingValues(
@@ -36,15 +44,14 @@ fun HomeScreen(viewModel: HomeViewModel) {
 }
 
 @Composable
-fun HomeNavEvents(
-    viewModel: HomeViewModel,
-    router: NavRouter<Route>
+private fun HomeNavEvents(
+    router: NavRouter<Route>,
+    navEvent: SharedFlow<NavEvent>
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) {
-        if (it !is HomeNavEvent) return@CollectNavEvents
-        when (it) {
+    CollectNavEvents(navEventFlow = navEvent) { event ->
+        when (event) {
             is HomeNavEvent.ToFeature -> {
-                when (it.featureId) {
+                when (event.featureId) {
                     FeatureId.UI_COMPONENTS -> router.navigateTo(Route.HomeSection.UiComponents)
                     FeatureId.NETWORKING -> router.navigateTo(Route.HomeSection.Networking)
                     FeatureId.STORAGE -> router.navigateTo(Route.HomeSection.Storage)

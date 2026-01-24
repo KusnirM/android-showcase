@@ -1,7 +1,12 @@
 package mk.digital.androidshowcase.presentation.base
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,24 +21,27 @@ import mk.digital.androidshowcase.domain.exceptions.base.BaseException
 import mk.digital.androidshowcase.domain.exceptions.base.UnknownException
 import mk.digital.androidshowcase.domain.useCase.analytics.TrackScreenUseCase
 import mk.digital.androidshowcase.util.Logger
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
-interface ScreenLifecycle {
-    fun onCreated() {}
-    fun onResumed() {}
-    fun onPaused() {}
+@EntryPoint
+@InstallIn(SingletonComponent::class)
+interface BaseViewModelEntryPoint {
+    fun trackScreenUseCase(): TrackScreenUseCase
+    fun logger(): Logger
 }
 
 abstract class BaseViewModel<STATE : Any>(
+    application: Application,
     defaultState: STATE,
-) : ViewModel(), ScreenLifecycle, KoinComponent {
+) : AndroidViewModel(application) {
 
-    private val trackScreenUseCase: TrackScreenUseCase by inject()
-    private val logger: Logger by inject()
+    private val entryPoint: BaseViewModelEntryPoint by lazy {
+        EntryPointAccessors.fromApplication(application, BaseViewModelEntryPoint::class.java)
+    }
+
+    private val trackScreenUseCase: TrackScreenUseCase by lazy { entryPoint.trackScreenUseCase() }
+    protected val logger: Logger by lazy { entryPoint.logger() }
 
     protected val tag = this::class.simpleName
-    private var isInitialized = false
 
     private val _state: MutableStateFlow<STATE> = MutableStateFlow(defaultState)
     val state: StateFlow<STATE> = _state.asStateFlow()
@@ -43,19 +51,12 @@ abstract class BaseViewModel<STATE : Any>(
 
     private val scope get() = viewModelScope
 
-    protected open fun loadInitialData() {}
-
-    override fun onCreated() {
-        if (!isInitialized) {
-            isInitialized = true
-            loadInitialData()
-            logScreenName()
-        }
+    init {
+        logScreenName()
+        loadInitialData()
     }
 
-    override fun onResumed() {}
-
-    override fun onPaused() {}
+    protected open fun loadInitialData() {}
 
     protected fun navigate(event: NavEvent) {
         viewModelScope.launch { _navEvent.emit(event) }

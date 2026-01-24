@@ -14,6 +14,9 @@ import mk.digital.androidshowcase.presentation.foundation.AppIcons
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 data class SettingsState(
     val themeModeState: ThemeModeState = ThemeModeState.SYSTEM,
@@ -37,11 +40,14 @@ enum class ThemeModeState(@get:StringRes val textId: Int, val mode: ThemeMode) {
     }
 }
 
-class SettingsViewModel(
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    application: Application,
     private val getThemeModeUseCase: GetThemeModeUseCase,
     private val setThemeModeUseCase: SetThemeModeUseCase,
     private val analyticsClient: AnalyticsClient,
 ) : BaseViewModel<SettingsState>(
+    application,
     SettingsState()
 ) {
 
@@ -50,7 +56,7 @@ class SettingsViewModel(
         loadCurrentLanguage()
     }
 
-    override fun onResumed() {
+    fun onResumed() {
         loadCurrentLanguage()
     }
 

@@ -23,10 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.repository.PushPermissionStatus
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
@@ -40,7 +43,10 @@ import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
-fun NotificationsScreen(viewModel: NotificationsViewModel) {
+fun NotificationsScreen(
+    router: NavRouter<Route>,
+    viewModel: NotificationsViewModel = hiltViewModel(),
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val permissionRequester = rememberNotificationPermissionRequester { status ->
         viewModel.updatePermissionStatus(status)
@@ -172,6 +178,8 @@ fun NotificationsScreen(viewModel: NotificationsViewModel) {
             }
         }
     }
+
+    NotificationsNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -214,16 +222,13 @@ private fun CardButton(
 }
 
 @Composable
-fun NotificationsNavEvents(
-    viewModel: NotificationsViewModel,
+private fun NotificationsNavEvents(
     router: NavRouter<Route>,
+    navEvent: SharedFlow<NavEvent>,
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) { event ->
-        if (event !is NotificationsNavEvent) return@CollectNavEvents
+    CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is NotificationsNavEvent.OpenSettings -> {
-                router.openNotificationSettings()
-            }
+            is NotificationsNavEvent.OpenSettings -> router.openNotificationSettings()
         }
     }
 }

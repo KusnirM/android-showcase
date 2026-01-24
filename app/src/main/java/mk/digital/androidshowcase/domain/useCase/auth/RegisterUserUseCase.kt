@@ -3,8 +3,9 @@ package mk.digital.androidshowcase.domain.useCase.auth
 import mk.digital.androidshowcase.domain.model.RegisteredUser
 import mk.digital.androidshowcase.domain.repository.AuthRepository
 import mk.digital.androidshowcase.domain.useCase.base.UseCase
+import javax.inject.Inject
 
-class RegisterUserUseCase(
+class RegisterUserUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) : UseCase<RegisterUserUseCase.Params, RegisteredUser>() {
 

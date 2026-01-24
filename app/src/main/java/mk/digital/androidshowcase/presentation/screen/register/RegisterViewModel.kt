@@ -1,16 +1,21 @@
 package mk.digital.androidshowcase.presentation.screen.register
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.exceptions.base.BaseException
 import mk.digital.androidshowcase.domain.useCase.auth.CheckEmailExistsUseCase
 import mk.digital.androidshowcase.domain.useCase.auth.RegisterUserUseCase
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.util.ValidationPatterns
+import javax.inject.Inject
 
-class RegisterViewModel(
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    application: Application,
     private val checkEmailExistsUseCase: CheckEmailExistsUseCase,
     private val registerUserUseCase: RegisterUserUseCase,
-) : BaseViewModel<RegisterUiState>(RegisterUiState()) {
+) : BaseViewModel<RegisterUiState>(application, RegisterUiState()) {
 
     fun onNameChange(name: String) {
         newState { it.copy(name = name, nameError = null) }

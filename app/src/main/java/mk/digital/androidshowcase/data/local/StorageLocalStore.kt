@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.update
 import mk.digital.androidshowcase.data.local.preferences.PersistentPreferences
 import mk.digital.androidshowcase.data.local.preferences.SessionPreferences
 import mk.digital.androidshowcase.domain.model.StorageData
+import javax.inject.Inject
 
 interface StorageLocalStore {
     val data: Flow<StorageData>
@@ -17,7 +18,7 @@ interface StorageLocalStore {
     suspend fun clear()
 }
 
-class StorageLocalStoreImpl(
+class StorageLocalStoreImpl @Inject constructor(
     private val sessionPreferences: SessionPreferences,
     private val persistentPreferences: PersistentPreferences
 ) : StorageLocalStore {

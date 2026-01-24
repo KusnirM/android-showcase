@@ -1,5 +1,7 @@
 package mk.digital.androidshowcase.presentation.screen.calendar
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
@@ -8,12 +10,15 @@ import mk.digital.androidshowcase.domain.model.calendar.SelectionState
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.domain.useCase.calendar.GetTodayDateUseCase
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
+import javax.inject.Inject
 
 private const val DAY_INCREMENT = 1
 
-class CalendarViewModel(
+@HiltViewModel
+class CalendarViewModel @Inject constructor(
+    application: Application,
     private val getTodayDateUseCase: GetTodayDateUseCase,
-) : BaseViewModel<CalendarUiState>(CalendarUiState()) {
+) : BaseViewModel<CalendarUiState>(application, CalendarUiState()) {
 
     override fun loadInitialData() {
         execute(

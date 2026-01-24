@@ -3,8 +3,9 @@ package mk.digital.androidshowcase.data.repository
 import mk.digital.androidshowcase.data.local.preferences.PersistentPreferences
 import mk.digital.androidshowcase.domain.repository.SettingsRepository
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
+import javax.inject.Inject
 
-class SettingsRepositoryImpl(
+class SettingsRepositoryImpl @Inject constructor(
     private val persistentPreferences: PersistentPreferences
 ) : SettingsRepository {
 

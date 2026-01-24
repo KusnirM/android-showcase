@@ -33,9 +33,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.AppPasswordTextField
@@ -57,7 +60,8 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
+    router: NavRouter<Route>,
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
@@ -223,23 +227,19 @@ fun LoginScreen(
 
         Spacer4()
     }
+
+    LoginNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
-fun LoginNavEvents(
-    viewModel: LoginViewModel,
-    router: NavRouter<Route>
+private fun LoginNavEvents(
+    router: NavRouter<Route>,
+    navEvent: SharedFlow<NavEvent>
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) { event ->
-        if (event !is LoginNavEvent) return@CollectNavEvents
+    CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is LoginNavEvent.ToHome -> {
-                router.replaceAll(Route.HomeSection.Home)
-            }
-
-            is LoginNavEvent.ToRegister -> {
-                router.navigateTo(Route.Register)
-            }
+            is LoginNavEvent.ToHome -> router.replaceAll(Route.HomeSection.Home)
+            is LoginNavEvent.ToRegister -> router.navigateTo(Route.Register)
         }
     }
 }

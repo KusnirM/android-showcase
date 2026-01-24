@@ -8,8 +8,9 @@ import mk.digital.androidshowcase.data.database.entity.NoteEntity
 import mk.digital.androidshowcase.domain.model.Note
 import mk.digital.androidshowcase.domain.model.NoteSortOption
 import mk.digital.androidshowcase.domain.repository.NoteRepository
+import javax.inject.Inject
 
-class NoteRepositoryImpl(
+class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao
 ) : NoteRepository {
 

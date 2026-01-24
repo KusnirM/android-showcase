@@ -28,9 +28,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import mk.digital.androidshowcase.R
+import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
+import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
 import mk.digital.androidshowcase.presentation.component.AppPasswordTextField
@@ -49,10 +52,13 @@ import mk.digital.androidshowcase.presentation.foundation.space6
 
 @Composable
 fun RegisterScreen(
-    viewModel: RegisterViewModel,
+    router: NavRouter<Route>,
+    viewModel: RegisterViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
+
+    RegisterNavEvents(router, viewModel.navEvent)
 
     Column(
         modifier = Modifier
@@ -205,12 +211,11 @@ fun RegisterScreen(
 }
 
 @Composable
-fun RegisterNavEvents(
-    viewModel: RegisterViewModel,
-    router: NavRouter<Route>
+private fun RegisterNavEvents(
+    router: NavRouter<Route>,
+    navEvent: SharedFlow<NavEvent>
 ) {
-    CollectNavEvents(navEventFlow = viewModel.navEvent) { event ->
-        if (event !is RegisterNavEvent) return@CollectNavEvents
+    CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
             is RegisterNavEvent.ToHome -> router.replaceAll(Route.HomeSection.Home)
             is RegisterNavEvent.ToLogin -> router.onBack()

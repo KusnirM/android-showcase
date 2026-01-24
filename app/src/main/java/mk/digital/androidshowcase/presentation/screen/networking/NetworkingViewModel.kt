@@ -1,13 +1,18 @@
 package mk.digital.androidshowcase.presentation.screen.networking
 
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.model.User
 import mk.digital.androidshowcase.domain.useCase.GetUsersUseCase
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
+import javax.inject.Inject
 
-class NetworkingViewModel(
+@HiltViewModel
+class NetworkingViewModel @Inject constructor(
+    application: Application,
     private val getUsersUseCase: GetUsersUseCase
-) : BaseViewModel<NetworkingUiState>(NetworkingUiState()) {
+) : BaseViewModel<NetworkingUiState>(application, NetworkingUiState()) {
 
     override fun loadInitialData() {
         fetchUsers()

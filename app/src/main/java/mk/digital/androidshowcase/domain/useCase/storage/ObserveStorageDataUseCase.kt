@@ -5,8 +5,9 @@ import mk.digital.androidshowcase.domain.model.StorageData
 import mk.digital.androidshowcase.domain.repository.StorageRepository
 import mk.digital.androidshowcase.domain.useCase.base.FlowUseCase
 import mk.digital.androidshowcase.domain.useCase.base.None
+import javax.inject.Inject
 
-class ObserveStorageDataUseCase(
+class ObserveStorageDataUseCase @Inject constructor(
     private val storageRepository: StorageRepository
 ) : FlowUseCase<None, StorageData>() {
     override fun run(params: None): Flow<StorageData> = storageRepository.storageData
