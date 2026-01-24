@@ -12,7 +12,8 @@ import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.foundation.AppIcons
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
-import mk.digital.androidshowcase.util.getCurrentLanguageTag
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 
 data class SettingsState(
     val themeModeState: ThemeModeState = ThemeModeState.SYSTEM,
@@ -54,8 +55,9 @@ class SettingsViewModel(
     }
 
     private fun loadCurrentLanguage() {
-        val currentTag = getCurrentLanguageTag()
-        val language = LanguageState.fromTag(currentTag)
+        val appLocales = AppCompatDelegate.getApplicationLocales()
+        val locale = appLocales[0] ?: LocaleListCompat.getAdjustedDefault()[0]
+        val language = LanguageState.fromCode(locale?.language)
         newState { it.copy(currentLanguage = language) }
     }
 
@@ -102,20 +104,14 @@ class SettingsViewModel(
 enum class LanguageState(
     @get:StringRes val stringRes: Int,
     val icon: ImageVector,
-    val tag: String,
+    val code: String,
 ) {
-    SK(R.string.language_sk, AppIcons.FlagSK, "sk-SK"),
-    EN(R.string.language_en, AppIcons.FlagEN, "en-US");
+    SK(R.string.language_sk, AppIcons.FlagSK, "sk"),
+    EN(R.string.language_en, AppIcons.FlagEN, "en");
 
     companion object {
-        fun fromTag(tag: String?): LanguageState =
-            entries.find {
-                it.tag.substringBefore('-') == tag
-                    ?.lowercase()
-                    ?.replace('_', '-')
-                    ?.substringBefore('-')
-            }
-                ?: EN
+        fun fromCode(code: String?): LanguageState =
+            entries.find { it.code == code } ?: EN
     }
 }
 

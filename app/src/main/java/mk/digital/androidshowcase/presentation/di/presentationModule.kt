@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.di
 
+import mk.digital.androidshowcase.presentation.base.router.ExternalRouter
 import mk.digital.androidshowcase.presentation.component.barcode.CodeGenerator
 import mk.digital.androidshowcase.presentation.component.imagepicker.ImagePickerViewModel
 import mk.digital.androidshowcase.presentation.screen.calendar.CalendarViewModel
@@ -14,10 +15,13 @@ import mk.digital.androidshowcase.presentation.screen.scanner.ScannerViewModel
 import mk.digital.androidshowcase.presentation.screen.settings.SettingsViewModel
 import mk.digital.androidshowcase.presentation.screen.storage.StorageViewModel
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val presentationModule = module {
+    singleOf(::ExternalRouter)
+
     factoryOf(::CodeGenerator)
 
     viewModelOf(::HomeViewModel)

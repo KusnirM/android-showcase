@@ -70,7 +70,7 @@ fun LanguageSelector(
                             .fillMaxWidth()
                             .clickable {
                                 showDialog = false
-                                onNavigate(SettingNavEvents.SetLocaleTag(language.tag))
+                                onNavigate(SettingNavEvents.SetLocaleTag(language.code))
                             }
                             .padding(vertical = space4),
                         verticalAlignment = Alignment.CenterVertically,
@@ -79,7 +79,7 @@ fun LanguageSelector(
                             selected = currentLanguage == language,
                             onClick = {
                                 showDialog = false
-                                onNavigate(SettingNavEvents.SetLocaleTag(language.tag))
+                                onNavigate(SettingNavEvents.SetLocaleTag(language.code))
                             }
                         )
                         Image(
