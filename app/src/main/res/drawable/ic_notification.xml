@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Letter K - monochrome notification icon -->
+    <!-- White fill with transparent background for proper status bar rendering -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M6,4 L6,20 L10,20 L10,14 L14,20 L19,20 L13,12 L18,4 L13,4 L10,10 L10,4 Z"/>
+</vector>

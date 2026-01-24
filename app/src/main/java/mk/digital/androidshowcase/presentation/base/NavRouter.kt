@@ -12,10 +12,9 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import mk.digital.androidshowcase.presentation.base.router.ExternalRouter
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import kotlin.getValue
 import kotlin.reflect.KClass
 
-interface NavRouter<T: NavKey> {
+interface NavRouter<T : NavKey> {
     val backStack: NavBackStack<T>
     fun navigateTo(page: T)
     fun <R : Any> navigateTo(page: T, popUpTo: KClass<R>? = null, inclusive: Boolean = false)
@@ -57,7 +56,7 @@ class NavRouterImpl<T : NavKey>(
     }
 
     override fun replaceAll(page: T) {
-        while (backStack.removeLastOrNull() != null) { }
+        backStack.clear()
         backStack.add(page)
     }
 
@@ -80,7 +79,7 @@ class NavRouterImpl<T : NavKey>(
 @Composable
 fun <T : NavKey> rememberNavRouter(
     config: SavedStateConfiguration,
-    initialRoute: T
+    initialRoute: T,
 ): NavRouter<T> {
     val backStack = rememberNavBackStack(config, initialRoute)
     return remember(backStack) {
