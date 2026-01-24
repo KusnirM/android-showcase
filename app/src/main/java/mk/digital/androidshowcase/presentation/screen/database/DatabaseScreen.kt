@@ -21,14 +21,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.model.Note
 import mk.digital.androidshowcase.domain.model.NoteSortOption
-import mk.digital.androidshowcase.presentation.base.LifecycleEffect
+import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.component.AppSearchField
 import mk.digital.androidshowcase.presentation.component.AppTextField
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
@@ -45,13 +44,8 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 import kotlin.time.Instant
 
 @Composable
-fun DatabaseScreen(viewModel: DatabaseViewModel = hiltViewModel()) {
+fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
-    LifecycleEffect(
-        onResume = viewModel::onResumed,
-        onPause = viewModel::onPaused
-    )
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

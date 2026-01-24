@@ -53,8 +53,8 @@ sealed interface Route : NavKey {
         }
 
         @Serializable
-        data object PlatformApis : HomeSection {
-            override val titleRes = R.string.screen_platform_apis
+        data object Apis : HomeSection {
+            override val titleRes = R.string.screen_apis
         }
 
         @Serializable

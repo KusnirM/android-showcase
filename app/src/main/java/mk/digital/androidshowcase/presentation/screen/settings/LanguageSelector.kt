@@ -30,7 +30,7 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 @Composable
 fun LanguageSelector(
     currentLanguage: LanguageState,
-    onNavigate: (SettingNavEvents) -> Unit,
+    onLanguageSelected: (LanguageState) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -70,7 +70,7 @@ fun LanguageSelector(
                             .fillMaxWidth()
                             .clickable {
                                 showDialog = false
-                                onNavigate(SettingNavEvents.SetLocaleTag(language.code))
+                                onLanguageSelected(language)
                             }
                             .padding(vertical = space4),
                         verticalAlignment = Alignment.CenterVertically,
@@ -79,7 +79,7 @@ fun LanguageSelector(
                             selected = currentLanguage == language,
                             onClick = {
                                 showDialog = false
-                                onNavigate(SettingNavEvents.SetLocaleTag(language.code))
+                                onLanguageSelected(language)
                             }
                         )
                         Image(

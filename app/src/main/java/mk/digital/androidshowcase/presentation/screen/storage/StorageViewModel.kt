@@ -1,6 +1,5 @@
 package mk.digital.androidshowcase.presentation.screen.storage
 
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.domain.useCase.storage.ClearCacheUseCase
@@ -13,19 +12,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StorageViewModel @Inject constructor(
-    application: Application,
     private val loadStorageDataUseCase: LoadStorageDataUseCase,
     private val observeStorageDataUseCase: ObserveStorageDataUseCase,
     private val setSessionCounterUseCase: SetSessionCounterUseCase,
     private val setPersistentCounterUseCase: SetPersistentCounterUseCase,
     private val clearCacheUseCase: ClearCacheUseCase
-) : BaseViewModel<StorageUiState>(application, StorageUiState()) {
+) : BaseViewModel<StorageUiState>(StorageUiState()) {
 
     override fun loadInitialData() {
         observe(
             onStart = { loadStorageDataUseCase() },
             flow = observeStorageDataUseCase(),
-            onEach = { data -> newState { it.copy(sessionCounter = data.sessionCounter, persistentCounter = data.persistentCounter) } }
+            onEach = { data ->
+                newState {
+                    it.copy(sessionCounter = data.sessionCounter, persistentCounter = data.persistentCounter)
+                }
+            }
         )
     }
 

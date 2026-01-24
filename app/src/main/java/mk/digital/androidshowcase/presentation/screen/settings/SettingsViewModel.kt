@@ -14,7 +14,6 @@ import mk.digital.androidshowcase.presentation.foundation.AppIcons
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -42,21 +41,17 @@ enum class ThemeModeState(@get:StringRes val textId: Int, val mode: ThemeMode) {
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    application: Application,
     private val getThemeModeUseCase: GetThemeModeUseCase,
     private val setThemeModeUseCase: SetThemeModeUseCase,
     private val analyticsClient: AnalyticsClient,
-) : BaseViewModel<SettingsState>(
-    application,
-    SettingsState()
-) {
+) : BaseViewModel<SettingsState>(SettingsState()) {
 
     override fun loadInitialData() {
         loadThemeMode()
         loadCurrentLanguage()
     }
 
-    fun onResumed() {
+    override fun onResume() {
         loadCurrentLanguage()
     }
 
@@ -92,8 +87,9 @@ class SettingsViewModel @Inject constructor(
         newState { it.copy(showThemeDialog = false) }
     }
 
-    fun onLanguageNavEvent(event: SettingNavEvents) {
-        navigate(event)
+    fun onLanguageSelected(language: LanguageState) {
+        newState { it.copy(currentLanguage = language) }
+        navigate(SettingNavEvents.SetLocaleTag(language.code))
     }
 
     fun logout() {
@@ -125,9 +121,6 @@ sealed interface SettingNavEvents : NavEvent {
 
     // Android
     data class SetLocaleTag(val tag: String) : SettingNavEvents
-
-    // iOS
-    data object ToSettings : SettingNavEvents
 
     data object Logout : SettingNavEvents
 

@@ -1,4 +1,4 @@
-package mk.digital.androidshowcase.presentation.screen.platformapis
+package mk.digital.androidshowcase.presentation.screen.apis
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,18 +30,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
-import mk.digital.androidshowcase.presentation.base.LifecycleEffect
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
+import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
 import mk.digital.androidshowcase.presentation.component.permission.rememberLocationPermissionState
@@ -91,18 +91,13 @@ private fun rememberLocationActionHandler(
 
 @Suppress("CyclomaticComplexMethod", "CognitiveComplexMethod")
 @Composable
-fun PlatformApisScreen(
+fun ApisScreen(
     router: NavRouter<Route>,
-    viewModel: PlatformApisViewModel = hiltViewModel(),
+    viewModel: ApisViewModel = lifecycleAwareViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = LocalSnackbarHostState.current
     val copiedMessage = stringResource(R.string.platform_apis_copied_message)
-
-    LifecycleEffect(
-        onResume = viewModel::onResumed,
-        onPause = viewModel::onPaused
-    )
 
     val handleLocationAction = rememberLocationActionHandler(
         onGetLocation = viewModel::getLocation,
@@ -135,7 +130,7 @@ fun PlatformApisScreen(
         }
 
         item {
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.Share,
                 title = stringResource(R.string.platform_apis_share_title)
             ) {
@@ -147,7 +142,7 @@ fun PlatformApisScreen(
         }
 
         item {
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.Phone,
                 title = stringResource(R.string.platform_apis_dial_title)
             ) {
@@ -159,7 +154,7 @@ fun PlatformApisScreen(
         }
 
         item {
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.Link,
                 title = stringResource(R.string.platform_apis_link_title)
             ) {
@@ -171,7 +166,7 @@ fun PlatformApisScreen(
         }
 
         item {
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.Email,
                 title = stringResource(R.string.platform_apis_email_title)
             ) {
@@ -183,7 +178,7 @@ fun PlatformApisScreen(
         }
 
         item {
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.ContentCopy,
                 title = stringResource(R.string.platform_apis_copy_title)
             ) {
@@ -198,7 +193,7 @@ fun PlatformApisScreen(
             val loadingText = stringResource(R.string.platform_apis_location_loading)
             val errorText = stringResource(R.string.platform_apis_location_error)
             val location = state.location
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.LocationOn,
                 title = stringResource(R.string.platform_apis_location_title)
             ) {
@@ -220,7 +215,7 @@ fun PlatformApisScreen(
         item {
             val errorText = stringResource(R.string.platform_apis_location_updates_error)
             val trackedLocation = state.trackedLocation
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.MyLocation,
                 title = stringResource(R.string.platform_apis_location_updates_title)
             ) {
@@ -251,7 +246,7 @@ fun PlatformApisScreen(
             val notAvailableText = stringResource(R.string.platform_apis_biometrics_not_available)
             val activityNotAvailableText = stringResource(R.string.platform_apis_biometrics_activity_not_available)
             val unknownErrorText = stringResource(R.string.platform_apis_biometrics_unknown_error)
-            PlatformApiCard(
+            ApiCard(
                 icon = Icons.Outlined.Fingerprint,
                 title = stringResource(R.string.platform_apis_biometrics_title)
             ) {
@@ -280,18 +275,20 @@ fun PlatformApisScreen(
         }
     }
 
-    PlatformApisNavEvents(router, viewModel.navEvent)
+    ApisNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
-private fun PlatformApiCard(
+private fun ApiCard(
     icon: ImageVector,
     title: String,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .padding(space4)) {
+    AppElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4)
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.width(space4))
@@ -334,17 +331,22 @@ private fun formatLocationText(lat: Double, lon: Double): String {
 }
 
 @Composable
-private fun PlatformApisNavEvents(
+private fun ApisNavEvents(
     router: NavRouter<Route>,
     navEvent: SharedFlow<NavEvent>,
 ) {
+    val context = LocalContext.current
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is PlatformApisNavEvent.Share -> router.share(event.text)
-            is PlatformApisNavEvent.Dial -> router.dial(event.number)
-            is PlatformApisNavEvent.OpenLink -> router.openLink(event.url)
-            is PlatformApisNavEvent.SendEmail -> router.sendEmail(event.to, event.subject, event.body)
-            is PlatformApisNavEvent.CopyToClipboard -> router.copyToClipboard(event.text)
+            is ApisNavEvent.Share -> router.share(context.getString(event.textRes))
+            is ApisNavEvent.Dial -> router.dial(context.getString(event.numberRes))
+            is ApisNavEvent.OpenLink -> router.openLink(context.getString(event.urlRes))
+            is ApisNavEvent.SendEmail -> router.sendEmail(
+                context.getString(event.toRes),
+                context.getString(event.subjectRes),
+                context.getString(event.bodyRes)
+            )
+            is ApisNavEvent.CopyToClipboard -> router.copyToClipboard(context.getString(event.textRes))
         }
     }
 }

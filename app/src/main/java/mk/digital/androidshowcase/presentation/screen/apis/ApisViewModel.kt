@@ -1,8 +1,9 @@
-package mk.digital.androidshowcase.presentation.screen.platformapis
+package mk.digital.androidshowcase.presentation.screen.apis
 
-import android.app.Application
+import androidx.annotation.StringRes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.domain.model.Location
 import mk.digital.androidshowcase.domain.repository.BiometricRepository
@@ -12,11 +13,10 @@ import mk.digital.androidshowcase.presentation.base.NavEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class PlatformApisViewModel @Inject constructor(
-    application: Application,
+class ApisViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val biometricRepository: BiometricRepository,
-) : BaseViewModel<PlatformApisUiState>(application, PlatformApisUiState()) {
+) : BaseViewModel<ApisUiState>(ApisUiState()) {
 
     private var locationUpdatesJob: Job? = null
 
@@ -25,23 +25,29 @@ class PlatformApisViewModel @Inject constructor(
     }
 
     fun share() {
-        navigate(PlatformApisNavEvent.Share(DEMO_SHARE_TEXT))
+        navigate(ApisNavEvent.Share(R.string.platform_apis_demo_share_text))
     }
 
     fun dial() {
-        navigate(PlatformApisNavEvent.Dial(DEMO_PHONE_NUMBER))
+        navigate(ApisNavEvent.Dial(R.string.platform_apis_demo_phone))
     }
 
     fun openLink() {
-        navigate(PlatformApisNavEvent.OpenLink(DEMO_URL))
+        navigate(ApisNavEvent.OpenLink(R.string.platform_apis_demo_url))
     }
 
     fun sendEmail() {
-        navigate(PlatformApisNavEvent.SendEmail(DEMO_EMAIL, DEMO_EMAIL_SUBJECT, DEMO_EMAIL_BODY))
+        navigate(
+            ApisNavEvent.SendEmail(
+                R.string.platform_apis_demo_email,
+                R.string.platform_apis_demo_email_subject,
+                R.string.platform_apis_demo_email_body
+            )
+        )
     }
 
     fun copyToClipboard() {
-        navigate(PlatformApisNavEvent.CopyToClipboard(DEMO_COPY_TEXT))
+        navigate(ApisNavEvent.CopyToClipboard(R.string.platform_apis_demo_copy_text))
         newState { it.copy(copiedToClipboard = true) }
     }
 
@@ -62,11 +68,11 @@ class PlatformApisViewModel @Inject constructor(
         )
     }
 
-    fun onResumed() {
+    override fun onResume() {
         requireState { state -> if (state.shouldTrackLocation) startLocationUpdates() }
     }
 
-    fun onPaused() {
+    override fun onPause() {
         requireState { currentState -> newState { it.copy(shouldTrackLocation = currentState.isTrackingLocation) } }
         stopLocationUpdates()
     }
@@ -92,7 +98,14 @@ class PlatformApisViewModel @Inject constructor(
             action = { biometricRepository.authenticate() },
             onLoading = { newState { it.copy(biometricsLoading = true, biometricsResult = null) } },
             onSuccess = { result -> newState { it.copy(biometricsLoading = false, biometricsResult = result) } },
-            onError = { error -> newState { it.copy(biometricsLoading = false, biometricsResult = BiometricResult.SystemError(error.message.orEmpty())) } }
+            onError = { error ->
+                newState {
+                    it.copy(
+                        biometricsLoading = false,
+                        biometricsResult = BiometricResult.SystemError(error.message)
+                    )
+                }
+            }
         )
     }
 
@@ -100,19 +113,9 @@ class PlatformApisViewModel @Inject constructor(
         super.onCleared()
         stopLocationUpdates()
     }
-
-    private companion object {
-        private const val DEMO_PHONE_NUMBER = "+1234567890"
-        private const val DEMO_URL = "https://github.com/anthropics/claude-code"
-        private const val DEMO_EMAIL = "example@example.com"
-        private const val DEMO_EMAIL_SUBJECT = "Hello from KMP Showcase"
-        private const val DEMO_EMAIL_BODY = "This is a demo email sent from the KMP Showcase app."
-        private const val DEMO_SHARE_TEXT = "Check out KMP Showcase - a Kotlin Multiplatform demo app!"
-        private const val DEMO_COPY_TEXT = "Text copied from KMP Showcase"
-    }
 }
 
-data class PlatformApisUiState(
+data class ApisUiState(
     val copiedToClipboard: Boolean = false,
     val location: Location? = null,
     val locationLoading: Boolean = false,
@@ -126,10 +129,14 @@ data class PlatformApisUiState(
     val biometricsResult: BiometricResult? = null,
 )
 
-sealed interface PlatformApisNavEvent : NavEvent {
-    data class Share(val text: String) : PlatformApisNavEvent
-    data class Dial(val number: String) : PlatformApisNavEvent
-    data class OpenLink(val url: String) : PlatformApisNavEvent
-    data class SendEmail(val to: String, val subject: String, val body: String) : PlatformApisNavEvent
-    data class CopyToClipboard(val text: String) : PlatformApisNavEvent
+sealed interface ApisNavEvent : NavEvent {
+    data class Share(@param:StringRes val textRes: Int) : ApisNavEvent
+    data class Dial(@param:StringRes val numberRes: Int) : ApisNavEvent
+    data class OpenLink(@param:StringRes val urlRes: Int) : ApisNavEvent
+    data class SendEmail(
+        @param:StringRes val toRes: Int,
+        @param:StringRes val subjectRes: Int,
+        @param:StringRes val bodyRes: Int
+    ) : ApisNavEvent
+    data class CopyToClipboard(@param:StringRes val textRes: Int) : ApisNavEvent
 }

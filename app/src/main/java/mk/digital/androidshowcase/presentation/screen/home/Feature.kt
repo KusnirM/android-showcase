@@ -25,7 +25,7 @@ enum class FeatureId {
     NETWORKING,
     STORAGE,
     DATABASE,
-    PLATFORM_APIS,
+    APIS,
     SCANNER,
     CALENDAR,
     NOTIFICATIONS,
@@ -57,9 +57,9 @@ val showcaseFeatures = listOf(
         icon = Icons.Outlined.Dataset
     ),
     Feature(
-        id = FeatureId.PLATFORM_APIS,
-        titleRes = R.string.feature_platform_apis_title,
-        subtitleRes = R.string.feature_platform_apis_subtitle,
+        id = FeatureId.APIS,
+        titleRes = R.string.feature_apis_title,
+        subtitleRes = R.string.feature_apis_subtitle,
         icon = Icons.Outlined.PhoneAndroid
     ),
     Feature(
