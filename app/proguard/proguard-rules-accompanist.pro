@@ -1,0 +1,2 @@
+-dontwarn com.google.accompanist.**
+-keep class com.google.accompanist.** { *; }

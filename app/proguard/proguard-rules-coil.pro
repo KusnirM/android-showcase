@@ -1,0 +1,3 @@
+-keep class coil3.** { *; }
+-keepclassmembers class coil3.** { *; }
+-dontwarn coil3.**

@@ -1,3 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Android Showcase</string>
+    <string name="welcome">Welcome in the Application</string>
+    <string name="loading">Loading…</string>
+
+    <!-- Common -->
+    <string name="content_description_back">Back</string>
+    <string name="password_show">Show password</string>
+    <string name="password_hide">Hide password</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_retry">Retry</string>
+    <string name="error_title">Error</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Screen Titles -->
+    <string name="screen_home">KMP Showcase</string>
+    <string name="screen_ui_components">UI Components</string>
+    <string name="screen_networking">Networking</string>
+    <string name="screen_storage">Storage</string>
+    <string name="screen_platform_apis">Platform APIs</string>
+    <string name="screen_scanner">Scanner</string>
+    <string name="screen_database">Database</string>
+    <string name="screen_calendar">Calendar</string>
+    <string name="screen_notifications">Notifications</string>
+    <string name="screen_settings">Settings</string>
+
+    <!-- Home Screen Features -->
+    <string name="feature_ui_components_title">UI Components</string>
+    <string name="feature_ui_components_subtitle">Buttons, Cards, Dialogs, Typography</string>
+    <string name="feature_networking_title">Networking</string>
+    <string name="feature_networking_subtitle">Ktor HTTP Client, REST API</string>
+    <string name="feature_storage_title">Storage</string>
+    <string name="feature_storage_subtitle">DataStore, NSUserDefaults</string>
+    <string name="feature_platform_apis_title">Platform APIs</string>
+    <string name="feature_platform_apis_subtitle">Share, Dial, External Links</string>
+    <string name="feature_scanner_title">Scanner</string>
+    <string name="feature_scanner_subtitle">Generate and scan QR codes &amp; barcodes</string>
+    <string name="feature_database_title">Database</string>
+    <string name="feature_database_subtitle">SQLDelight, local persistence</string>
+    <string name="feature_calendar_title">Calendar</string>
+    <string name="feature_calendar_subtitle">Date range picker, Airbnb-style</string>
+    <string name="feature_notifications_title">Notifications</string>
+    <string name="feature_notifications_subtitle">Local and push notifications</string>
+    <string name="feature_login_title">Login</string>
+    <string name="feature_login_subtitle">Email, password validation, biometrics</string>
+
+    <!-- UI Components Showcase -->
+    <string name="section_buttons">Buttons</string>
+    <string name="section_typography">Typography</string>
+    <string name="section_cards">Cards</string>
+    <string name="section_controls">Controls</string>
+    <string name="section_feedback">Feedback</string>
+    <string name="button_contained">Contained Button</string>
+    <string name="button_outlined">Outlined Button</string>
+    <string name="button_text">Text Button</string>
+    <string name="checkbox_label">Checkbox option</string>
+    <string name="dialog_title">Dialog Title</string>
+    <string name="dialog_message">This is a sample dialog message.</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="card_content">This is an elevated card component.</string>
+    <string name="card_flat_content">This is a flat card component.</string>
+    <string name="section_loading">Loading Indicators</string>
+    <string name="section_snackbar">Snackbar</string>
+    <string name="section_bottom_sheet">Bottom Sheet</string>
+    <string name="show_snackbar_default">Default</string>
+    <string name="show_snackbar_success">Success</string>
+    <string name="show_snackbar_error">Error</string>
+    <string name="show_snackbar_warning">Warning</string>
+    <string name="show_bottom_sheet">Show Bottom Sheet</string>
+    <string name="snackbar_message_default">This is a default snackbar</string>
+    <string name="snackbar_message_success">Operation completed successfully!</string>
+    <string name="snackbar_message_error">Something went wrong!</string>
+    <string name="snackbar_message_warning">Please check your input</string>
+    <string name="bottom_sheet_title">Bottom Sheet</string>
+    <string name="bottom_sheet_content">This is sample content inside a bottom sheet.</string>
+    <string name="close">Close</string>
+    <string name="section_dividers">Dividers</string>
+    <string name="section_images">Images</string>
+    <string name="image_description">Sample image loaded with Coil</string>
+    <string name="section_text_fields">Text Fields</string>
+    <string name="text_field_label">Label</string>
+    <string name="text_field_placeholder">Enter text...</string>
+    <string name="section_switches">Switches</string>
+    <string name="switch_label">Enable feature</string>
+    <string name="section_radio_buttons">Radio Buttons</string>
+    <string name="radio_option_1">Option 1</string>
+    <string name="radio_option_2">Option 2</string>
+    <string name="radio_option_3">Option 3</string>
+    <string name="section_chips">Chips</string>
+    <string name="chip_filter">Filter</string>
+    <string name="chip_assist">Assist</string>
+    <string name="chip_input">Input</string>
+    <string name="chip_suggestion">Suggestion</string>
+    <string name="section_fab">Floating Action Button</string>
+    <string name="fab_content_description">Add</string>
+    <string name="section_sliders">Sliders</string>
+    <string name="section_badges">Badges</string>
+    <string name="section_segmented_button">Segmented Button</string>
+    <string name="segment_day">Day</string>
+    <string name="segment_week">Week</string>
+    <string name="segment_month">Month</string>
+
+    <!-- Database Screen -->
+    <string name="database_title">Database</string>
+    <string name="database_subtitle">SQLDelight local database demo</string>
+    <string name="database_title_label">Title</string>
+    <string name="database_title_hint">Enter note title...</string>
+    <string name="database_content_label">Content</string>
+    <string name="database_content_hint">Enter note content...</string>
+    <string name="database_add_note">Add Note</string>
+    <string name="database_clear_all">Delete All Notes</string>
+    <string name="database_empty">No notes yet. Add your first note above!</string>
+    <string name="database_search_hint">Search notes...</string>
+    <string name="database_filter">Filter</string>
+    <string name="database_delete">Delete</string>
+    <string name="database_sort_by">Sort by</string>
+    <string name="database_sort_date_newest">Date (newest)</string>
+    <string name="database_sort_date_oldest">Date (oldest)</string>
+    <string name="database_sort_title_asc">Title (A-Z)</string>
+    <string name="database_sort_title_desc">Title (Z-A)</string>
+
+    <!-- Calendar Screen -->
+    <string name="calendar_title">Date Range Picker</string>
+    <string name="calendar_subtitle">Select a date range by clicking two dates</string>
+    <string name="calendar_selected_range">Selected Range</string>
+    <string name="calendar_clear_selection">Clear Selection</string>
+    <string name="calendar_header_format">%1$s %2$d</string>
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_next_month">Next month</string>
+    <!-- Weekday labels (short) -->
+    <string name="calendar_weekday_mon">Mo</string>
+    <string name="calendar_weekday_tue">Tu</string>
+    <string name="calendar_weekday_wed">We</string>
+    <string name="calendar_weekday_thu">Th</string>
+    <string name="calendar_weekday_fri">Fr</string>
+    <string name="calendar_weekday_sat">Sa</string>
+    <string name="calendar_weekday_sun">Su</string>
+    <!-- Month names -->
+    <string name="calendar_month_january">January</string>
+    <string name="calendar_month_february">February</string>
+    <string name="calendar_month_march">March</string>
+    <string name="calendar_month_april">April</string>
+    <string name="calendar_month_may">May</string>
+    <string name="calendar_month_june">June</string>
+    <string name="calendar_month_july">July</string>
+    <string name="calendar_month_august">August</string>
+    <string name="calendar_month_september">September</string>
+    <string name="calendar_month_october">October</string>
+    <string name="calendar_month_november">November</string>
+    <string name="calendar_month_december">December</string>
+    <!-- Range selection text -->
+    <string name="calendar_no_dates_selected">No dates selected</string>
+    <string name="calendar_start_date">Start: %1$s</string>
+    <string name="calendar_single_date">Single date: %1$s</string>
+    <string name="calendar_range_format">From: %1$s\nTo: %2$s</string>
+
+    <!-- Networking Screen -->
+    <string name="networking_title">Users</string>
+    <string name="networking_subtitle">Fetched from JSONPlaceholder API</string>
+    <string name="networking_error_title">Error</string>
+    <string name="networking_retry">Retry</string>
+    <string name="networking_empty">No users found</string>
+
+    <!-- Storage Screen -->
+    <string name="storage_title">Local Storage</string>
+    <string name="storage_subtitle">Session vs Persistent storage demo</string>
+    <string name="storage_session_label">Session Counter</string>
+    <string name="storage_session_hint">Cleared when you tap "Clear Session"</string>
+    <string name="storage_persistent_label">Persistent Counter</string>
+    <string name="storage_persistent_hint">Persists until app is uninstalled</string>
+    <string name="storage_clear_session">Clear Session</string>
+
+    <!-- Platform APIs Screen -->
+    <string name="platform_apis_title">Platform APIs</string>
+    <string name="platform_apis_subtitle">Native platform integrations via expect/actual</string>
+    <string name="platform_apis_share_title">Share</string>
+    <string name="platform_apis_share_hint">Share content using the native share sheet</string>
+    <string name="platform_apis_share_action">Share Text</string>
+    <string name="platform_apis_dial_title">Phone Dialer</string>
+    <string name="platform_apis_dial_hint">Open the phone dialer with a number</string>
+    <string name="platform_apis_dial_action">Open Dialer</string>
+    <string name="platform_apis_link_title">External Link</string>
+    <string name="platform_apis_link_hint">Open a URL in the default browser</string>
+    <string name="platform_apis_link_action">Open Link</string>
+    <string name="platform_apis_email_title">Email</string>
+    <string name="platform_apis_email_hint">Compose an email using the default mail app</string>
+    <string name="platform_apis_email_action">Send Email</string>
+    <string name="platform_apis_copy_title">Clipboard</string>
+    <string name="platform_apis_copy_hint">Copy text to the system clipboard</string>
+    <string name="platform_apis_copy_action">Copy Text</string>
+    <string name="platform_apis_copied_message">Copied to clipboard</string>
+    <string name="platform_apis_demo_share_text">Check out this KMP Showcase app!</string>
+    <string name="platform_apis_demo_copy_text">Copied from KMP Showcase</string>
+    <string name="platform_apis_demo_email_subject">KMP Showcase</string>
+    <string name="platform_apis_demo_email_body">Hello from KMP Showcase app!</string>
+    <string name="platform_apis_location_title">Location</string>
+    <string name="platform_apis_location_hint">Get current device location using GPS</string>
+    <string name="platform_apis_location_action">Get Location</string>
+    <string name="platform_apis_location_loading">Getting location…</string>
+    <string name="platform_apis_location_result">Lat: %1$s, Lon: %2$s</string>
+    <string name="platform_apis_location_error">Unable to get location</string>
+    <string name="platform_apis_location_updates_title">Location Updates</string>
+    <string name="platform_apis_location_updates_hint">Observe real-time location changes</string>
+    <string name="platform_apis_location_updates_start">Start Tracking</string>
+    <string name="platform_apis_location_updates_stop">Stop Tracking</string>
+    <string name="platform_apis_location_updates_error">Unable to track location</string>
+    <string name="platform_apis_biometrics_title">Biometrics</string>
+    <string name="platform_apis_biometrics_hint">Authenticate using fingerprint or Face ID</string>
+    <string name="platform_apis_biometrics_action">Authenticate</string>
+    <string name="platform_apis_biometrics_success">Authentication successful</string>
+    <string name="platform_apis_biometrics_failed">Authentication failed</string>
+    <string name="platform_apis_biometrics_unknown_error">Unknown error</string>
+    <string name="platform_apis_biometrics_cancelled">Authentication cancelled</string>
+    <string name="platform_apis_biometrics_not_available">Biometrics not available on this device</string>
+    <string name="platform_apis_biometrics_activity_not_available">Activity not available</string>
+
+    <!-- Scanner Screen -->
+    <string name="scanner_title">Scanner</string>
+    <string name="scanner_subtitle">Generate and scan QR codes &amp; barcodes</string>
+    <string name="scanner_mode_generate">Generate</string>
+    <string name="scanner_mode_scan">Scan</string>
+    <string name="scanner_format_qr">QR Code</string>
+    <string name="scanner_format_barcode">Barcode</string>
+    <string name="scanner_input_label">Text to encode</string>
+    <string name="scanner_input_hint">Enter text or URL...</string>
+    <string name="scanner_generate_button">Generate</string>
+    <string name="scanner_result_title">Generated Code</string>
+    <string name="scanner_hint">Point camera at a QR code or barcode</string>
+    <string name="scanner_scanned_result">Scanned Result</string>
+    <string name="scanner_scan_again">Scan Again</string>
+
+    <!-- Notifications Screen -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_subtitle">Test local and push notifications</string>
+    <string name="notifications_permission_title">Permission</string>
+    <string name="notifications_permission_granted">Status: Granted</string>
+    <string name="notifications_permission_denied">Status: Denied</string>
+    <string name="notifications_permission_unknown">Status: Not determined</string>
+    <string name="notifications_request_permission">Request Permission</string>
+    <string name="notifications_token_title">Push Token</string>
+    <string name="notifications_token">%1$s</string>
+    <string name="notifications_no_token">Not available yet</string>
+    <string name="notifications_refresh_token">Refresh</string>
+    <string name="notifications_log_token">Log</string>
+    <string name="notifications_send_title">Send Test Notifications</string>
+    <string name="notifications_send_reminder">Reminder</string>
+    <string name="notifications_send_promo">Promo</string>
+    <string name="notifications_reminder_title">Reminder</string>
+    <string name="notifications_reminder_message">Don\'t forget to check your calendar!</string>
+    <string name="notifications_promo_title">Special Offer</string>
+    <string name="notifications_promo_message">Check out our latest deals!</string>
+    <string name="notifications_last_sent">Last sent: %1$s</string>
+    <string name="notifications_cancel_title">Manage Notifications</string>
+    <string name="notifications_cancel_all">Cancel All</string>
+    <string name="notifications_open_settings">Open Settings</string>
+    <string name="notifications_last_received">Last received: %1$s</string>
+
+    <!-- Permissions -->
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_allow">Allow</string>
+    <string name="permission_cancel">Cancel</string>
+    <string name="camera_permission_denied">Camera access was denied. Please enable it in Settings to scan codes.</string>
+    <string name="camera_permission_rationale">Camera access is needed to scan QR codes and barcodes.</string>
+    <string name="gallery_permission_denied">Photo library access was denied. Please enable it in Settings.</string>
+    <string name="gallery_permission_rationale">Photo library access is needed to select images.</string>
+    <string name="location_permission_denied">Location access was denied. Please enable it in Settings.</string>
+    <string name="location_permission_rationale">Location access is needed for this feature.</string>
+    <string name="notification_permission_denied">Notification access was denied. Please enable it in Settings.</string>
+    <string name="notification_permission_rationale">Notification access is needed to receive alerts and updates.</string>
+
+    <!-- Image Picker -->
+    <string name="imagepicker_title">Select Image Source</string>
+    <string name="imagepicker_camera">Camera</string>
+    <string name="imagepicker_gallery">Gallery</string>
+
+    <!-- Settings -->
+    <string name="settings_profile">My Profile</string>
+    <string name="settings_profile_photo">Profile Photo</string>
+    <string name="settings_profile_photo_hint">Tap to change</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_value">English</string>
+    <string name="settings_version">Version %1$s (%2$s)</string>
+    <string name="settings_logout">Logout</string>
+
+    <!-- Login Screen -->
+    <string name="screen_login">Login</string>
+    <string name="login_title">Welcome Back</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_email_placeholder">Enter your email</string>
+    <string name="login_email_empty">Email is required</string>
+    <string name="login_email_invalid">Invalid email format</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_password_placeholder">Enter your password</string>
+    <string name="login_password_empty">Password is required</string>
+    <string name="login_password_short">Password must be at least 8 characters</string>
+    <string name="login_password_weak">Password must contain uppercase, lowercase, number and special character</string>
+    <string name="login_button">Login</string>
+    <string name="login_skip">Skip</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_register">Register</string>
+    <string name="login_or_divider">or</string>
+    <string name="login_biometric_hint_fingerprint">Use fingerprint</string>
+    <string name="login_biometric_hint_faceid">Use Face ID</string>
+    <string name="login_test_account_hint">Test Account</string>
+    <string name="login_test_account_fill">Fill</string>
+
+    <!-- Register Screen -->
+    <string name="screen_register">Register</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_name_label">Name</string>
+    <string name="register_name_placeholder">Enter your name</string>
+    <string name="register_name_empty">Name is required</string>
+    <string name="register_name_short">Name must be at least 2 characters</string>
+    <string name="register_email_label">Email</string>
+    <string name="register_email_placeholder">Enter your email</string>
+    <string name="register_email_empty">Email is required</string>
+    <string name="register_email_invalid">Invalid email format</string>
+    <string name="register_email_already_exists">Email already registered</string>
+    <string name="register_password_label">Password</string>
+    <string name="register_password_placeholder">Enter your password</string>
+    <string name="register_password_empty">Password is required</string>
+    <string name="register_password_short">Password must be at least 8 characters</string>
+    <string name="register_password_weak">Password must contain uppercase, lowercase, number and special character</string>
+    <string name="register_confirm_password_label">Confirm Password</string>
+    <string name="register_confirm_password_placeholder">Confirm your password</string>
+    <string name="register_confirm_password_empty">Please confirm your password</string>
+    <string name="register_confirm_password_mismatch">Passwords do not match</string>
+    <string name="register_button">Register</string>
+    <string name="register_has_account">Already have an account?</string>
+    <string name="register_login">Login</string>
+
+    <!-- Languages (not translated - always in native language) -->
+    <string name="language_sk" translatable="false">Slovenčina</string>
+    <string name="language_en" translatable="false">English</string>
 </resources>

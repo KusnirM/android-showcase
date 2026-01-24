@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Vitaj v aplikácii</string>
+    <string name="loading">Načítava sa…</string>
+
+    <!-- Common -->
+    <string name="content_description_back">Späť</string>
+    <string name="password_show">Zobraziť heslo</string>
+    <string name="password_hide">Skryť heslo</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Zrušiť</string>
+    <string name="button_retry">Skúsiť znova</string>
+    <string name="error_title">Chyba</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Domov</string>
+    <string name="nav_settings">Nastavenia</string>
+
+    <!-- Screen Titles -->
+    <string name="screen_home">KMP Showcase</string>
+    <string name="screen_ui_components">UI Komponenty</string>
+    <string name="screen_networking">Sieť</string>
+    <string name="screen_storage">Úložisko</string>
+    <string name="screen_platform_apis">Platform APIs</string>
+    <string name="screen_scanner">Skener</string>
+    <string name="screen_database">Databáza</string>
+    <string name="screen_settings">Nastavenia</string>
+
+    <!-- Home Screen Features -->
+    <string name="feature_ui_components_title">UI Komponenty</string>
+    <string name="feature_ui_components_subtitle">Tlačidlá, Karty, Dialógy, Typografia</string>
+    <string name="feature_networking_title">Sieť</string>
+    <string name="feature_networking_subtitle">Ktor HTTP Klient, REST API</string>
+    <string name="feature_storage_title">Úložisko</string>
+    <string name="feature_storage_subtitle">DataStore, NSUserDefaults</string>
+    <string name="feature_platform_apis_title">Platform APIs</string>
+    <string name="feature_platform_apis_subtitle">Zdieľanie, Volanie, Externé odkazy</string>
+    <string name="feature_scanner_title">Skener</string>
+    <string name="feature_scanner_subtitle">Generovanie a skenovanie QR kódov a čiarových kódov</string>
+    <string name="feature_database_title">Databáza</string>
+    <string name="feature_database_subtitle">SQLDelight, lokálna perzistencia</string>
+    <string name="feature_login_title">Prihlásenie</string>
+    <string name="feature_login_subtitle">Email, validácia hesla, biometria</string>
+
+    <!-- UI Components Showcase -->
+    <string name="section_buttons">Tlačidlá</string>
+    <string name="section_typography">Typografia</string>
+    <string name="section_cards">Karty</string>
+    <string name="section_controls">Ovládacie prvky</string>
+    <string name="section_feedback">Spätná väzba</string>
+    <string name="button_contained">Vyplnené tlačidlo</string>
+    <string name="button_outlined">Orámované tlačidlo</string>
+    <string name="button_text">Textové tlačidlo</string>
+    <string name="checkbox_label">Možnosť zaškrtávacieho políčka</string>
+    <string name="dialog_title">Názov dialógu</string>
+    <string name="dialog_message">Toto je ukážková správa dialógu.</string>
+    <string name="show_dialog">Zobraziť dialóg</string>
+    <string name="card_content">Toto je vyvýšený komponent karty.</string>
+    <string name="card_flat_content">Toto je plochý komponent karty.</string>
+    <string name="section_loading">Indikátory načítavania</string>
+    <string name="section_snackbar">Snackbar</string>
+    <string name="section_bottom_sheet">Spodný panel</string>
+    <string name="show_snackbar_default">Predvolený</string>
+    <string name="show_snackbar_success">Úspech</string>
+    <string name="show_snackbar_error">Chyba</string>
+    <string name="show_snackbar_warning">Varovanie</string>
+    <string name="show_bottom_sheet">Zobraziť spodný panel</string>
+    <string name="snackbar_message_default">Toto je predvolený snackbar</string>
+    <string name="snackbar_message_success">Operácia bola úspešne dokončená!</string>
+    <string name="snackbar_message_error">Niečo sa pokazilo!</string>
+    <string name="snackbar_message_warning">Skontrolujte prosím váš vstup</string>
+    <string name="bottom_sheet_title">Spodný panel</string>
+    <string name="bottom_sheet_content">Toto je ukážkový obsah v spodnom paneli.</string>
+    <string name="close">Zavrieť</string>
+    <string name="section_dividers">Oddeľovače</string>
+    <string name="section_images">Obrázky</string>
+    <string name="image_description">Ukážkový obrázok načítaný cez Coil</string>
+    <string name="section_text_fields">Textové polia</string>
+    <string name="text_field_label">Popis</string>
+    <string name="text_field_placeholder">Zadajte text...</string>
+    <string name="section_switches">Prepínače</string>
+    <string name="switch_label">Povoliť funkciu</string>
+    <string name="section_radio_buttons">Prepínacie tlačidlá</string>
+    <string name="radio_option_1">Možnosť 1</string>
+    <string name="radio_option_2">Možnosť 2</string>
+    <string name="radio_option_3">Možnosť 3</string>
+    <string name="section_chips">Štítky</string>
+    <string name="chip_filter">Filter</string>
+    <string name="chip_assist">Pomoc</string>
+    <string name="chip_input">Vstup</string>
+    <string name="chip_suggestion">Návrh</string>
+    <string name="section_fab">Plávajúce akčné tlačidlo</string>
+    <string name="fab_content_description">Pridať</string>
+    <string name="section_sliders">Posuvníky</string>
+    <string name="section_badges">Odznaky</string>
+    <string name="section_segmented_button">Segmentované tlačidlo</string>
+    <string name="segment_day">Deň</string>
+    <string name="segment_week">Týždeň</string>
+    <string name="segment_month">Mesiac</string>
+
+    <!-- Database Screen -->
+    <string name="database_title">Databáza</string>
+    <string name="database_subtitle">Demo lokálnej SQLDelight databázy</string>
+    <string name="database_title_label">Nadpis</string>
+    <string name="database_title_hint">Zadajte nadpis poznámky...</string>
+    <string name="database_content_label">Obsah</string>
+    <string name="database_content_hint">Zadajte obsah poznámky...</string>
+    <string name="database_add_note">Pridať poznámku</string>
+    <string name="database_clear_all">Vymazať všetky poznámky</string>
+    <string name="database_empty">Zatiaľ žiadne poznámky. Pridajte prvú poznámku vyššie!</string>
+    <string name="database_search_hint">Hľadať poznámky...</string>
+    <string name="database_filter">Filter</string>
+    <string name="database_delete">Vymazať</string>
+    <string name="database_sort_by">Zoradiť podľa</string>
+    <string name="database_sort_date_newest">Dátum (najnovšie)</string>
+    <string name="database_sort_date_oldest">Dátum (najstaršie)</string>
+    <string name="database_sort_title_asc">Názov (A-Z)</string>
+    <string name="database_sort_title_desc">Názov (Z-A)</string>
+
+    <!-- Calendar Screen -->
+    <string name="screen_calendar">Kalendár</string>
+    <string name="feature_calendar_title">Kalendár</string>
+    <string name="feature_calendar_subtitle">Výber rozsahu dátumov, štýl Airbnb</string>
+    <string name="calendar_title">Výber rozsahu dátumov</string>
+    <string name="calendar_subtitle">Vyberte rozsah dátumov kliknutím na dva dátumy</string>
+    <string name="calendar_selected_range">Vybraný rozsah</string>
+    <string name="calendar_clear_selection">Vymazať výber</string>
+    <string name="calendar_header_format">%1$s %2$d</string>
+    <string name="calendar_previous_month">Predchádzajúci mesiac</string>
+    <string name="calendar_next_month">Nasledujúci mesiac</string>
+    <!-- Weekday labels (short) -->
+    <string name="calendar_weekday_mon">Po</string>
+    <string name="calendar_weekday_tue">Ut</string>
+    <string name="calendar_weekday_wed">St</string>
+    <string name="calendar_weekday_thu">Št</string>
+    <string name="calendar_weekday_fri">Pi</string>
+    <string name="calendar_weekday_sat">So</string>
+    <string name="calendar_weekday_sun">Ne</string>
+    <!-- Month names -->
+    <string name="calendar_month_january">Január</string>
+    <string name="calendar_month_february">Február</string>
+    <string name="calendar_month_march">Marec</string>
+    <string name="calendar_month_april">Apríl</string>
+    <string name="calendar_month_may">Máj</string>
+    <string name="calendar_month_june">Jún</string>
+    <string name="calendar_month_july">Júl</string>
+    <string name="calendar_month_august">August</string>
+    <string name="calendar_month_september">September</string>
+    <string name="calendar_month_october">Október</string>
+    <string name="calendar_month_november">November</string>
+    <string name="calendar_month_december">December</string>
+    <!-- Range selection text -->
+    <string name="calendar_no_dates_selected">Žiadne dátumy nevybraté</string>
+    <string name="calendar_start_date">Začiatok: %1$s</string>
+    <string name="calendar_single_date">Jeden dátum: %1$s</string>
+    <string name="calendar_range_format">Od: %1$s\nDo: %2$s</string>
+
+    <!-- Networking Screen -->
+    <string name="networking_title">Používatelia</string>
+    <string name="networking_subtitle">Načítané z JSONPlaceholder API</string>
+    <string name="networking_error_title">Chyba</string>
+    <string name="networking_retry">Skúsiť znova</string>
+    <string name="networking_empty">Žiadni používatelia neboli nájdení</string>
+
+    <!-- Storage Screen -->
+    <string name="storage_title">Lokálne úložisko</string>
+    <string name="storage_subtitle">Demo session vs trvalé úložisko</string>
+    <string name="storage_session_label">Počítadlo relácie</string>
+    <string name="storage_session_hint">Vymazané po kliknutí na "Vymazať reláciu"</string>
+    <string name="storage_persistent_label">Trvalé počítadlo</string>
+    <string name="storage_persistent_hint">Uchované až do odinštalovania aplikácie</string>
+    <string name="storage_clear_session">Vymazať reláciu</string>
+
+    <!-- Platform APIs Screen -->
+    <string name="platform_apis_title">Platform APIs</string>
+    <string name="platform_apis_subtitle">Natívne integrácie cez expect/actual</string>
+    <string name="platform_apis_share_title">Zdieľanie</string>
+    <string name="platform_apis_share_hint">Zdieľanie obsahu cez natívny zdieľací panel</string>
+    <string name="platform_apis_share_action">Zdieľať text</string>
+    <string name="platform_apis_dial_title">Telefón</string>
+    <string name="platform_apis_dial_hint">Otvoriť vytáčanie s číslom</string>
+    <string name="platform_apis_dial_action">Otvoriť vytáčanie</string>
+    <string name="platform_apis_link_title">Externý odkaz</string>
+    <string name="platform_apis_link_hint">Otvoriť URL v predvolenom prehliadači</string>
+    <string name="platform_apis_link_action">Otvoriť odkaz</string>
+    <string name="platform_apis_email_title">Email</string>
+    <string name="platform_apis_email_hint">Napísať email cez predvolenú mailovú aplikáciu</string>
+    <string name="platform_apis_email_action">Odoslať email</string>
+    <string name="platform_apis_copy_title">Schránka</string>
+    <string name="platform_apis_copy_hint">Kopírovať text do systémovej schránky</string>
+    <string name="platform_apis_copy_action">Kopírovať text</string>
+    <string name="platform_apis_copied_message">Skopírované do schránky</string>
+    <string name="platform_apis_demo_share_text">Pozri si túto KMP Showcase aplikáciu!</string>
+    <string name="platform_apis_demo_copy_text">Skopírované z KMP Showcase</string>
+    <string name="platform_apis_demo_email_subject">KMP Showcase</string>
+    <string name="platform_apis_demo_email_body">Ahoj z KMP Showcase aplikácie!</string>
+    <string name="platform_apis_location_title">Poloha</string>
+    <string name="platform_apis_location_hint">Získať aktuálnu polohu zariadenia pomocou GPS</string>
+    <string name="platform_apis_location_action">Získať polohu</string>
+    <string name="platform_apis_location_loading">Získavam polohu…</string>
+    <string name="platform_apis_location_result">Lat: %1$s, Lon: %2$s</string>
+    <string name="platform_apis_location_error">Nepodarilo sa získať polohu</string>
+    <string name="platform_apis_location_updates_title">Sledovanie polohy</string>
+    <string name="platform_apis_location_updates_hint">Sledovanie zmien polohy v reálnom čase</string>
+    <string name="platform_apis_location_updates_start">Spustiť sledovanie</string>
+    <string name="platform_apis_location_updates_stop">Zastaviť sledovanie</string>
+    <string name="platform_apis_location_updates_error">Nepodarilo sa sledovať polohu</string>
+    <string name="platform_apis_biometrics_title">Biometria</string>
+    <string name="platform_apis_biometrics_hint">Autentifikácia pomocou odtlačku prsta alebo Face ID</string>
+    <string name="platform_apis_biometrics_action">Autentifikovať</string>
+    <string name="platform_apis_biometrics_success">Autentifikácia úspešná</string>
+    <string name="platform_apis_biometrics_failed">Autentifikácia zlyhala</string>
+    <string name="platform_apis_biometrics_unknown_error">Neznáma chyba</string>
+    <string name="platform_apis_biometrics_cancelled">Autentifikácia zrušená</string>
+    <string name="platform_apis_biometrics_not_available">Biometria nie je na tomto zariadení dostupná</string>
+    <string name="platform_apis_biometrics_activity_not_available">Aktivita nie je dostupná</string>
+
+    <!-- Scanner Screen -->
+    <string name="scanner_title">Skener</string>
+    <string name="scanner_subtitle">Generovanie a skenovanie QR kódov a čiarových kódov</string>
+    <string name="scanner_mode_generate">Generovať</string>
+    <string name="scanner_mode_scan">Skenovať</string>
+    <string name="scanner_format_qr">QR kód</string>
+    <string name="scanner_format_barcode">Čiarový kód</string>
+    <string name="scanner_input_label">Text na zakódovanie</string>
+    <string name="scanner_input_hint">Zadajte text alebo URL...</string>
+    <string name="scanner_generate_button">Generovať</string>
+    <string name="scanner_result_title">Vygenerovaný kód</string>
+    <string name="scanner_hint">Nasmerujte kameru na QR kód alebo čiarový kód</string>
+    <string name="scanner_scanned_result">Naskenovaný výsledok</string>
+    <string name="scanner_scan_again">Skenovať znova</string>
+
+    <!-- Permissions -->
+    <string name="permission_required">Vyžaduje sa povolenie</string>
+    <string name="permission_allow">Povoliť</string>
+    <string name="permission_cancel">Zrušiť</string>
+    <string name="camera_permission_denied">Prístup ku kamere bol zamietnutý. Povoľte ho v Nastaveniach pre skenovanie kódov.</string>
+    <string name="camera_permission_rationale">Prístup ku kamere je potrebný na skenovanie QR kódov a čiarových kódov.</string>
+    <string name="gallery_permission_denied">Prístup k fotogalérii bol zamietnutý. Povoľte ho v Nastaveniach.</string>
+    <string name="gallery_permission_rationale">Prístup k fotogalérii je potrebný na výber obrázkov.</string>
+    <string name="location_permission_denied">Prístup k polohe bol zamietnutý. Povoľte ho v Nastaveniach.</string>
+    <string name="location_permission_rationale">Prístup k polohe je potrebný pre túto funkciu.</string>
+
+    <!-- Image Picker -->
+    <string name="imagepicker_title">Vybrať zdroj obrázka</string>
+    <string name="imagepicker_camera">Fotoaparát</string>
+    <string name="imagepicker_gallery">Galéria</string>
+
+    <!-- Login Screen -->
+    <string name="screen_login">Prihlásenie</string>
+    <string name="login_title">Vitajte späť</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_email_placeholder">Zadajte váš email</string>
+    <string name="login_email_empty">Email je povinný</string>
+    <string name="login_email_invalid">Neplatný formát emailu</string>
+    <string name="login_password_label">Heslo</string>
+    <string name="login_password_placeholder">Zadajte vaše heslo</string>
+    <string name="login_password_empty">Heslo je povinné</string>
+    <string name="login_password_short">Heslo musí mať aspoň 8 znakov</string>
+    <string name="login_password_weak">Heslo musí obsahovať veľké písmeno, malé písmeno, číslo a špeciálny znak</string>
+    <string name="login_button">Prihlásiť sa</string>
+    <string name="login_skip">Preskočiť</string>
+    <string name="login_no_account">Nemáte účet?</string>
+    <string name="login_register">Registrovať</string>
+    <string name="login_or_divider">alebo</string>
+    <string name="login_biometric_hint_fingerprint">Použite odtlačok prsta</string>
+    <string name="login_biometric_hint_faceid">Použite Face ID</string>
+    <string name="login_test_account_hint">Testovací účet</string>
+    <string name="login_test_account_fill">Vyplniť</string>
+
+    <!-- Register Screen -->
+    <string name="screen_register">Registrácia</string>
+    <string name="register_title">Vytvoriť účet</string>
+    <string name="register_name_label">Meno</string>
+    <string name="register_name_placeholder">Zadajte vaše meno</string>
+    <string name="register_name_empty">Meno je povinné</string>
+    <string name="register_name_short">Meno musí mať aspoň 2 znaky</string>
+    <string name="register_email_label">Email</string>
+    <string name="register_email_placeholder">Zadajte váš email</string>
+    <string name="register_email_empty">Email je povinný</string>
+    <string name="register_email_invalid">Neplatný formát emailu</string>
+    <string name="register_email_already_exists">Email je už zaregistrovaný</string>
+    <string name="register_password_label">Heslo</string>
+    <string name="register_password_placeholder">Zadajte vaše heslo</string>
+    <string name="register_password_empty">Heslo je povinné</string>
+    <string name="register_password_short">Heslo musí mať aspoň 8 znakov</string>
+    <string name="register_password_weak">Heslo musí obsahovať veľké písmeno, malé písmeno, číslo a špeciálny znak</string>
+    <string name="register_confirm_password_label">Potvrdiť heslo</string>
+    <string name="register_confirm_password_placeholder">Potvrďte vaše heslo</string>
+    <string name="register_confirm_password_empty">Prosím potvrďte vaše heslo</string>
+    <string name="register_confirm_password_mismatch">Heslá sa nezhodujú</string>
+    <string name="register_button">Registrovať</string>
+    <string name="register_has_account">Už máte účet?</string>
+    <string name="register_login">Prihlásiť sa</string>
+
+    <!-- Settings -->
+    <string name="settings_profile">Môj profil</string>
+    <string name="settings_profile_photo">Profilová fotka</string>
+    <string name="settings_profile_photo_hint">Klepni pre zmenu</string>
+    <string name="settings_appearance">Vzhľad</string>
+    <string name="settings_theme">Téma</string>
+    <string name="settings_theme_light">Svetlá</string>
+    <string name="settings_theme_dark">Tmavá</string>
+    <string name="settings_theme_system">Systémová</string>
+    <string name="settings_language">Jazyk</string>
+    <string name="settings_language_value">Slovenčina</string>
+    <string name="settings_version">Verzia %1$s (%2$s)</string>
+    <string name="settings_logout">Odhlásiť sa</string>
+
+</resources>
