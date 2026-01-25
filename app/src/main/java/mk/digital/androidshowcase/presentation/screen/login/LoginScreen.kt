@@ -265,7 +265,12 @@ private fun LoginNavEvents(
 ) {
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is LoginNavEvent.ToHome -> router.replaceAll(Route.HomeSection.Home)
+            is LoginNavEvent.ToHome -> router.navigateTo(
+                Route.HomeSection.Home,
+                popUpTo = Route.Login::class,
+                inclusive = true
+            )
+
             is LoginNavEvent.ToRegister -> router.navigateTo(Route.Register)
         }
     }

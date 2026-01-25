@@ -16,19 +16,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import androidx.savedstate.serialization.SavedStateConfiguration
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
+import kotlinx.coroutines.flow.Flow
 import mk.digital.androidshowcase.R
+import mk.digital.androidshowcase.data.push.DeepLinkHandler
 import mk.digital.androidshowcase.presentation.base.AppCallbacks
 import mk.digital.androidshowcase.presentation.base.NavRouter
 import mk.digital.androidshowcase.presentation.base.Route
@@ -67,34 +65,18 @@ data class MainViewState(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
 )
 
-private val saveStateConfiguration = SavedStateConfiguration {
-    serializersModule = SerializersModule {
-        polymorphic(NavKey::class) {
-            subclass(Login.serializer())
-            subclass(Register.serializer())
-            subclass(HomeSection.Home.serializer())
-            subclass(HomeSection.UiComponents.serializer())
-            subclass(HomeSection.Networking.serializer())
-            subclass(HomeSection.Storage.serializer())
-            subclass(HomeSection.Apis.serializer())
-            subclass(HomeSection.Scanner.serializer())
-            subclass(HomeSection.Database.serializer())
-            subclass(HomeSection.Calendar.serializer())
-            subclass(HomeSection.Notifications.serializer())
-            subclass(Settings.serializer())
-        }
-    }
-}
-
 @Suppress("CognitiveComplexMethod")
 @Composable
 fun MainView(
     state: MainViewState = MainViewState(),
     appCallbacks: AppCallbacks = AppCallbacks(),
+    deepLinks: Flow<String>,
 ) {
-    val router: NavRouter<Route> = rememberNavRouter(saveStateConfiguration, Login, appCallbacks)
+    val router: NavRouter<Route> = rememberNavRouter(appCallbacks)
     val currentRoute: Route = router.backStack.last()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    DeepLinkEffect(router, deepLinks)
 
     AppTheme(themeMode = state.themeMode) {
         CompositionLocalProvider(LocalSnackbarHostState provides snackbarHostState) {
@@ -180,6 +162,29 @@ fun MainView(
                             )
                         )
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DeepLinkEffect(
+    router: NavRouter<Route>,
+    deepLinks: Flow<String>,
+) {
+    LaunchedEffect(Unit) {
+        deepLinks.collect { deepLink ->
+            DeepLinkHandler.parseDeepLink(deepLink)?.let { route ->
+                when (route) {
+                    is HomeSection -> if (route != HomeSection.Home) {
+                        router.navigateTo(route, popUpTo = HomeSection.Home::class)
+                    }
+
+                    is Settings -> router.navigateTo(route, popUpTo = HomeSection.Home::class)
+
+                    Login,
+                    Register -> router.navigateTo(route, popUpTo = HomeSection.Home::class, inclusive = true)
                 }
             }
         }

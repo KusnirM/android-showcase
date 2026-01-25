@@ -28,10 +28,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import mk.digital.androidshowcase.R
 import kotlinx.coroutines.flow.SharedFlow
+import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
@@ -50,9 +53,6 @@ import mk.digital.androidshowcase.presentation.foundation.space12
 import mk.digital.androidshowcase.presentation.foundation.space2
 import mk.digital.androidshowcase.presentation.foundation.space4
 import mk.digital.androidshowcase.presentation.foundation.space6
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 @Composable
 fun RegisterScreen(
@@ -242,7 +242,12 @@ private fun RegisterNavEvents(
 ) {
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
-            is RegisterNavEvent.ToHome -> router.replaceAll(Route.HomeSection.Home)
+            is RegisterNavEvent.ToHome -> router.navigateTo(
+                Route.HomeSection.Home,
+                popUpTo = Route.Register::class,
+                inclusive = true
+            )
+
             is RegisterNavEvent.ToLogin -> router.onBack()
         }
     }

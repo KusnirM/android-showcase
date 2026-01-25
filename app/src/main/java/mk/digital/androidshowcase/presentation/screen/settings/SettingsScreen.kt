@@ -21,15 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.presentation.base.CollectNavEvents
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import mk.digital.androidshowcase.presentation.base.NavRouter
-import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.base.Route
+import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.component.AppAlertDialog
 import mk.digital.androidshowcase.presentation.component.AppRadioButton
 import mk.digital.androidshowcase.presentation.component.AvatarState
@@ -45,6 +44,7 @@ import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBody
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
@@ -299,7 +299,12 @@ private fun SettingsNavEvents(
     CollectNavEvents(navEventFlow = navEvent) { event ->
         when (event) {
             is SettingNavEvents.SetLocaleTag -> router.setLocale(event.tag)
-            is SettingNavEvents.Logout -> router.replaceAll(Route.Login)
+            is SettingNavEvents.Logout -> router.navigateTo(
+                Route.Login,
+                popUpTo = Route.HomeSection.Home::class,
+                inclusive = true
+            )
+
             is SettingNavEvents.ThemeChanged -> router.setThemeMode(event.mode)
         }
     }

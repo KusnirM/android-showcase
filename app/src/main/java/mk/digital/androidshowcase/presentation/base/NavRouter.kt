@@ -9,6 +9,13 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.savedstate.serialization.SavedStateConfiguration
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
+import mk.digital.androidshowcase.presentation.base.Route.HomeSection
+import mk.digital.androidshowcase.presentation.base.Route.Login
+import mk.digital.androidshowcase.presentation.base.Route.Register
+import mk.digital.androidshowcase.presentation.base.Route.Settings
 import mk.digital.androidshowcase.presentation.foundation.ThemeMode
 import kotlin.reflect.KClass
 
@@ -19,7 +26,6 @@ interface NavRouter<T : NavKey> {
     fun navigateTo(page: T)
     fun <R : Any> navigateTo(page: T, popUpTo: KClass<R>? = null, inclusive: Boolean = false)
     fun onBack()
-    fun replaceAll(page: T)
 
     // External actions
     fun openLink(url: String)
@@ -59,11 +65,6 @@ class NavRouterImpl<T : NavKey>(
         backStack.removeLastOrNull()
     }
 
-    override fun replaceAll(page: T) {
-        backStack.clear()
-        backStack.add(page)
-    }
-
     override fun openLink(url: String) = callbacks.openLink(url)
     override fun dial(number: String) = callbacks.dial(number)
     override fun share(text: String) = callbacks.share(text)
@@ -77,11 +78,9 @@ class NavRouterImpl<T : NavKey>(
 @Suppress("UNCHECKED_CAST")
 @Composable
 fun <T : NavKey> rememberNavRouter(
-    config: SavedStateConfiguration,
-    initialRoute: T,
     appCallbacks: AppCallbacks = AppCallbacks(),
 ): NavRouter<T> {
-    val backStack = rememberNavBackStack(config, initialRoute)
+    val backStack = rememberNavBackStack(saveStateConfiguration, Login)
     return remember(backStack, appCallbacks) {
         NavRouterImpl(backStack as NavBackStack<T>, appCallbacks)
     }
@@ -92,3 +91,22 @@ fun <T : NavKey> rememberNavEntryDecorators(): List<NavEntryDecorator<T>> = list
     rememberSaveableStateHolderNavEntryDecorator(),
     rememberViewModelStoreNavEntryDecorator()
 )
+
+private val saveStateConfiguration = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclass(Login.serializer())
+            subclass(Register.serializer())
+            subclass(HomeSection.Home.serializer())
+            subclass(HomeSection.UiComponents.serializer())
+            subclass(HomeSection.Networking.serializer())
+            subclass(HomeSection.Storage.serializer())
+            subclass(HomeSection.Apis.serializer())
+            subclass(HomeSection.Scanner.serializer())
+            subclass(HomeSection.Database.serializer())
+            subclass(HomeSection.Calendar.serializer())
+            subclass(HomeSection.Notifications.serializer())
+            subclass(Settings.serializer())
+        }
+    }
+}

@@ -33,12 +33,14 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
+        handleDeepLinkIntent(intent)
         setContent {
             val mainState by mainViewModel.state.collectAsStateWithLifecycle()
             MainView(
                 state = MainViewState(themeMode = mainState.themeMode),
+                deepLinks = pushService.deepLinks,
                 appCallbacks = AppCallbacks(
                     openLink = externalRouter::openLink,
                     dial = externalRouter::dial,
@@ -62,9 +64,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleDeepLinkIntent(intent: Intent?) {
-        intent?.getStringExtra(LocalNotificationServiceImpl.EXTRA_DEEP_LINK)?.let { deepLink ->
-            pushService.onDeepLinkReceived(deepLink)
-        }
+        val notificationExtrasDeepLink = intent?.getStringExtra(LocalNotificationServiceImpl.EXTRA_DEEP_LINK)
+        val uriDeepLink = intent?.data?.toString()
+        val deepLink = notificationExtrasDeepLink ?: uriDeepLink ?: return
+        pushService.onDeepLinkReceived(deepLink.trim())
     }
 }
 

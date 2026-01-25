@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AndroidShowcase"
+rootProject.name = "Android Showcase"
 include(":app")
