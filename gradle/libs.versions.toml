@@ -60,8 +60,10 @@ googleServices = "4.4.4"
 googleServicesLocation = "21.3.0"
 
 # Testing
+junit4 = "4.13.2"
 junitJupiter = "6.0.2"
 mockk = "1.14.7"
+paparazzi = "2.0.0-alpha04"
 
 # Code Quality
 detekt = "1.23.8"
@@ -148,11 +150,13 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 google-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "googleServicesLocation" }
 
-# Testing
+junit4 = { module = "junit:junit", version.ref = "junit4" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+paparazzi = {group = "app.cash.paparazzi", name = "paparazzi", version.ref = "paparazzi" }
 
 # Code Quality
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "detektCompose" }
@@ -176,5 +180,9 @@ fb-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "fireba
 firebase-distribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseDistribution" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
+# Testing
+paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+
 # Code Quality
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+

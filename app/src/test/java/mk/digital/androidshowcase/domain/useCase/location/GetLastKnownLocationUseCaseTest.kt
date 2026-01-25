@@ -5,9 +5,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import mk.digital.androidshowcase.domain.model.Location
 import mk.digital.androidshowcase.domain.repository.LocationRepository
-import mk.digital.androidshowcase.domain.useCase.base.BaseTest
+import mk.digital.androidshowcase.base.BaseTest
 import mk.digital.androidshowcase.domain.useCase.base.invoke
-import mk.digital.androidshowcase.domain.useCase.base.test
+import mk.digital.androidshowcase.base.test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

@@ -111,7 +111,6 @@ sealed interface NotificationsNavEvent : NavEvent {
 
 data class NotificationsUiState(
     val permissionStatus: PushPermissionStatus = PushPermissionStatus.NOT_DETERMINED,
-    val permissionLoading: Boolean = false,
     val pushToken: String? = null,
     val tokenRefreshing: Boolean = false,
     val lastSentNotification: String? = null,

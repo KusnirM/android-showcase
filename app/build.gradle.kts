@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.fb.crashlytics)
     alias(libs.plugins.firebase.distribution)
+    alias(libs.plugins.paparazzi)
 }
 
 
@@ -83,10 +84,6 @@ android {
             }
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -94,6 +91,7 @@ android {
 }
 
 kotlin {
+    jvmToolchain(21)
     compilerOptions {
         optIn.addAll(
             "androidx.compose.material3.ExperimentalMaterial3Api",
@@ -106,9 +104,17 @@ kotlin {
     }
 }
 
-//keep for tests: JUnit 5
+//keep for tests: JUnit 5 + Vintage for JUnit4 (Paparazzi)
 tasks.withType<Test> {
     useJUnitPlatform()
+
+    // Filter screenshot tests when using -PscreenshotOnly flag
+    // Usage: ./gradlew recordPaparazziDebug -PscreenshotOnly
+    if (project.hasProperty("PscreenshotOnly")) {
+        filter {
+            includeTestsMatching("*ScreenshotTest*")
+        }
+    }
 }
 
 dependencies {
@@ -199,10 +205,13 @@ dependencies {
     implementation(libs.firebase.messaging)
 
     // Testing
+    testImplementation(libs.junit4)
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.junit.vintage.engine)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
+    testImplementation(libs.paparazzi)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)

@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.screen.notifications
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -23,6 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.SharedFlow
@@ -39,6 +43,7 @@ import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Sp
 import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBodyLargeNeutral80
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
@@ -52,6 +57,30 @@ fun NotificationsScreen(
         viewModel.updatePermissionStatus(status)
     }
 
+    NotificationsNavEvents(router, viewModel.navEvent)
+    NotificationsScreen(
+        state = state,
+        onRequestPermission = permissionRequester.request,
+        onRefreshToken = viewModel::refreshToken,
+        onLogToken = viewModel::logToken,
+        onSendReminder = viewModel::sendReminderNotification,
+        onSendPromo = viewModel::sendPromoNotification,
+        onOpenSettings = viewModel::openNotificationSettings,
+        onCancelAll = viewModel::cancelAllNotifications
+    )
+}
+
+@Composable
+internal fun NotificationsScreen(
+    state: NotificationsUiState,
+    onRequestPermission: () -> Unit = {},
+    onRefreshToken: () -> Unit = {},
+    onLogToken: () -> Unit = {},
+    onSendReminder: (String, String) -> Unit = { _, _ -> },
+    onSendPromo: (String, String) -> Unit = { _, _ -> },
+    onOpenSettings: () -> Unit = {},
+    onCancelAll: () -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
@@ -86,8 +115,7 @@ fun NotificationsScreen(
                 if (state.permissionStatus != PushPermissionStatus.GRANTED) {
                     CardButton(
                         text = stringResource(R.string.notifications_request_permission),
-                        onClick = permissionRequester.request,
-                        enabled = !state.permissionLoading
+                        onClick = onRequestPermission,
                     )
                 }
             }
@@ -108,13 +136,13 @@ fun NotificationsScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(space4)) {
                     OutlinedButton(
                         text = stringResource(R.string.notifications_refresh_token),
-                        onClick = viewModel::refreshToken,
+                        onClick = onRefreshToken,
                         modifier = Modifier.weight(1f),
                         enabled = !state.tokenRefreshing
                     )
                     OutlinedButton(
                         text = stringResource(R.string.notifications_log_token),
-                        onClick = viewModel::logToken,
+                        onClick = onLogToken,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -139,13 +167,13 @@ fun NotificationsScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(space4)) {
                     OutlinedButton(
                         text = stringResource(R.string.notifications_send_reminder),
-                        onClick = { viewModel.sendReminderNotification(reminderTitle, reminderMessage) },
+                        onClick = { onSendReminder(reminderTitle, reminderMessage) },
                         modifier = Modifier.weight(1f),
                         enabled = state.permissionStatus == PushPermissionStatus.GRANTED
                     )
                     OutlinedButton(
                         text = stringResource(R.string.notifications_send_promo),
-                        onClick = { viewModel.sendPromoNotification(promoTitle, promoMessage) },
+                        onClick = { onSendPromo(promoTitle, promoMessage) },
                         modifier = Modifier.weight(1f),
                         enabled = state.permissionStatus == PushPermissionStatus.GRANTED
                     )
@@ -166,20 +194,18 @@ fun NotificationsScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(space4)) {
                     OutlinedButton(
                         text = stringResource(R.string.notifications_open_settings),
-                        onClick = viewModel::openNotificationSettings,
+                        onClick = onOpenSettings,
                         modifier = Modifier.weight(1f)
                     )
                     OutlinedButton(
                         text = stringResource(R.string.notifications_cancel_all),
-                        onClick = viewModel::cancelAllNotifications,
+                        onClick = onCancelAll,
                         modifier = Modifier.weight(1f)
                     )
                 }
             }
         }
     }
-
-    NotificationsNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -188,9 +214,11 @@ private fun NotificationCard(
     title: String,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    AppElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .padding(space4)) {
+    AppElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4)
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.width(space4))
@@ -211,13 +239,11 @@ private fun NotificationCard(
 private fun CardButton(
     text: String,
     onClick: () -> Unit,
-    enabled: Boolean = true
 ) {
     OutlinedButton(
         text = text,
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
-        enabled = enabled
     )
 }
 
@@ -231,4 +257,27 @@ private fun NotificationsNavEvents(
             is NotificationsNavEvent.OpenSettings -> router.openNotificationSettings()
         }
     }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun NotificationsScreenPreview(
+    @PreviewParameter(NotificationsScreenPreviewParams::class) state: NotificationsUiState
+) {
+    AppTheme {
+        NotificationsScreen(state = state)
+    }
+}
+
+internal class NotificationsScreenPreviewParams : PreviewParameterProvider<NotificationsUiState> {
+    override val values = sequenceOf(
+        NotificationsUiState(permissionStatus = PushPermissionStatus.GRANTED),
+        NotificationsUiState(
+            pushToken = "fcm_token_example_12345",
+            tokenRefreshing = true,
+            lastSentNotification = "today",
+            lastReceivedNotification = "yesterday"
+        )
+    )
 }

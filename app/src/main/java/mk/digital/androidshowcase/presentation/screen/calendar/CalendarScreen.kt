@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.screen.calendar
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,8 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.datetime.LocalDate
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.domain.model.calendar.DateRange
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
@@ -22,6 +27,7 @@ import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Sp
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space16
 import mk.digital.androidshowcase.presentation.foundation.space4
@@ -29,7 +35,19 @@ import mk.digital.androidshowcase.presentation.foundation.space4
 @Composable
 fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    CalendarScreen(
+        state = state,
+        onDateClick = viewModel::onDateClick,
+        onClearSelection = viewModel::clearSelection
+    )
+}
 
+@Composable
+internal fun CalendarScreen(
+    state: CalendarUiState,
+    onDateClick: (LocalDate) -> Unit = {},
+    onClearSelection: () -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
@@ -56,7 +74,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
                 ) {
                     CalendarView(
                         selectedRange = state.selectedRange,
-                        onDateClick = viewModel::onDateClick,
+                        onDateClick = onDateClick,
                         today = today,
                         disabledDates = state.disabledDates,
                         minDate = state.minDate,
@@ -82,7 +100,7 @@ fun CalendarScreen(viewModel: CalendarViewModel = hiltViewModel()) {
         item {
             OutlinedButton(
                 text = stringResource(R.string.calendar_clear_selection),
-                onClick = viewModel::clearSelection,
+                onClick = onClearSelection,
             )
         }
     }
@@ -99,4 +117,36 @@ private fun buildRangeText(range: DateRange): String {
         start == end -> stringResource(R.string.calendar_single_date, start.toString())
         else -> stringResource(R.string.calendar_range_format, start.toString(), end.toString())
     }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun CalendarScreenPreview(
+    @PreviewParameter(CalendarScreenPreviewParams::class) state: CalendarUiState
+) {
+    AppTheme {
+        CalendarScreen(state = state)
+    }
+}
+
+internal class CalendarScreenPreviewParams : PreviewParameterProvider<CalendarUiState> {
+    private val year = 2025
+    private val month = 1
+    private val today = LocalDate(year, month, 15)
+
+    override val values = sequenceOf(
+        CalendarUiState(today = today),
+        CalendarUiState(
+            today = today,
+            selectedRange = DateRange(
+                startDate = LocalDate(year, month, 10),
+                endDate = LocalDate(year, month, 20)
+            ),
+            disabledDates = setOf(
+                LocalDate(year, month, 7),
+                LocalDate(year, month, 21)
+            )
+        ),
+    )
 }

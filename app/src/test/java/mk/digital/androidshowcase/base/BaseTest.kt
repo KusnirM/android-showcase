@@ -1,4 +1,4 @@
-package mk.digital.androidshowcase.domain.useCase.base
+package mk.digital.androidshowcase.base
 
 import io.mockk.MockKAnnotations
 import org.junit.jupiter.api.BeforeEach

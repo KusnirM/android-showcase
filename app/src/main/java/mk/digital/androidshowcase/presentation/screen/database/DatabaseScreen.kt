@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.screen.database
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -30,6 +34,8 @@ import mk.digital.androidshowcase.domain.model.NoteSortOption
 import mk.digital.androidshowcase.presentation.base.lifecycleAwareViewModel
 import mk.digital.androidshowcase.presentation.component.AppSearchField
 import mk.digital.androidshowcase.presentation.component.AppTextField
+import mk.digital.androidshowcase.presentation.component.ErrorView
+import mk.digital.androidshowcase.presentation.component.LoadingView
 import mk.digital.androidshowcase.presentation.component.buttons.ContainedButton
 import mk.digital.androidshowcase.presentation.component.buttons.OutlinedButton
 import mk.digital.androidshowcase.presentation.component.cards.AppElevatedCard
@@ -39,6 +45,7 @@ import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBod
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.labelMedium.TextLabelMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 import kotlin.time.Instant
@@ -46,7 +53,33 @@ import kotlin.time.Instant
 @Composable
 fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    DatabaseScreen(
+        state = state,
+        onSearchQueryChanged = viewModel::onSearchQueryChanged,
+        onSortOptionChanged = viewModel::onSortOptionChanged,
+        onToggleFilterMenu = viewModel::toggleFilterMenu,
+        onDismissFilterMenu = viewModel::dismissFilterMenu,
+        onTitleChanged = viewModel::onTitleChanged,
+        onContentChanged = viewModel::onContentChanged,
+        onAddNote = viewModel::addNote,
+        onDeleteNote = viewModel::deleteNote,
+        onDeleteAllNotes = viewModel::deleteAllNotes
+    )
+}
 
+@Composable
+internal fun DatabaseScreen(
+    state: DatabaseUiState,
+    onSearchQueryChanged: (String) -> Unit = {},
+    onSortOptionChanged: (NoteSortOption) -> Unit = {},
+    onToggleFilterMenu: () -> Unit = {},
+    onDismissFilterMenu: () -> Unit = {},
+    onTitleChanged: (String) -> Unit = {},
+    onContentChanged: (String) -> Unit = {},
+    onAddNote: () -> Unit = {},
+    onDeleteNote: (Long) -> Unit = {},
+    onDeleteAllNotes: () -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
@@ -60,12 +93,12 @@ fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
         item {
             SearchBar(
                 query = state.searchQuery,
-                onQueryChanged = viewModel::onSearchQueryChanged,
+                onQueryChanged = onSearchQueryChanged,
                 sortOption = state.sortOption,
-                onSortOptionChanged = viewModel::onSortOptionChanged,
+                onSortOptionChanged = onSortOptionChanged,
                 showFilterMenu = state.showFilterMenu,
-                onToggleFilterMenu = viewModel::toggleFilterMenu,
-                onDismissFilterMenu = viewModel::dismissFilterMenu
+                onToggleFilterMenu = onToggleFilterMenu,
+                onDismissFilterMenu = onDismissFilterMenu
             )
         }
 
@@ -73,13 +106,21 @@ fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
             AddNoteCard(
                 title = state.newNoteTitle,
                 content = state.newNoteContent,
-                onTitleChanged = viewModel::onTitleChanged,
-                onContentChanged = viewModel::onContentChanged,
-                onAddClick = viewModel::addNote
+                onTitleChanged = onTitleChanged,
+                onContentChanged = onContentChanged,
+                onAddClick = onAddNote
             )
         }
 
-        if (state.notes.isEmpty() && !state.isLoading) {
+        if (state.error && state.notes.isEmpty()) {
+            item {
+                ErrorView(message = stringResource(R.string.database_error))
+            }
+        } else if (state.isLoading && state.notes.isEmpty()) {
+            item {
+                LoadingView()
+            }
+        } else if (state.notes.isEmpty()) {
             item {
                 TextBodyMediumNeutral80(stringResource(R.string.database_empty))
             }
@@ -88,7 +129,7 @@ fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
         items(items = state.notes, key = { it.id }) { note ->
             NoteCard(
                 note = note,
-                onDeleteClick = { viewModel.deleteNote(note.id) }
+                onDeleteClick = { onDeleteNote(note.id) }
             )
         }
 
@@ -96,7 +137,7 @@ fun DatabaseScreen(viewModel: DatabaseViewModel = lifecycleAwareViewModel()) {
             item {
                 OutlinedButton(
                     text = stringResource(R.string.database_clear_all),
-                    onClick = viewModel::deleteAllNotes
+                    onClick = onDeleteAllNotes
                 )
             }
         }
@@ -182,9 +223,11 @@ private fun AddNoteCard(
     onContentChanged: (String) -> Unit,
     onAddClick: () -> Unit,
 ) {
-    AppElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .padding(space4)) {
+    AppElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4)
+    ) {
         AppTextField(
             value = title,
             onValueChange = onTitleChanged,
@@ -214,9 +257,11 @@ private fun NoteCard(
     note: Note,
     onDeleteClick: () -> Unit,
 ) {
-    AppElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .padding(space4)) {
+    AppElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(space4)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -247,4 +292,34 @@ private fun formatTimestamp(timestamp: Long): String {
     return "${localDateTime.date} ${localDateTime.hour.toString().padStart(2, '0')}:${
         localDateTime.minute.toString().padStart(2, '0')
     }"
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun DatabaseScreenPreview(
+    @PreviewParameter(DatabaseScreenPreviewParams::class) state: DatabaseUiState
+) {
+    AppTheme {
+        DatabaseScreen(state = state)
+    }
+}
+
+internal class DatabaseScreenPreviewParams : PreviewParameterProvider<DatabaseUiState> {
+    override val values = sequenceOf(
+        DatabaseUiState(isLoading = true),
+        DatabaseUiState(error = true),
+        DatabaseUiState(
+            notes = listOf(
+                Note(id = 1, title = "title", content = "content", createdAt = 0),
+                Note(
+                    id = 2, title = "title2", content = "content2", createdAt = 1769344378
+                ),
+            ),
+            newNoteTitle = "New Note",
+            newNoteContent = "Content",
+            sortOption = NoteSortOption.DATE_ASC,
+            showFilterMenu = true
+        )
+    )
 }

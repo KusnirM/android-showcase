@@ -17,7 +17,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.SharedFlow
 import mk.digital.androidshowcase.R
@@ -59,6 +63,34 @@ fun SettingsScreen(
         else -> AvatarState.Empty
     }
 
+    SettingsNavEvents(router, viewModel.navEvent)
+    SettingsScreen(
+        state = state,
+        avatarState = avatarState,
+        onProfilePhotoClick = imagePickerViewModel::showDialog,
+        onThemeClick = viewModel::showThemeDialog,
+        onThemeSelected = viewModel::setThemeMode,
+        onThemeDismiss = viewModel::hideThemeDialog,
+        onLanguageSelected = viewModel::onLanguageSelected,
+        onCrashClick = viewModel::triggerTestCrash,
+        onLogout = viewModel::logout
+    )
+
+    ImagePickerView(viewModel = imagePickerViewModel)
+}
+
+@Composable
+fun SettingsScreen(
+    state: SettingsState,
+    avatarState: AvatarState = AvatarState.Empty,
+    onProfilePhotoClick: () -> Unit = {},
+    onThemeClick: () -> Unit = {},
+    onThemeSelected: (ThemeModeState) -> Unit = {},
+    onThemeDismiss: () -> Unit = {},
+    onLanguageSelected: (LanguageState) -> Unit = {},
+    onCrashClick: () -> Unit = {},
+    onLogout: () -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
@@ -76,7 +108,7 @@ fun SettingsScreen(
         item {
             AppElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { imagePickerViewModel.showDialog() }
+                onClick = onProfilePhotoClick
             ) {
                 ProfileItem(
                     avatarState = avatarState,
@@ -93,7 +125,7 @@ fun SettingsScreen(
         item {
             AppElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { viewModel.showThemeDialog() }
+                onClick = onThemeClick
             ) {
                 SettingsItem(
                     icon = {
@@ -111,7 +143,7 @@ fun SettingsScreen(
         item {
             LanguageSelector(
                 currentLanguage = state.currentLanguage,
-                onLanguageSelected = viewModel::onLanguageSelected
+                onLanguageSelected = onLanguageSelected
             )
         }
 
@@ -119,7 +151,7 @@ fun SettingsScreen(
             item {
                 AppElevatedCard(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = viewModel::triggerTestCrash
+                    onClick = onCrashClick
                 ) {
                     SettingsItem(
                         icon = {
@@ -145,26 +177,22 @@ fun SettingsScreen(
         item {
             AppTextButtonError(
                 text = stringResource(R.string.settings_logout),
-                onClick = viewModel::logout,
+                onClick = onLogout,
                 modifier = Modifier.fillMaxWidth()
             )
         }
     }
 
-    ImagePickerView(viewModel = imagePickerViewModel)
-
     if (state.showThemeDialog) {
         ThemeSelectionDialog(
             currentTheme = state.themeModeState,
             onThemeSelected = { themeModeState ->
-                viewModel.setThemeMode(themeModeState)
-                viewModel.hideThemeDialog()
+                onThemeSelected(themeModeState)
+                onThemeDismiss()
             },
-            onDismiss = viewModel::hideThemeDialog
+            onDismiss = onThemeDismiss
         )
     }
-
-    SettingsNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -275,4 +303,23 @@ private fun SettingsNavEvents(
             is SettingNavEvents.ThemeChanged -> router.setThemeMode(event.mode)
         }
     }
+}
+
+@Preview
+@Preview(uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SettingsScreenPreview(
+    @PreviewParameter(SettingsScreenPreviewParams::class) state: SettingsState
+) {
+    AppTheme {
+        SettingsScreen(state = state)
+    }
+}
+
+internal class SettingsScreenPreviewParams : PreviewParameterProvider<SettingsState> {
+    override val values = sequenceOf(
+        SettingsState(),
+        SettingsState(themeModeState = ThemeModeState.DARK, currentLanguage = LanguageState.SK),
+        SettingsState(showThemeDialog = true)
+    )
 }

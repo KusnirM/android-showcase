@@ -32,6 +32,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,6 +57,7 @@ import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBod
 import mk.digital.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.appColorScheme
 import mk.digital.androidshowcase.presentation.foundation.space2
 import mk.digital.androidshowcase.presentation.foundation.space4
@@ -64,6 +68,31 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LoginNavEvents(router, viewModel.navEvent)
+    LoginScreen(
+        state = state,
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onLogin = viewModel::login,
+        onSkip = viewModel::skip,
+        onRegister = viewModel::toRegister,
+        onBiometricAuth = viewModel::authenticateWithBiometrics,
+        onFillTestAccount = viewModel::fillTestAccount
+    )
+}
+
+@Composable
+fun LoginScreen(
+    state: LoginUiState = LoginUiState(),
+    onEmailChange: (String) -> Unit = {},
+    onPasswordChange: (String) -> Unit = {},
+    onLogin: () -> Unit = {},
+    onSkip: () -> Unit = {},
+    onRegister: () -> Unit = {},
+    onBiometricAuth: () -> Unit = {},
+    onFillTestAccount: () -> Unit = {}
+) {
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -79,7 +108,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            TextButton(onClick = viewModel::skip) {
+            TextButton(onClick = onSkip) {
                 TextButtonPrimary(stringResource(R.string.login_skip))
             }
         }
@@ -93,7 +122,7 @@ fun LoginScreen(
         // Email field
         AppTextField(
             value = state.email,
-            onValueChange = viewModel::onEmailChange,
+            onValueChange = onEmailChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.login_email_label),
             placeholder = stringResource(R.string.login_email_placeholder),
@@ -122,7 +151,7 @@ fun LoginScreen(
         // Password field
         AppPasswordTextField(
             value = state.password,
-            onValueChange = viewModel::onPasswordChange,
+            onValueChange = onPasswordChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.login_password_label),
             placeholder = stringResource(R.string.login_password_placeholder),
@@ -137,7 +166,7 @@ fun LoginScreen(
             keyboardActions = KeyboardActions(
                 onDone = {
                     focusManager.clearFocus()
-                    viewModel.login()
+                    onLogin()
                 }
             )
         )
@@ -149,7 +178,7 @@ fun LoginScreen(
             text = stringResource(R.string.login_button),
             onClick = {
                 focusManager.clearFocus()
-                viewModel.login()
+                onLogin()
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -161,7 +190,7 @@ fun LoginScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextBodyMediumNeutral80(stringResource(R.string.login_no_account))
-            TextButton(onClick = viewModel::toRegister) {
+            TextButton(onClick = onRegister) {
                 TextButtonPrimary(stringResource(R.string.login_register))
             }
         }
@@ -188,7 +217,7 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             } else {
-                BiometricView(modifier = Modifier, onClick = viewModel::authenticateWithBiometrics)
+                BiometricView(modifier = Modifier, onClick = onBiometricAuth)
             }
         }
 
@@ -218,7 +247,7 @@ fun LoginScreen(
                 Spacer2()
 
                 OutlinedButton(
-                    onClick = viewModel::fillTestAccount
+                    onClick = onFillTestAccount
                 ) {
                     TextButtonPrimary(stringResource(R.string.login_test_account_fill))
                 }
@@ -227,8 +256,6 @@ fun LoginScreen(
 
         Spacer4()
     }
-
-    LoginNavEvents(router, viewModel.navEvent)
 }
 
 @Composable
@@ -243,3 +270,24 @@ private fun LoginNavEvents(
         }
     }
 }
+
+@Preview
+@Preview(uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun LoginScreenPreview(
+    @PreviewParameter(LoginScreenPreviewParams::class) state: LoginUiState
+) {
+    AppTheme {
+        LoginScreen(state = state)
+    }
+}
+
+internal class LoginScreenPreviewParams : PreviewParameterProvider<LoginUiState> {
+    override val values = sequenceOf(
+        LoginUiState(email = "test@example.com", password = "Test123!"),
+        LoginUiState(biometricsAvailable = true),
+        LoginUiState(biometricsAvailable = true, biometricsLoading = true),
+        LoginUiState(emailError = EmailError.INVALID_FORMAT, passwordError = PasswordError.TOO_SHORT)
+    )
+}
+

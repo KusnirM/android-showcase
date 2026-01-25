@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.screen.storage
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,6 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import mk.digital.androidshowcase.R
@@ -29,13 +33,32 @@ import mk.digital.androidshowcase.presentation.component.text.bodyLarge.TextBody
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
 fun StorageScreen(viewModel: StorageViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    StorageScreen(
+        state = state,
+        onSessionIncrement = viewModel::incrementSessionCounter,
+        onSessionDecrement = viewModel::decrementSessionCounter,
+        onPersistentIncrement = viewModel::incrementPersistentCounter,
+        onPersistentDecrement = viewModel::decrementPersistentCounter,
+        onClearSession = viewModel::clearSession
+    )
+}
 
+@Composable
+internal fun StorageScreen(
+    state: StorageUiState,
+    onSessionIncrement: () -> Unit = {},
+    onSessionDecrement: () -> Unit = {},
+    onPersistentIncrement: () -> Unit = {},
+    onPersistentDecrement: () -> Unit = {},
+    onClearSession: () -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
@@ -58,8 +81,8 @@ fun StorageScreen(viewModel: StorageViewModel = hiltViewModel()) {
                 label = stringResource(R.string.storage_session_label),
                 hint = stringResource(R.string.storage_session_hint),
                 counter = state.sessionCounter,
-                onIncrement = viewModel::incrementSessionCounter,
-                onDecrement = viewModel::decrementSessionCounter
+                onIncrement = onSessionIncrement,
+                onDecrement = onSessionDecrement
             )
         }
 
@@ -68,15 +91,15 @@ fun StorageScreen(viewModel: StorageViewModel = hiltViewModel()) {
                 label = stringResource(R.string.storage_persistent_label),
                 hint = stringResource(R.string.storage_persistent_hint),
                 counter = state.persistentCounter,
-                onIncrement = viewModel::incrementPersistentCounter,
-                onDecrement = viewModel::decrementPersistentCounter
+                onIncrement = onPersistentIncrement,
+                onDecrement = onPersistentDecrement
             )
         }
 
         item {
             OutlinedButton(
                 text = stringResource(R.string.storage_clear_session),
-                onClick = viewModel::clearSession
+                onClick = onClearSession
             )
         }
     }
@@ -118,4 +141,22 @@ private fun CounterCard(
             }
         }
     }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun StorageScreenPreview(
+    @PreviewParameter(StorageScreenPreviewParams::class) state: StorageUiState
+) {
+    AppTheme {
+        StorageScreen(state = state)
+    }
+}
+
+internal class StorageScreenPreviewParams : PreviewParameterProvider<StorageUiState> {
+    override val values = sequenceOf(
+        StorageUiState(),
+        StorageUiState(sessionCounter = 5, persistentCounter = 10)
+    )
 }

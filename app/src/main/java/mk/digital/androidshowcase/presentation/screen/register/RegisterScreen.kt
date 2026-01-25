@@ -45,10 +45,14 @@ import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Sp
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.labelLarge.TextButtonPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargePrimary
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.space12
 import mk.digital.androidshowcase.presentation.foundation.space2
 import mk.digital.androidshowcase.presentation.foundation.space4
 import mk.digital.androidshowcase.presentation.foundation.space6
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 @Composable
 fun RegisterScreen(
@@ -56,9 +60,30 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val focusManager = LocalFocusManager.current
 
     RegisterNavEvents(router, viewModel.navEvent)
+    RegisterScreen(
+        state = state,
+        onNameChange = viewModel::onNameChange,
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onConfirmPasswordChange = viewModel::onConfirmPasswordChange,
+        onRegister = viewModel::register,
+        onLogin = viewModel::toLogin
+    )
+}
+
+@Composable
+fun RegisterScreen(
+    state: RegisterUiState = RegisterUiState(),
+    onNameChange: (String) -> Unit = {},
+    onEmailChange: (String) -> Unit = {},
+    onPasswordChange: (String) -> Unit = {},
+    onConfirmPasswordChange: (String) -> Unit = {},
+    onRegister: () -> Unit = {},
+    onLogin: () -> Unit = {}
+) {
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = Modifier
@@ -75,7 +100,7 @@ fun RegisterScreen(
         // Name field
         AppTextField(
             value = state.name,
-            onValueChange = viewModel::onNameChange,
+            onValueChange = onNameChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.register_name_label),
             placeholder = stringResource(R.string.register_name_placeholder),
@@ -104,7 +129,7 @@ fun RegisterScreen(
         // Email field
         AppTextField(
             value = state.email,
-            onValueChange = viewModel::onEmailChange,
+            onValueChange = onEmailChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.register_email_label),
             placeholder = stringResource(R.string.register_email_placeholder),
@@ -134,7 +159,7 @@ fun RegisterScreen(
         // Password field
         AppPasswordTextField(
             value = state.password,
-            onValueChange = viewModel::onPasswordChange,
+            onValueChange = onPasswordChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.register_password_label),
             placeholder = stringResource(R.string.register_password_placeholder),
@@ -156,7 +181,7 @@ fun RegisterScreen(
         // Confirm Password field
         AppPasswordTextField(
             value = state.confirmPassword,
-            onValueChange = viewModel::onConfirmPasswordChange,
+            onValueChange = onConfirmPasswordChange,
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.register_confirm_password_label),
             placeholder = stringResource(R.string.register_confirm_password_placeholder),
@@ -170,7 +195,7 @@ fun RegisterScreen(
             keyboardActions = KeyboardActions(
                 onDone = {
                     focusManager.clearFocus()
-                    viewModel.register()
+                    onRegister()
                 }
             )
         )
@@ -188,7 +213,7 @@ fun RegisterScreen(
                 text = stringResource(R.string.register_button),
                 onClick = {
                     focusManager.clearFocus()
-                    viewModel.register()
+                    onRegister()
                 },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -201,7 +226,7 @@ fun RegisterScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextBodyMediumNeutral80(stringResource(R.string.register_has_account))
-            TextButton(onClick = viewModel::toLogin) {
+            TextButton(onClick = onLogin) {
                 TextButtonPrimary(stringResource(R.string.register_login))
             }
         }
@@ -221,4 +246,32 @@ private fun RegisterNavEvents(
             is RegisterNavEvent.ToLogin -> router.onBack()
         }
     }
+}
+
+@Preview
+@Preview(uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun RegisterScreenPreview(
+    @PreviewParameter(RegisterScreenPreviewParams::class) state: RegisterUiState
+) {
+    AppTheme {
+        RegisterScreen(state = state)
+    }
+}
+
+internal class RegisterScreenPreviewParams : PreviewParameterProvider<RegisterUiState> {
+    override val values = sequenceOf(
+        RegisterUiState(),
+        RegisterUiState(
+            name = "John Doe",
+            email = "john@example.com",
+            password = "Test123!",
+            confirmPassword = "Test123!"
+        ),
+        RegisterUiState(isLoading = true),
+        RegisterUiState(
+            nameError = RegisterNameError.TOO_SHORT,
+            emailError = RegisterEmailError.INVALID_FORMAT
+        )
+    )
 }
