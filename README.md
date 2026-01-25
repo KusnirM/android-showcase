@@ -72,10 +72,10 @@
 
 <table>
 <tr>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.login_LoginScreenScreenshotTest_loginScreen[0]_light.png" width="180" alt="Login"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.home_HomeScreenScreenshotTest_homeScreen[0]_light.png" width="180" alt="Home"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.database_DatabaseScreenScreenshotTest_databaseScreen[4]_light.png" width="180" alt="Database"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.calendar_CalendarScreenScreenshotTest_calendarScreen[2]_light.png" width="180" alt="Calendar"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.login_LoginScreenScreenshotTest_loginScreen%5B0%5D_light.png" width="180" alt="Login"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.home_HomeScreenScreenshotTest_homeScreen%5B0%5D_light.png" width="180" alt="Home"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.database_DatabaseScreenScreenshotTest_databaseScreen%5B4%5D_light.png" width="180" alt="Database"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.calendar_CalendarScreenScreenshotTest_calendarScreen%5B2%5D_light.png" width="180" alt="Calendar"/></td>
 </tr>
 <tr>
 <td style="text-align:center">Login</td>
@@ -84,10 +84,10 @@
 <td style="text-align:center">Calendar</td>
 </tr>
 <tr>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.networking_NetworkingScreenScreenshotTest_networkingScreen[2]_light.png" width="180" alt="Networking"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.storage_StorageScreenScreenshotTest_storageScreen[0]_light.png" width="180" alt="Storage"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.notifications_NotificationsScreenScreenshotTest_notificationsScreen[0]_light.png" width="180" alt="Notifications"/></td>
-<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.settings_SettingsScreenScreenshotTest_settingsScreen[0]_light.png" width="180" alt="Settings"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.networking_NetworkingScreenScreenshotTest_networkingScreen%5B2%5D_light.png" width="180" alt="Networking"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.storage_StorageScreenScreenshotTest_storageScreen%5B0%5D_light.png" width="180" alt="Storage"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.notifications_NotificationsScreenScreenshotTest_notificationsScreen%5B0%5D_light.png" width="180" alt="Notifications"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.settings_SettingsScreenScreenshotTest_settingsScreen%5B0%5D_light.png" width="180" alt="Settings"/></td>
 </tr>
 <tr>
 <td style="text-align:center">Networking</td>
