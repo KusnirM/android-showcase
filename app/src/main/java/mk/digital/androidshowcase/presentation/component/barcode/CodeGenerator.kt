@@ -49,4 +49,3 @@ class CodeGenerator @Inject constructor() {
         return bitmap.asImageBitmap()
     }
 }
-

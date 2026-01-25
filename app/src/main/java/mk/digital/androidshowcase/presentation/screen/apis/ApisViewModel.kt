@@ -6,22 +6,30 @@ import kotlinx.coroutines.Job
 import mk.digital.androidshowcase.R
 import mk.digital.androidshowcase.data.biometric.BiometricResult
 import mk.digital.androidshowcase.domain.model.Location
-import mk.digital.androidshowcase.domain.repository.BiometricRepository
-import mk.digital.androidshowcase.domain.repository.LocationRepository
+import mk.digital.androidshowcase.domain.useCase.base.invoke
+import mk.digital.androidshowcase.domain.useCase.biometric.AuthenticateWithBiometricUseCase
+import mk.digital.androidshowcase.domain.useCase.biometric.IsBiometricEnabledUseCase
+import mk.digital.androidshowcase.domain.useCase.location.GetLastKnownLocationUseCase
+import mk.digital.androidshowcase.domain.useCase.location.ObserveLocationUpdatesUseCase
 import mk.digital.androidshowcase.presentation.base.BaseViewModel
 import mk.digital.androidshowcase.presentation.base.NavEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class ApisViewModel @Inject constructor(
-    private val locationRepository: LocationRepository,
-    private val biometricRepository: BiometricRepository,
+    private val isBiometricEnabledUseCase: IsBiometricEnabledUseCase,
+    private val authenticateWithBiometricUseCase: AuthenticateWithBiometricUseCase,
+    private val getLastKnownLocationUseCase: GetLastKnownLocationUseCase,
+    private val observeLocationUpdatesUseCase: ObserveLocationUpdatesUseCase,
 ) : BaseViewModel<ApisUiState>(ApisUiState()) {
 
     private var locationUpdatesJob: Job? = null
 
     override fun loadInitialData() {
-        newState { it.copy(biometricsAvailable = biometricRepository.enabled()) }
+        execute(
+            action = { isBiometricEnabledUseCase() },
+            onSuccess = { enabled -> newState { it.copy(biometricsAvailable = enabled) } }
+        )
     }
 
     fun share() {
@@ -57,7 +65,7 @@ class ApisViewModel @Inject constructor(
 
     fun getLocation() {
         execute(
-            action = { locationRepository.lastKnownLocation() },
+            action = { getLastKnownLocationUseCase() },
             onLoading = { newState { it.copy(locationLoading = true, locationError = false) } },
             onSuccess = { location ->
                 newState { it.copy(location = location, locationLoading = false) }
@@ -81,7 +89,7 @@ class ApisViewModel @Inject constructor(
         if (locationUpdatesJob?.isActive == true) return
         newState { it.copy(isTrackingLocation = true, locationUpdatesError = false) }
         locationUpdatesJob = observe(
-            flow = locationRepository.locationUpdates(highAccuracy = true),
+            flow = observeLocationUpdatesUseCase(ObserveLocationUpdatesUseCase.Params(highAccuracy = true)),
             onEach = { location -> newState { it.copy(trackedLocation = location) } },
             onError = { newState { it.copy(isTrackingLocation = false, locationUpdatesError = true) } }
         )
@@ -95,7 +103,7 @@ class ApisViewModel @Inject constructor(
 
     fun authenticateWithBiometrics() {
         execute(
-            action = { biometricRepository.authenticate() },
+            action = { authenticateWithBiometricUseCase() },
             onLoading = { newState { it.copy(biometricsLoading = true, biometricsResult = null) } },
             onSuccess = { result -> newState { it.copy(biometricsLoading = false, biometricsResult = result) } },
             onError = { error ->
