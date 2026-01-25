@@ -1,7 +1,6 @@
 package mk.digital.androidshowcase.presentation.base
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
@@ -9,7 +8,6 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import mk.digital.androidshowcase.presentation.base.rule.LocaleRule
 import mk.digital.androidshowcase.presentation.base.rule.TimezoneRule
-import mk.digital.androidshowcase.presentation.component.ext.LocalTestMode
 import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -49,11 +47,7 @@ abstract class BaseScreenshotTest<T>(
     fun screenshot(content: @Composable () -> Unit) {
         paparazzi.snapshot(name = getName()) {
             AppTheme {
-                CompositionLocalProvider(
-                    LocalTestMode provides true
-                ) {
-                    content()
-                }
+                content()
             }
         }
     }
