@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import mk.digital.androidshowcase.domain.repository.PushNotificationService
-import mk.digital.androidshowcase.domain.useCase.base.BaseTest
+import mk.digital.androidshowcase.base.BaseTest
 import mk.digital.androidshowcase.domain.useCase.base.invoke
-import mk.digital.androidshowcase.domain.useCase.base.test
+import mk.digital.androidshowcase.base.test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

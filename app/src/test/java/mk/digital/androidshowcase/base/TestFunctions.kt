@@ -1,4 +1,4 @@
-package mk.digital.androidshowcase.domain.useCase.base
+package mk.digital.androidshowcase.base
 
 suspend fun <T> test(
     given: () -> Unit = {},

@@ -63,17 +63,39 @@
 <img src="https://img.shields.io/badge/Room-005C99?logoColor=white" alt="Room" />
 <img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black" alt="Firebase" />
 <img src="https://img.shields.io/badge/Detekt-6F42C1?logoColor=white" alt="Detekt" />
+<img src="https://img.shields.io/badge/Paparazzi-FF6B6B?logoColor=white" alt="Screenshot Tests" />
 </p>
 
 ---
 
-## Screens
+## Screenshots
 
-| | | | |
-|:---:|:---:|:---:|:---:|
-| 🔐 **Login** | 📝 **Register** | 🏠 **Home** | 🎨 **Components** |
-| 🌐 **Networking** | 💾 **Storage** | 🗄️ **Database** | 📱 **APIs** |
-| 📷 **Scanner** | 📅 **Calendar** | 🔔 **Notifications** | ⚙️ **Settings** |
+<table>
+<tr>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.login_LoginScreenScreenshotTest_loginScreen[0]_light.png" width="180" alt="Login"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.home_HomeScreenScreenshotTest_homeScreen[0]_light.png" width="180" alt="Home"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.database_DatabaseScreenScreenshotTest_databaseScreen[4]_light.png" width="180" alt="Database"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.calendar_CalendarScreenScreenshotTest_calendarScreen[2]_light.png" width="180" alt="Calendar"/></td>
+</tr>
+<tr>
+<td style="text-align:center">Login</td>
+<td style="text-align:center">Home</td>
+<td style="text-align:center">Database</td>
+<td style="text-align:center">Calendar</td>
+</tr>
+<tr>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.networking_NetworkingScreenScreenshotTest_networkingScreen[2]_light.png" width="180" alt="Networking"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.storage_StorageScreenScreenshotTest_storageScreen[0]_light.png" width="180" alt="Storage"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.notifications_NotificationsScreenScreenshotTest_notificationsScreen[0]_light.png" width="180" alt="Notifications"/></td>
+<td><img src="app/src/test/snapshots/images/mk.digital.androidshowcase.presentation.screen.settings_SettingsScreenScreenshotTest_settingsScreen[0]_light.png" width="180" alt="Settings"/></td>
+</tr>
+<tr>
+<td style="text-align:center">Networking</td>
+<td style="text-align:center">Storage</td>
+<td style="text-align:center">Notifications</td>
+<td style="text-align:center">Settings</td>
+</tr>
+</table>
 
 ---
 

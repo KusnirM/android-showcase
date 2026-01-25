@@ -1,5 +1,6 @@
 package mk.digital.androidshowcase.presentation.screen.networking
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,9 +23,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import mk.digital.androidshowcase.R
+import mk.digital.androidshowcase.domain.model.Address
 import mk.digital.androidshowcase.domain.model.User
 import mk.digital.androidshowcase.presentation.component.CircularProgress
 import mk.digital.androidshowcase.presentation.component.ErrorView
@@ -34,26 +39,34 @@ import mk.digital.androidshowcase.presentation.component.spacers.ColumnSpacer.Sp
 import mk.digital.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
 import mk.digital.androidshowcase.presentation.component.text.headlineMedium.TextHeadlineMediumPrimary
 import mk.digital.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
+import mk.digital.androidshowcase.presentation.foundation.AppTheme
 import mk.digital.androidshowcase.presentation.foundation.floatingNavBarSpace
 import mk.digital.androidshowcase.presentation.foundation.space4
 
 @Composable
 fun NetworkingScreen(viewModel: NetworkingViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    NetworkingScreen(state = state, onRefresh = viewModel::refresh)
+}
 
+@Composable
+internal fun NetworkingScreen(
+    state: NetworkingUiState,
+    onRefresh: () -> Unit = {}
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             state.isLoading && state.users.isEmpty() -> LoadingView()
             state.error != null && state.users.isEmpty() -> ErrorView(
-                message = state.error!!,
-                onRetry = viewModel::refresh
+                message = state.error,
+                onRetry = onRefresh
             )
 
             state.users.isEmpty() -> EmptyContent()
             else -> UserListContent(
                 users = state.users,
                 isRefreshing = state.isLoading,
-                onRefresh = viewModel::refresh
+                onRefresh = onRefresh
             )
         }
     }
@@ -150,4 +163,35 @@ private fun UserCard(user: User) {
             )
         }
     }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun NetworkingScreenPreview(
+    @PreviewParameter(NetworkingScreenPreviewParams::class) state: NetworkingUiState
+) {
+    AppTheme {
+        NetworkingScreen(state = state)
+    }
+}
+
+internal class NetworkingScreenPreviewParams : PreviewParameterProvider<NetworkingUiState> {
+    override val values = sequenceOf(
+        NetworkingUiState(isLoading = true),
+        NetworkingUiState(error = "401"),
+        NetworkingUiState(users = listOf(
+            User(
+                address = Address(
+                    city = "city",
+                    street = "street",
+                    suite = "suite",
+                    zipcode = "zipcode"
+                ),
+                email = "mir.kusnir@gmail.com",
+                id = 1,
+                name = "Miroslav Coder"
+            )
+        ))
+    )
 }

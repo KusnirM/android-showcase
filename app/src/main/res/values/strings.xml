@@ -107,6 +107,7 @@
     <string name="database_add_note">Add Note</string>
     <string name="database_clear_all">Delete All Notes</string>
     <string name="database_empty">No notes yet. Add your first note above!</string>
+    <string name="database_error">Failed to load notes. Please try again.</string>
     <string name="database_search_hint">Search notes…</string>
     <string name="database_filter">Filter</string>
     <string name="database_delete">Delete</string>

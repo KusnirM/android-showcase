@@ -24,10 +24,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Gradle
@@ -40,6 +40,9 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew :app:testDebugUnitTest
+
+      - name: Verify Screenshot Tests
+        run: ./gradlew verifyPaparazziDebug -PscreenshotOnly
 
       - name: Upload test results
         if: always()
@@ -54,3 +57,10 @@ jobs:
         with:
           name: detekt-report
           path: build/reports/detekt/
+
+      - name: Upload Screenshot Test report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-test-report
+          path: app/build/reports/paparazzi/

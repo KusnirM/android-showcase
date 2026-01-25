@@ -106,6 +106,7 @@
     <string name="database_add_note">Pridať poznámku</string>
     <string name="database_clear_all">Vymazať všetky poznámky</string>
     <string name="database_empty">Zatiaľ žiadne poznámky. Pridajte prvú poznámku vyššie!</string>
+    <string name="database_error">Nepodarilo sa načítať poznámky. Skúste to znova.</string>
     <string name="database_search_hint">Hľadať poznámky…</string>
     <string name="database_filter">Filter</string>
     <string name="database_delete">Vymazať</string>
