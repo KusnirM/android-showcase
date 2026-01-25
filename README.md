@@ -4,7 +4,7 @@
 [![Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4.svg?logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![Android](https://img.shields.io/badge/Android-36-3DDC84.svg?logo=android&logoColor=white)](https://developer.android.com)
 
-**Modern Android app** showcasing best practices & architecture patterns
+A production-ready Android demo app showcasing modern mobile development with Jetpack Compose, clean architecture, and native platform integrations.
 
 ---
 
