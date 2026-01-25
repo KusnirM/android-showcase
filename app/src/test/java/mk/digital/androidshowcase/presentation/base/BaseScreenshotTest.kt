@@ -53,8 +53,8 @@ abstract class BaseScreenshotTest<T>(
     }
 
     private fun getName(): String = when (mode) {
-        NightMode.NIGHT -> "night"
         NightMode.NOTNIGHT -> "light"
+        NightMode.NIGHT -> "night"
     }
 }
 
@@ -62,7 +62,7 @@ inline fun <reified T : Any> generateParameterizedData(
     viewStatesProvider: PreviewParameterProvider<T>,
 ): Collection<*> {
     val viewStates = viewStatesProvider.values.toList()
-    val modes = listOf(NightMode.NIGHT, NightMode.NOTNIGHT)
+    val modes = listOf(NightMode.NOTNIGHT, NightMode.NIGHT)
     val typeName = T::class.simpleName ?: "State"
     return viewStates.flatMapIndexed { index, state ->
         modes.map { mode ->

@@ -54,17 +54,6 @@ fun HomeScreen(
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun HomeScreenPreview(
-    @PreviewParameter(HomeScreenPreviewParams::class) state: HomeUiState
-) {
-    AppTheme {
-        HomeScreen(state = state)
-    }
-}
-
 @Composable
 private fun HomeNavEvents(
     router: NavRouter<Route>,
@@ -85,6 +74,17 @@ private fun HomeNavEvents(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun HomeScreenPreview(
+    @PreviewParameter(HomeScreenPreviewParams::class) state: HomeUiState
+) {
+    AppTheme {
+        HomeScreen(state = state)
     }
 }
 

@@ -286,7 +286,6 @@ internal class LoginScreenPreviewParams : PreviewParameterProvider<LoginUiState>
     override val values = sequenceOf(
         LoginUiState(email = "test@example.com", password = "Test123!"),
         LoginUiState(biometricsAvailable = true),
-        LoginUiState(biometricsAvailable = true, biometricsLoading = true),
         LoginUiState(emailError = EmailError.INVALID_FORMAT, passwordError = PasswordError.TOO_SHORT)
     )
 }

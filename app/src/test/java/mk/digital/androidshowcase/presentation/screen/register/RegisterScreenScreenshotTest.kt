@@ -14,7 +14,7 @@ class RegisterScreenScreenshotTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{0}_{1}")
+        @Parameterized.Parameters
         fun data(): Collection<*> = generateParameterizedData(RegisterScreenPreviewParams())
     }
 

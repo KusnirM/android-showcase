@@ -108,12 +108,14 @@ kotlin {
 tasks.withType<Test> {
     useJUnitPlatform()
 
-    // Filter screenshot tests when using -PscreenshotOnly flag
-    // Usage: ./gradlew recordPaparazziDebug -PscreenshotOnly
-    if (project.hasProperty("PscreenshotOnly")) {
-        filter {
-            includeTestsMatching("*ScreenshotTest*")
-        }
+    // -PscreenshotOnly: run ONLY screenshot tests
+    // no flag: run ONLY regular unit tests (exclude screenshot tests)
+    val runScreenShotTests = project.hasProperty("screenshotOnly")
+    val screenshotTestFile = "*ScreenshotTest*"
+    filter {
+        if (runScreenShotTests) includeTestsMatching(screenshotTestFile)
+        else excludeTestsMatching(screenshotTestFile)
+
     }
 }
 

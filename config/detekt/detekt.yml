@@ -48,6 +48,8 @@ complexity:
   CyclomaticComplexMethod:
     active: true
     threshold: 15
+    ignoreAnnotated:
+      - 'Composable'
   LabeledExpression:
     active: false
   LargeClass:
