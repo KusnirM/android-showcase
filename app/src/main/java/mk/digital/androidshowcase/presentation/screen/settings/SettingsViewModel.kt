@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import mk.digital.androidshowcase.BuildConfig
 import mk.digital.androidshowcase.R
-import mk.digital.androidshowcase.data.analytics.AnalyticsClient
+import mk.digital.androidshowcase.domain.useCase.analytics.RecordExceptionUseCase
 import mk.digital.androidshowcase.domain.useCase.base.invoke
 import mk.digital.androidshowcase.domain.useCase.settings.GetThemeModeUseCase
 import mk.digital.androidshowcase.domain.useCase.settings.SetThemeModeUseCase
@@ -43,7 +43,7 @@ enum class ThemeModeState(@get:StringRes val textId: Int, val mode: ThemeMode) {
 class SettingsViewModel @Inject constructor(
     private val getThemeModeUseCase: GetThemeModeUseCase,
     private val setThemeModeUseCase: SetThemeModeUseCase,
-    private val analyticsClient: AnalyticsClient,
+    private val recordExceptionUseCase: RecordExceptionUseCase,
 ) : BaseViewModel<SettingsState>(SettingsState()) {
 
     override fun loadInitialData() {
@@ -98,8 +98,10 @@ class SettingsViewModel @Inject constructor(
 
     fun triggerTestCrash() {
         val exception = RuntimeException("Test Crash for Firebase Crashlytics")
-        analyticsClient.recordException(exception)
-        throw exception
+        execute(
+            action = { recordExceptionUseCase(exception) },
+            onSuccess = { throw exception }
+        )
     }
 }
 

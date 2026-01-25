@@ -9,6 +9,7 @@
     <ID>CyclomaticComplexMethod:DeepLinkHandler.kt$DeepLinkHandler$fun parseDeepLink(deepLink: String): Route?</ID>
     <ID>CyclomaticComplexMethod:RegisterScreen.kt$@Composable fun RegisterScreen( router: NavRouter&lt;Route&gt;, viewModel: RegisterViewModel = hiltViewModel(), )</ID>
     <ID>LongParameterList:DatabaseScreen.kt$( query: String, onQueryChanged: (String) -&gt; Unit, sortOption: NoteSortOption, onSortOptionChanged: (NoteSortOption) -&gt; Unit, showFilterMenu: Boolean, onToggleFilterMenu: () -&gt; Unit, onDismissFilterMenu: () -&gt; Unit, )</ID>
+    <ID>LongParameterList:NotificationsViewModel.kt$NotificationsViewModel$( private val getPushPermissionStatusUseCase: GetPushPermissionStatusUseCase, private val observePushTokenUseCase: ObservePushTokenUseCase, private val observePushNotificationsUseCase: ObservePushNotificationsUseCase, private val refreshPushTokenUseCase: RefreshPushTokenUseCase, private val logPushTokenUseCase: LogPushTokenUseCase, private val showLocalNotificationUseCase: ShowLocalNotificationUseCase, private val cancelAllNotificationsUseCase: CancelAllNotificationsUseCase, )</ID>
     <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$12</ID>
     <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$15</ID>
     <ID>MagicNumber:CalendarViewModel.kt$CalendarViewModel$3</ID>
