@@ -1,8 +1,8 @@
 # Android Showcase
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.3-7F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4.svg?logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
-[![Android](https://img.shields.io/badge/Android-36-3DDC84.svg?logo=android&logoColor=white)](/)
+[![Android](https://img.shields.io/badge/Android-36-3DDC84.svg?logo=android&logoColor=white)](https://developer.android.com)
 
 **Modern Android app** showcasing best practices & architecture patterns
 
@@ -10,7 +10,7 @@
 
 <table>
 <tr>
-<td width="50%">
+<td style="width:50%">
 
 ### 🎨 UI & Navigation
 - Jetpack Compose
@@ -19,7 +19,7 @@
 - 40+ Components
 
 </td>
-<td width="50%">
+<td style="width:50%">
 
 ### 📱 Platform APIs
 - Biometrics (Fingerprint)
@@ -30,16 +30,16 @@
 </td>
 </tr>
 <tr>
-<td width="50%">
+<td style="width:50%">
 
 ### 🔌 Data & Network
-- Ktor HTTP Client
+- Retrofit HTTP Client
 - Room Database
 - DataStore Preferences
 - Coil Image Loading
 
 </td>
-<td width="50%">
+<td style="width:50%">
 
 ### 🔔 Notifications
 - Push (FCM)
@@ -56,13 +56,13 @@
 ## Tech Stack
 
 <p>
-<img src="https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white" />
-<img src="https://img.shields.io/badge/Compose-4285F4?logo=jetpackcompose&logoColor=white" />
-<img src="https://img.shields.io/badge/Hilt-34A853?logoColor=white" />
-<img src="https://img.shields.io/badge/Ktor-7F52FF?logoColor=white" />
-<img src="https://img.shields.io/badge/Room-005C99?logoColor=white" />
-<img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black" />
-<img src="https://img.shields.io/badge/Detekt-6F42C1?logoColor=white" />
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
+<img src="https://img.shields.io/badge/Compose-4285F4?logo=jetpackcompose&logoColor=white" alt="Compose" />
+<img src="https://img.shields.io/badge/Hilt-34A853?logoColor=white" alt="Hilt" />
+<img src="https://img.shields.io/badge/Retrofit-48B983?logoColor=white" alt="Retrofit" />
+<img src="https://img.shields.io/badge/Room-005C99?logoColor=white" alt="Room" />
+<img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black" alt="Firebase" />
+<img src="https://img.shields.io/badge/Detekt-6F42C1?logoColor=white" alt="Detekt" />
 </p>
 
 ---
