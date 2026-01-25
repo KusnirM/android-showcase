@@ -15,7 +15,7 @@ A production-ready Android demo app showcasing modern mobile development with Je
 ### 🎨 UI & Navigation
 - Jetpack Compose
 - Material 3 + Dark Mode
-- Navigation3
+- Navigation3 + Deep Links
 - 40+ Components
 
 </td>

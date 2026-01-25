@@ -6,7 +6,6 @@ data class AppCallbacks(
     // Navigation
     val navigateTo: (Route) -> Unit = {},
     val onBack: () -> Unit = {},
-    val replaceAll: (Route) -> Unit = {},
     // External actions
     val openLink: (String) -> Unit = {},
     val dial: (String) -> Unit = {},

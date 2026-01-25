@@ -7,12 +7,14 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.tasks.await
 import mk.digital.androidshowcase.data.analytics.AnalyticsClient
 import mk.digital.androidshowcase.domain.model.Notification
@@ -36,8 +38,8 @@ class PushNotificationServiceImpl @Inject constructor(
     private val _notifications = MutableSharedFlow<Notification>()
     override val notifications: Flow<Notification> = _notifications.asSharedFlow()
 
-    private val _deepLinks = MutableSharedFlow<String>()
-    override val deepLinks: Flow<String> = _deepLinks.asSharedFlow()
+    private val _deepLinks = Channel<String>(Channel.BUFFERED)
+    override val deepLinks: Flow<String> = _deepLinks.receiveAsFlow()
 
     init {
         loadSavedToken()
@@ -106,13 +108,13 @@ class PushNotificationServiceImpl @Inject constructor(
         )
 
         _notifications.tryEmit(notification)
-        deepLink?.let { _deepLinks.tryEmit(it) }
+        deepLink?.let { _deepLinks.trySend(it) }
 
         analyticsClient.log("Push notification received: ${notification.title}")
     }
 
     override fun onDeepLinkReceived(deepLink: String) {
-        _deepLinks.tryEmit(deepLink)
+        _deepLinks.trySend(deepLink)
     }
 
     companion object {
