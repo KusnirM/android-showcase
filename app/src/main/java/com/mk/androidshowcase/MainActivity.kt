@@ -1,0 +1,73 @@
+package com.mk.androidshowcase
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.getValue
+import androidx.core.os.LocaleListCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dagger.hilt.android.AndroidEntryPoint
+import com.mk.androidshowcase.data.service.LocalNotificationServiceImpl
+import com.mk.androidshowcase.domain.repository.PushNotificationService
+import com.mk.androidshowcase.presentation.base.AppCallbacks
+import com.mk.androidshowcase.presentation.base.router.ExternalRouter
+import com.mk.androidshowcase.presentation.screen.MainView
+import com.mk.androidshowcase.presentation.screen.MainViewState
+import com.mk.androidshowcase.presentation.screen.main.MainViewModel
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var externalRouter: ExternalRouter
+
+    @Inject
+    lateinit var pushService: PushNotificationService
+
+
+    private val mainViewModel: MainViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
+        handleDeepLinkIntent(intent)
+        setContent {
+            val mainState by mainViewModel.state.collectAsStateWithLifecycle()
+            MainView(
+                state = MainViewState(themeMode = mainState.themeMode),
+                deepLinks = pushService.deepLinks,
+                appCallbacks = AppCallbacks(
+                    openLink = externalRouter::openLink,
+                    dial = externalRouter::dial,
+                    share = externalRouter::share,
+                    copyToClipboard = externalRouter::copyToClipboard,
+                    sendEmail = externalRouter::sendEmail,
+                    openSettings = externalRouter::openSettings,
+                    openNotificationSettings = externalRouter::openNotificationSettings,
+                    setLocale = { tag ->
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+                    },
+                    setThemeMode = mainViewModel::setThemeMode
+                )
+            )
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleDeepLinkIntent(intent)
+    }
+
+    private fun handleDeepLinkIntent(intent: Intent?) {
+        val notificationExtrasDeepLink = intent?.getStringExtra(LocalNotificationServiceImpl.EXTRA_DEEP_LINK)
+        val uriDeepLink = intent?.data?.toString()
+        val deepLink = notificationExtrasDeepLink ?: uriDeepLink ?: return
+        pushService.onDeepLinkReceived(deepLink.trim())
+    }
+}
+

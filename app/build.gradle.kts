@@ -31,11 +31,11 @@ if (localPropertiesFile.exists()) {
 val hasSigningProperties = keystoreProperties.isNotEmpty()
 
 android {
-    namespace = "mk.digital.androidshowcase"
+    namespace = "com.mk.androidshowcase"
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "mk.digital.androidshowcase"
+        applicationId = "com.mk.androidshowcase"
         minSdk = libs.versions.androidMinSdk.get().toInt()
         targetSdk = libs.versions.androidTargetSdk.get().toInt()
         versionCode = (project.findProperty("versionCode") as String?)?.toIntOrNull() ?: 1
@@ -78,7 +78,7 @@ android {
             }
 
             firebaseAppDistribution {
-                appId = "1:937159334013:android:7a54b0b475781fcd5cf914"
+                appId = "1:937159334013:android:c8d0146aff5a590c5cf914"
                 artifactType = "APK"
                 groups = localProperties["fb.test.group"]?.toString() ?: "testers"
             }

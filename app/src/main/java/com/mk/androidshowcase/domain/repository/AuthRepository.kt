@@ -1,0 +1,10 @@
+package com.mk.androidshowcase.domain.repository
+
+import com.mk.androidshowcase.domain.model.RegisteredUser
+
+interface AuthRepository {
+    suspend fun register(name: String, email: String, password: String): RegisteredUser
+    suspend fun login(email: String, password: String): RegisteredUser?
+    suspend fun getUserByEmail(email: String): RegisteredUser?
+    suspend fun emailExists(email: String): Boolean
+}
