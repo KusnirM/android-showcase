@@ -40,7 +40,7 @@ fun OutlinedButton(
         contentPadding = PaddingValues(space4),
         shape = RoundedCornerShape(cardCornerRadius6),
         content = {
-            TextButtonPrimary(text = text.uppercase())
+            TextButtonPrimary(text = text)
         },
     )
 }

@@ -18,7 +18,7 @@ internal fun TextLabelLarge(
 ) {
     Text(
         modifier = modifier,
-        text = text.uppercase(),
+        text = text,
         style = MaterialTheme.typography.labelLarge,
         color = color,
         fontWeight = FontWeight.Medium,
@@ -34,7 +34,7 @@ internal fun TextButtonPrimary(
 ) {
     TextLabelLarge(
         modifier = modifier,
-        text = text.uppercase(),
+        text = text,
         color = MaterialTheme.colorScheme.primary,
         textAlign = textAlign
     )
@@ -48,7 +48,7 @@ internal fun TextButtonNeutral0(
 ) {
     TextLabelLarge(
         modifier = modifier,
-        text = text.uppercase(),
+        text = text,
         color = MaterialTheme.appColorScheme.neutral0,
         textAlign = textAlign
     )
@@ -62,7 +62,7 @@ internal fun TextButtonError(
 ) {
     TextLabelLarge(
         modifier = modifier,
-        text = text.uppercase(),
+        text = text,
         color = MaterialTheme.colorScheme.error,
         textAlign = textAlign
     )
