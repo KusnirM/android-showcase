@@ -7,7 +7,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 
 /**
  * A composable that observes lifecycle events (onResume, onPause).
@@ -44,8 +47,14 @@ fun LifecycleEffect(
  * ViewModel's onResumed/onPaused to the composable's lifecycle.
  */
 @Composable
-inline fun <reified VM : BaseViewModel<*>> lifecycleAwareViewModel(): VM {
-    val viewModel = hiltViewModel<VM>()
+inline fun <reified VM : BaseViewModel<*>> lifecycleAwareViewModel(
+    viewModelStoreOwner: ViewModelStoreOwner =
+        checkNotNull(LocalViewModelStoreOwner.current) {
+            "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
+        },
+    key: String? = null,
+): VM {
+    val viewModel = hiltViewModel<VM>(viewModelStoreOwner = viewModelStoreOwner, key = key)
     LifecycleEffect(
         onResume = viewModel::onResume,
         onPause = viewModel::onPause
