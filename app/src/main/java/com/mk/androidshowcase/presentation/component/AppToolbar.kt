@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -19,8 +20,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.mk.androidshowcase.R
 import com.mk.androidshowcase.presentation.component.ext.noRippleClickable
-import com.mk.androidshowcase.presentation.component.text.titleLarge.TextTitleLargeNeutral80
-import com.mk.androidshowcase.presentation.foundation.appColorScheme
 import com.mk.androidshowcase.presentation.foundation.space6
 
 
@@ -36,8 +35,13 @@ fun TopAppBar(
         modifier = modifier
             .fillMaxWidth()
             .statusBarsPadding(),
-        title = { title?.let { TextTitleLargeNeutral80(text = title) } },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
+        title = { title?.let { Text(text = title, style = MaterialTheme.typography.titleLarge) } },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+            actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+        ),
         navigationIcon = {
             navIcon?.let {
                 Icon(
@@ -46,7 +50,6 @@ fun TopAppBar(
                         .noRippleClickable(backClick),
                     imageVector = navIcon,
                     contentDescription = stringResource(R.string.content_description_back),
-                    tint = MaterialTheme.appColorScheme.neutral80,
                 )
             }
         },
