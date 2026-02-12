@@ -275,6 +275,8 @@
     <string name="settings_theme_system">System</string>
     <string name="settings_language">Language</string>
     <string name="settings_version">Version %1$s (%2$s)</string>
+    <string name="settings_test_crash_title">Test Crash</string>
+    <string name="settings_test_crash_subtitle">Trigger a crash to test Crashlytics</string>
     <string name="settings_logout">Logout</string>
 
     <!-- Login Screen -->

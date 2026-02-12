@@ -157,11 +157,11 @@ fun SettingsScreen(
                         icon = {
                             AppIconPrimary(
                                 Icons.Outlined.BugReport,
-                                contentDescription = "Test Crash"
+                                contentDescription = stringResource(R.string.settings_test_crash_title)
                             )
                         },
-                        title = "Test Crash",
-                        value = "Trigger a crash to test Crashlytics"
+                        title = stringResource(R.string.settings_test_crash_title),
+                        value = stringResource(R.string.settings_test_crash_subtitle)
                     )
                 }
             }

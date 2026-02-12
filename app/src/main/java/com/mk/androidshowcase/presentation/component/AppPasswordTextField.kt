@@ -10,6 +10,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,8 +22,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.mk.androidshowcase.R
-import com.mk.androidshowcase.presentation.component.text.bodyMedium.TextBodyMediumNeutral80
-import com.mk.androidshowcase.presentation.component.text.bodySmall.TextBodySmallNeutral80
 import com.mk.androidshowcase.presentation.foundation.appColorScheme
 
 @Composable
@@ -43,8 +42,8 @@ fun AppPasswordTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
-        label = label?.let { { TextBodySmallNeutral80(it) } },
-        placeholder = placeholder?.let { { TextBodyMediumNeutral80(it) } },
+        label = label?.let { { Text(text = it, style = MaterialTheme.typography.bodySmall) } },
+        placeholder = placeholder?.let { { Text(text = it, style = MaterialTheme.typography.bodyMedium) } },
         enabled = enabled,
         isError = isError,
         singleLine = true,
@@ -70,8 +69,10 @@ fun AppPasswordTextField(
                 )
             }
         },
-        supportingText = supportingText?.let { { TextBodySmallNeutral80(it) } },
+        supportingText = supportingText?.let { { Text(text = it, style = MaterialTheme.typography.bodySmall) } },
         colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.appColorScheme.neutral80,
             focusedLabelColor = MaterialTheme.colorScheme.primary,

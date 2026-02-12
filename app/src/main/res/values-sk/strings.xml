@@ -271,6 +271,8 @@
     <string name="settings_theme_system">Systémová</string>
     <string name="settings_language">Jazyk</string>
     <string name="settings_version">Verzia %1$s (%2$s)</string>
+    <string name="settings_test_crash_title">Testovací pád</string>
+    <string name="settings_test_crash_subtitle">Vyvolať pád aplikácie pre test Crashlytics</string>
     <string name="settings_logout">Odhlásiť sa</string>
 
     <!-- Login Screen -->
